@@ -224,28 +224,6 @@
       max-width: 72rem;
       margin: 0 auto;
     }
-
-    .hero-eyebrow {
-      font-family: var(--font-mono);
-      font-size: 0.75rem;
-      font-weight: 500;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: var(--neon-cyan);
-      margin-bottom: var(--space-md);
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-    }
-
-    .hero-eyebrow::before {
-      content: '';
-      display: inline-block;
-      width: 1.5rem;
-      height: 1px;
-      background: var(--neon-cyan);
-    }
-
     .hero-title {
       font-size: clamp(2.2rem, 5vw, 3.6rem);
       font-weight: 800;
@@ -1395,3 +1373,516 @@
   .s8-accordion .s8-panel:hover {    flex: none;    height: 320px;        /* 터치·호버 시 높이만 확장 */  }
   .s8-panel + .s8-panel {    border-left: none;    border-top: 1px solid rgba(255, 255, 255, 0.05);  }}
 /* =====================================================   /섹션 8 끝   ===================================================== */
+
+/* ============================================================
+   새로운 히어로(Hero) 섹션 디자인 업데이트
+============================================================ */
+
+/* 중앙 정렬 레이아웃 */
+.hero--centered {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding-top: 6rem;
+  padding-bottom: 4rem;
+}
+
+/* 상단 배지 */
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.4rem 1rem;
+  border-radius: 999px;
+  background: rgba(6, 182, 212, 0.08);
+  border: 1px solid rgba(6, 182, 212, 0.3);
+  color: var(--neon-cyan);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+}
+
+/* 메인 타이틀 크기 조정 */
+.hero--centered .hero-title {
+  font-size: clamp(2.5rem, 6vw, 4.5rem);
+  line-height: 1.15;
+  margin-bottom: 1.5rem;
+}
+
+/* 설명 텍스트 크기 및 하이라이트 */
+.hero--centered .hero-description {
+  font-size: 1.1rem;
+  max-width: 650px;
+  margin-bottom: 2.5rem;
+}
+
+.text-highlight {
+  background: rgba(168, 85, 247, 0.15);
+  padding: 0.1rem 0.4rem;
+  border-radius: 4px;
+  color: #e2e8f0;
+}
+
+/* 하단 버튼 그룹 */
+.hero-buttons {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+/* 프라이머리 버튼 (실험실 시작하기) */
+.btn-primary {
+  padding: 0.8rem 1.8rem;
+  border-radius: 8px;
+  background: #1a1f2c;
+  border: 1px solid rgba(6, 182, 212, 0.5);
+  color: #ffffff;
+  font-weight: 600;
+  font-size: 0.95rem;
+  cursor: pointer;
+  box-shadow: 0 0 20px rgba(6, 182, 212, 0.15);
+  transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+  background: rgba(6, 182, 212, 0.1);
+  box-shadow: 0 0 25px rgba(6, 182, 212, 0.3);
+  transform: translateY(-2px);
+}
+
+/* 세컨더리 버튼 (공식 문서 보기) */
+.btn-secondary {
+  padding: 0.8rem 1.8rem;
+  border-radius: 8px;
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: var(--text-secondary);
+  font-weight: 500;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-secondary:hover {
+  background: rgba(255, 255, 255, 0.05);
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+/* ============================================================
+   한 줄짜리 히어로 마키 구분선 (Hero Marquee Divider)
+============================================================ */
+
+.hero-marquee-divider {
+  width: 100%;
+  overflow: hidden;
+  padding: 1.5rem 0; /* 위아래 여백 */
+  
+  /* 위아래 희미한 가로선 */
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  
+  /* 살짝 어두운 배경을 깔아줘서 구분선 느낌 강조 */
+  background: rgba(6, 10, 22, 0.3);
+  
+  /* 다음 섹션(Core Techniques)과의 간격 */
+  margin-bottom: 5rem; 
+  position: relative;
+}
+
+/* 텍스트가 양 끝에서 스르륵 사라지도록 그라데이션 가림막 설정 */
+.hero-marquee-divider::before,
+.hero-marquee-divider::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  width: 8rem;
+  height: 100%;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.hero-marquee-divider::before {
+  left: 0;
+  background: linear-gradient(to right, var(--bg-base) 0%, transparent 100%);
+}
+
+.hero-marquee-divider::after {
+  right: 0;
+  background: linear-gradient(to left, var(--bg-base) 0%, transparent 100%);
+}
+
+/* ============================================================
+   [섹션 6] 실험실 합류 & 가상 터미널 (Join Section)
+============================================================ */
+
+.join-section {
+  padding: 6rem 1.5rem;
+  position: relative;
+  border-top: 1px solid var(--border-subtle);
+  background: radial-gradient(ellipse at bottom, rgba(6, 182, 212, 0.05) 0%, transparent 60%);
+}
+
+.join-section__inner {
+  max-width: 72rem;
+  margin: 0 auto;
+}
+
+.join-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: center;
+}
+
+/* ─── 왼쪽: 구독 폼 (Form Panel) ─── */
+.join-form-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--neon-cyan);
+  margin-bottom: 1rem;
+}
+
+.join-form-eyebrow__dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--neon-cyan);
+  box-shadow: 0 0 8px var(--neon-cyan);
+}
+
+.join-form-title {
+  font-size: clamp(2rem, 4vw, 2.8rem);
+  font-weight: 800;
+  line-height: 1.2;
+  margin-bottom: 1.2rem;
+}
+
+.join-form-title--accent {
+  background: var(--gradient-neon);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.join-form-desc {
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+  line-height: 1.7;
+  margin-bottom: 2.5rem;
+  max-width: 90%;
+}
+
+/* 폼 입력 영역 */
+.subscribe-form__field-wrap {
+  margin-bottom: 1.5rem;
+}
+
+.subscribe-form__label {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  margin-bottom: 0.5rem;
+}
+
+.subscribe-form__input-group {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.subscribe-form__icon {
+  position: absolute;
+  left: 1rem;
+  color: var(--text-muted);
+  display: flex;
+}
+
+.subscribe-form__input {
+  width: 100%;
+  background: rgba(0, 0, 0, 0.2);
+  border: 1px solid var(--border-base);
+  border-radius: var(--radius-md);
+  padding: 0.9rem 1rem 0.9rem 2.8rem;
+  color: var(--text-primary);
+  font-size: 1rem;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.subscribe-form__input:focus {
+  outline: none;
+  border-color: var(--neon-cyan);
+  box-shadow: 0 0 15px rgba(6, 182, 212, 0.2);
+}
+
+/* 체크박스 */
+.subscribe-form__checkbox-wrap {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 2rem;
+}
+
+.subscribe-form__checkbox {
+  accent-color: var(--neon-cyan);
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+}
+
+.subscribe-form__checkbox-label {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  cursor: pointer;
+}
+
+/* 제출 버튼 */
+.subscribe-form__btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: var(--text-primary);
+  color: var(--bg-base);
+  border: none;
+  padding: 0.9rem 1.8rem;
+  border-radius: var(--radius-md);
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.subscribe-form__btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(255, 255, 255, 0.2);
+}
+
+/* 신뢰 지표 */
+.join-trust {
+  display: flex;
+  gap: 1.5rem;
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--border-subtle);
+}
+
+.join-trust__item {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+
+/* ─── 오른쪽: 가상 터미널 (Terminal Panel) ─── */
+.terminal-panel {
+  background: #0d1117; /* 터미널 특유의 진한 배경색 */
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(6, 182, 212, 0.1);
+  overflow: hidden;
+}
+
+.terminal-bar {
+  display: flex;
+  align-items: center;
+  background: #161b22;
+  padding: 0.8rem 1rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.terminal-bar__dots {
+  display: flex;
+  gap: 6px;
+  flex: 1;
+}
+
+.terminal-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+}
+.terminal-dot--red { background: #ff5f56; }
+.terminal-dot--yellow { background: #ffbd2e; }
+.terminal-dot--green { background: #27c93f; }
+
+.terminal-bar__title {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: #8b949e;
+  flex: 2;
+  text-align: center;
+}
+
+.terminal-bar__spacer {
+  flex: 1;
+}
+
+.terminal-body {
+  padding: 1.5rem;
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  line-height: 1.6;
+}
+
+.terminal-line {
+  margin-bottom: 0.4rem;
+}
+
+.terminal-prompt {
+  color: var(--neon-purple);
+  margin-right: 0.5rem;
+}
+.terminal-prompt--active {
+  color: var(--neon-cyan);
+}
+
+/* 터미널 텍스트 컬러 */
+.terminal-line--dim { color: #8b949e; }
+.terminal-line--success { color: #3fb950; }
+.terminal-line--info { color: #58a6ff; }
+.terminal-line--warn { color: #d29922; }
+.terminal-line--typing { color: #e6edf3; display: flex; align-items: center;}
+
+.terminal-divider {
+  height: 1px;
+  background: rgba(255, 255, 255, 0.1);
+  margin: 1rem 0;
+}
+
+/* ─── 순수 CSS 타이핑 & 커서 애니메이션 ─── */
+.typewriter {
+  display: inline-block;
+  overflow: hidden;
+  white-space: nowrap;
+  /* 글자 수에 맞춰 steps 숫자를 조정하세요 (현재 약 26자) */
+  animation: typing 2.5s steps(30, end) forwards;
+  animation-delay: 0.5s;
+  width: 0;
+}
+
+.terminal-cursor {
+  display: inline-block;
+  width: 8px;
+  height: 15px;
+  background: var(--neon-cyan);
+  margin-left: 4px;
+  animation: blink 1s step-end infinite;
+}
+
+@keyframes typing {
+  from { width: 0; }
+  to { width: 230px; /* 텍스트 길이에 맞춰 넓이 제한 */ }
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+/* ─── 반응형 (모바일) ─── */
+@media (max-width: 64rem) {
+  .join-grid {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+  
+  .terminal-panel {
+    order: -1; /* 모바일에서는 터미널이 위로 올라오도록 배치 (옵션) */
+  }
+}
+
+/* ============================================================
+   네비게이션 우측: 로그인 / 회원가입 버튼 영역
+============================================================ */
+
+/* 우측 메뉴와 버튼을 한 줄로 묶는 래퍼 */
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem; /* 메뉴와 인증 버튼 사이의 간격 */
+}
+
+/* 세로 구분선 (프로페셔널한 느낌 부여) */
+.nav-divider {
+  width: 1px;
+  height: 18px;
+  background: rgba(255, 255, 255, 0.15);
+}
+
+/* 로그인/회원가입 그룹 */
+.nav-auth {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+/* 공통 버튼 스타일 */
+.nav-btn {
+  font-family: var(--font-display);
+  font-size: 0.82rem;
+  font-weight: 600;
+  padding: 0.45rem 1rem;
+  border-radius: 6px;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+}
+
+/* 로그인 (Ghost 타입: 배경 없이 글자만, 마우스 올리면 밝아짐) */
+.nav-btn--ghost {
+  color: var(--text-secondary);
+  background: transparent;
+}
+
+.nav-btn--ghost:hover {
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+/* 회원가입 (Glow 타입: 포인트 네온 컬러 강조) */
+.nav-btn--glow {
+  color: var(--neon-cyan);
+  background: rgba(6, 182, 212, 0.08);
+  border: 1px solid rgba(6, 182, 212, 0.3);
+}
+
+.nav-btn--glow:hover {
+  background: rgba(6, 182, 212, 0.15);
+  box-shadow: 0 0 15px rgba(6, 182, 212, 0.3);
+  color: #ffffff;
+}
+
+/* --- 모바일 반응형 처리 --- */
+@media (max-width: 48rem) {
+  .nav-right {
+    gap: 0.8rem;
+  }
+  
+  .nav-divider {
+    display: none; /* 모바일에서는 공간 확보를 위해 선 숨김 */
+  }
+
+  .nav-btn {
+    font-size: 0.75rem;
+    padding: 0.35rem 0.6rem;
+  }
+  
+  /* 화면이 너무 작아지면 로그인 글씨 숨김 (옵션) */
+  @media (max-width: 36rem) {
+    .nav-btn--ghost {
+      display: none;
+    }
+  }
+}

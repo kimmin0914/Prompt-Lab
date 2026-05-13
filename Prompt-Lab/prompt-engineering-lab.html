@@ -16,6 +16,57 @@
   <header class="nav-header">
   <div class="nav-inner">
 
+    <header class="nav-header">
+  <div class="nav-inner">
+
+    <!-- 왼쪽: 로고 -->
+    <a href="#" class="nav-logo">
+      <span class="nav-logo__bracket">[</span>
+      Prompt Lab
+      <span class="nav-logo__bracket">]</span>
+    </a>
+
+    <!-- 오른쪽 전체 영역 (메뉴 + 버튼) -->
+    <div class="nav-right">
+      
+      <!-- 기존 링크 목록 -->
+      <ul class="nav-links">
+        <li>
+          <a href="#section-anatomy" class="nav-link">
+            <span class="nav-link__dot"></span>기법들
+          </a>
+        </li>
+        <li>
+          <a href="#section-gallery" class="nav-link">
+            <span class="nav-link__dot"></span>활용 사례
+          </a>
+        </li>
+        <li>
+          <a href="#section-mistakes" class="nav-link">
+            <span class="nav-link__dot"></span>모델
+          </a>
+        </li>
+        <li>
+          <a href="#section-image" class="nav-link nav-link--accent">
+            <span class="nav-link__dot"></span>갤러리
+          </a>
+        </li>
+      </ul>
+
+      <!-- 메뉴와 인증 버튼을 구분하는 세로선 -->
+      <div class="nav-divider" aria-hidden="true"></div>
+
+      <!-- 신규: 로그인 & 회원가입 영역 -->
+      <div class="nav-auth">
+        <a href="#login" class="nav-btn nav-btn--ghost">로그인</a>
+        <a href="#signup" class="nav-btn nav-btn--glow">회원가입</a>
+      </div>
+
+    </div><!-- /.nav-right -->
+
+  </div>
+</header>
+
     <!-- 왼쪽: 로고 -->
     <a href="#" class="nav-logo">
       <span class="nav-logo__bracket">[</span>
@@ -82,21 +133,73 @@
   <main role="main">
 
     <!-- HERO -->
-    <section class="hero" aria-labelledby="hero-heading">
-      <p class="hero-eyebrow" aria-label="섹션 카테고리">Prompt Engineering Lab</p>
+    <section class="hero hero--centered" aria-labelledby="hero-heading">
+      
+      <!-- 상단 상태 배지 -->
+      <div class="hero-badge">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+        v2.0 프로토콜 초기화 완료
+      </div>
+
+      <!-- 메인 타이틀 (전체 그라데이션) -->
       <h1 class="hero-title" id="hero-heading">
-        AI와 대화하는<br />
-        <span class="gradient-word">과학적 기법</span>들
+        <span class="gradient-word">AI와 대화하는 과학적 기법<br/>들</span>
       </h1>
+
+      <!-- 설명 텍스트 및 보라색 하이라이트 -->
       <p class="hero-description">
-        프롬프트 엔지니어링은 대형 언어 모델(LLM)이 원하는 결과를 생성하도록
-        입력 텍스트를 설계하고 최적화하는 체계적인 방법론입니다.
-        핵심 기법들을 실험하고 패턴을 발견해 보세요.
+        프롬프트 엔지니어링을 한 단계 끌어올리세요. 프로덕션 환경에서 대규모<br/>
+        <span class="text-highlight">언어 모델(LLM)을 제어하고 최적화하는 고급 기법을 마스터하세요.</span>
       </p>
+
+      <!-- 하단 버튼 2개 -->
+      <div class="hero-buttons">
+        <button class="btn-primary">실험실 시작하기 ✨</button>
+        <button class="btn-secondary">공식 문서 보기</button>
+      </div>
+
     </section>
 
-    <!-- SECTION LABEL -->
-    <p class="section-label" aria-hidden="true">Core Techniques // 7 Methods</p>
+
+    <!-- ============================================================
+         새롭게 추가된 한 줄짜리 마키(Marquee) 구분선 
+         ============================================================ -->
+    <div class="hero-marquee-divider">
+      <div class="marquee-wrapper" style="margin-bottom: 0;">
+        <div class="marquee-track marquee-track--fwd">
+          <!-- 원본 리스트 -->
+          <ul class="marquee-list">
+            <li class="marquee-pill marquee-pill--default">API 연동</li>
+            <li class="marquee-pill marquee-pill--cyan"><span class="marquee-pill__dot"></span>유닛 테스트 작성</li>
+            <li class="marquee-pill marquee-pill--default">프롬프트 최적화</li>
+            <li class="marquee-pill marquee-pill--cyan"><span class="marquee-pill__dot"></span>시스템 아키텍처</li>
+            <li class="marquee-pill marquee-pill--default">코드 생성</li>
+            <li class="marquee-pill marquee-pill--cyan"><span class="marquee-pill__dot"></span>데이터 분석</li>
+            <li class="marquee-pill marquee-pill--default">창의적 글쓰기</li>
+            <li class="marquee-pill marquee-pill--cyan"><span class="marquee-pill__dot"></span>언어 번역</li>
+            <li class="marquee-pill marquee-pill--default">문서 요약</li>
+            <li class="marquee-pill marquee-pill--cyan"><span class="marquee-pill__dot"></span>역할극 (Role-playing)</li>
+            <li class="marquee-pill marquee-pill--default">논리적 추론</li>
+            <li class="marquee-pill marquee-pill--cyan"><span class="marquee-pill__dot"></span>수학 문제 해결</li>
+          </ul>
+          <!-- 무한 루프용 복제 리스트 -->
+          <ul class="marquee-list" aria-hidden="true">
+            <li class="marquee-pill marquee-pill--default">API 연동</li>
+            <li class="marquee-pill marquee-pill--cyan"><span class="marquee-pill__dot"></span>유닛 테스트 작성</li>
+            <li class="marquee-pill marquee-pill--default">프롬프트 최적화</li>
+            <li class="marquee-pill marquee-pill--cyan"><span class="marquee-pill__dot"></span>시스템 아키텍처</li>
+            <li class="marquee-pill marquee-pill--default">코드 생성</li>
+            <li class="marquee-pill marquee-pill--cyan"><span class="marquee-pill__dot"></span>데이터 분석</li>
+            <li class="marquee-pill marquee-pill--default">창의적 글쓰기</li>
+            <li class="marquee-pill marquee-pill--cyan"><span class="marquee-pill__dot"></span>언어 번역</li>
+            <li class="marquee-pill marquee-pill--default">문서 요약</li>
+            <li class="marquee-pill marquee-pill--cyan"><span class="marquee-pill__dot"></span>역할극 (Role-playing)</li>
+            <li class="marquee-pill marquee-pill--default">논리적 추론</li>
+            <li class="marquee-pill marquee-pill--cyan"><span class="marquee-pill__dot"></span>수학 문제 해결</li>
+          </ul>
+        </div>
+      </div>
+    </div>
 
     <!-- BENTO GRID -->
     <section id="section-anatomy" class="bento-grid" aria-label="프롬프트 엔지니어링 기법 카드 목록">
