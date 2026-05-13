@@ -1,43 +1,26 @@
 # Prompt-Lab
 
-🧪 Prompt Engineering Lab (프롬프트 엔지니어링 실험실)
-대형 언어 모델(LLM)과 소통하는 핵심 프롬프트 기법을 시각적으로 탐구하는 인터랙티브 웹사이트입니다.
-JavaScript를 전혀 사용하지 않고 오직 순수 HTML5와 CSS3만으로 구현된 수준 높은 웹 애니메이션과 레이아웃을 확인하실 수 있습니다.
+# 🧪 Prompt Engineering Lab
 
-💻 Tech Stack
-HTML5 (Semantic Markup)
+> **대형 언어 모델(LLM)과 소통하는 프롬프트 핵심 기법을 시각적으로 탐구하는 가상 실험실** <br>
+> 웹 프로그래밍 기초 과제로 제작된 순수 HTML/CSS 인터랙티브 포트폴리오입니다.
 
-CSS3 (Flexbox, Grid, CSS Variables, 3D Transforms, @keyframes)
+![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)
+![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white)
 
-✨ Key Features & CSS Techniques
-본 프로젝트는 스크립트 없이 오직 CSS의 가능성만으로 다채로운 상호작용(Interaction)을 구현했습니다.
+<br>
 
-🎨 글래스모피즘 & 스무스 스크롤 (Header)
+## 📌 Project Overview
+최신 AI 모델을 다루기 위한 프롬프트 기법들을 직관적으로 학습할 수 있는 '사이버펑크/네온' 테마의 웹사이트입니다. 
 
-backdrop-filter: blur()를 이용한 반투명 유리 질감 네비게이션 바
+이 프로젝트의 가장 큰 특징은 **JavaScript를 전혀 사용하지 않고**, 오직 **HTML5와 CSS3의 고급 애니메이션 및 레이아웃 속성**만을 극한으로 활용하여 화려한 상호작용(Interaction)과 동적인 UI를 구현했다는 점입니다.
 
-scroll-behavior: smooth를 통한 부드러운 앵커 이동
+<br>
 
-🍱 반응형 벤토 그리드 (Bento Grid Layout)
+## 📂 Folder Structure
+유지보수와 가독성을 위해 HTML 구조와 CSS 스타일을 완벽하게 분리하여 설계했습니다.
 
-CSS Grid(grid-template-columns, grid-column: span)를 활용해 화면 크기에 맞춰 다이나믹하게 변하는 비정형 레이아웃
-
-⚡ 순수 CSS 네온 테두리 애니메이션 (Neon Border Slide)
-
-카드 컴포넌트에 가상 요소(::before, ::after)와 conic-gradient, @keyframes 회전을 조합하여 빛이 테두리를 따라 흐르는 고급 애니메이션 구현
-
-🔄 3D 플립 카드 (3D Flip Cards)
-
-perspective와 transform: rotateY(180deg) 속성을 활용하여, 마우스를 올리면 카드가 180도 뒤집히며 뒷면이 나타나는 입체 인터랙션 구현
-
-🖼️ Flexbox 이미지 아코디언 갤러리
-
-flex-grow 속성의 트랜지션을 활용하여, 호버 시 선택된 패널만 부드럽게 가로로 확장되는 갤러리 구현
-
-📖 스크립트 없는 FAQ 아코디언
-
-HTML5 기본 태그인 <details>와 <summary>를 활용하여 JS 없이 열리고 닫히는 아코디언 리스트 구현
-
-♾️ 무한 롤링 마키 (Marquee) 애니메이션
-
-푸터 영역에 CSS @keyframes와 translateX를 사용해 텍스트가 끊임없이 무한으로 흘러가는 전광판 효과 구현
+```text
+📦 prompt-engineering-lab
+ ┣ 📜 index.html    # 메인 웹페이지 (시맨틱 마크업)
+ ┗ 📜 style.css     # 스타일 및 전체 애니메이션 제어
