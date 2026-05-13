@@ -1,0 +1,2733 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="프롬프트 엔지니어링 핵심 기법을 탐구하는 실험실 페이지입니다." />
+  <title>Prompt Engineering Lab</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Sora:wght@300;400;600;700;800&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ============================================================   [STEP 1] 스무스 스크롤 전역 설정 (최최최상단에 위치)   ============================================================ */html {  scroll-behavior: smooth;  scroll-padding-top: 80px;}
+/* ============================================================   [STEP 2] body 상단 여백 (네비바에 가려지지 않도록)   ============================================================ */body {  padding-top: 64px;}
+/* ============================================================   [STEP 3] 네비게이션 바 래퍼   ============================================================ */.nav-header {  position: fixed;  top: 0;  left: 0;  width: 100%;  height: 64px;  z-index: 1000;
+  /* 글래스모피즘 배경 */  background: rgba(6, 10, 22, 0.72);  backdrop-filter: blur(14px);  -webkit-backdrop-filter: blur(14px);
+  /* 하단 네온 라인 */  border-bottom: 1px solid rgba(6, 182, 212, 0.18);
+  /* 그림자 */  box-shadow:    0 1px 0 0 rgba(6, 182, 212, 0.07),    0 6px 28px 0 rgba(0, 0, 0, 0.5);}
+/* ============================================================   [STEP 4] 내부 레이아웃 (로고 좌 / 링크 우)   ============================================================ */.nav-inner {  max-width: 80rem;  height: 100%;  margin: 0 auto;  padding: 0 2rem;  display: flex;  align-items: center;  justify-content: space-between;}
+/* ============================================================   [STEP 5] 로고   ============================================================ */.nav-logo {  font-family: "JetBrains Mono", "Fira Code", monospace;  font-size: 1rem;  font-weight: 800;  letter-spacing: 0.06em;  text-decoration: none;  color: #e2e8f0;  display: flex;  align-items: center;  gap: 0.1em;  transition: color 0.25s ease;}
+.nav-logo__bracket {  color: #06b6d4;  font-size: 1.2em;  font-weight: 900;  transition: color 0.25s ease, text-shadow 0.25s ease;}
+.nav-logo:hover {  color: #ffffff;}
+.nav-logo:hover .nav-logo__bracket {  color: #a855f7;  text-shadow: 0 0 12px rgba(168, 85, 247, 0.8);}
+/* ============================================================   [STEP 6] 링크 목록   ============================================================ */.nav-links {  list-style: none;  margin: 0;  padding: 0;  display: flex;  align-items: center;  gap: 0.25rem;}
+/* ============================================================   [STEP 7] 개별 링크   ============================================================ */.nav-link {  display: flex;  align-items: center;  gap: 0.4rem;  padding: 0.45rem 0.9rem;  border-radius: 6px;  border: 1px solid transparent;  font-size: 0.82rem;  font-weight: 600;  letter-spacing: 0.03em;  text-decoration: none;  color: rgba(148, 163, 184, 0.85);  white-space: nowrap;  transition:    color        0.25s ease,    background   0.25s ease,    border-color 0.25s ease,    text-shadow  0.25s ease;}
+/* 링크 앞 작은 점 */.nav-link__dot {  display: inline-block;  width: 4px;  height: 4px;  border-radius: 50%;  background: currentColor;  opacity: 0.4;  flex-shrink: 0;  transition: opacity 0.25s ease, box-shadow 0.25s ease;}
+/* 기본 링크 호버: 네온 시안 */.nav-link:hover {  color: #06b6d4;  background: rgba(6, 182, 212, 0.08);  border-color: rgba(6, 182, 212, 0.22);  text-shadow: 0 0 12px rgba(6, 182, 212, 0.5);}
+.nav-link:hover .nav-link__dot {  opacity: 1;  box-shadow: 0 0 6px 2px rgba(6, 182, 212, 0.75);}
+/* 강조 링크 (이미지 프롬프트): 퍼플 계열 */.nav-link--accent {  color: rgba(168, 85, 247, 0.8);  border-color: rgba(168, 85, 247, 0.15);}
+.nav-link--accent:hover {  color: #a855f7;  background: rgba(168, 85, 247, 0.1);  border-color: rgba(168, 85, 247, 0.3);  text-shadow: 0 0 14px rgba(168, 85, 247, 0.65);}
+.nav-link--accent:hover .nav-link__dot {  box-shadow: 0 0 6px 2px rgba(168, 85, 247, 0.8);}
+/* ============================================================   [STEP 8] 반응형 (768px 이하)   ============================================================ */@media (max-width: 48rem) {  .nav-inner {    padding: 0 1.25rem;  }
+  .nav-link {    font-size: 0.72rem;    padding: 0.4rem 0.55rem;    letter-spacing: 0;  }
+  .nav-link__dot {    display: none;  }}
+/* 매우 좁은 화면: 중간 2개 링크 숨김 */@media (max-width: 30rem) {  .nav-links li:nth-child(2),  .nav-links li:nth-child(3) {    display: none;  }}
+/* ============================================================   /네비게이션 바 CSS 끝   ============================================================ */
+    /* ============================================================
+       0. CSS CUSTOM PROPERTIES (Design Token System)
+       전체 테마를 통제하는 CSS 변수 선언부.
+       이 변수들만 수정하면 전체 테마가 일관성 있게 변경됩니다.
+    ============================================================ */
+    :root {
+      /* --- Color Palette --- */
+      --bg-base:        #10141d;
+      --bg-card:        #1a1f2c;
+      --bg-card-hover:  #1f2537;
+      --bg-glass:       rgba(16, 20, 29, 0.65);
+
+      /* --- Text --- */
+      --text-primary:   #e2e8f0;
+      --text-secondary: #8899b4;
+      --text-muted:     #4a5568;
+
+      /* --- Neon Accent (Gradient) --- */
+      --neon-cyan:      #06b6d4;
+      --neon-purple:    #a855f7;
+      --neon-mid:       #818cf8;
+      --gradient-neon:  linear-gradient(135deg, var(--neon-cyan), var(--neon-mid), var(--neon-purple));
+      --gradient-conic: conic-gradient(from 0deg, transparent 0deg, var(--neon-cyan) 60deg, var(--neon-purple) 120deg, transparent 180deg);
+
+      /* --- Border --- */
+      --border-subtle:  rgba(255, 255, 255, 0.06);
+      --border-base:    rgba(255, 255, 255, 0.10);
+
+      /* --- Spacing Scale (rem-based) --- */
+      --space-xs:  0.375rem;
+      --space-sm:  0.75rem;
+      --space-md:  1.25rem;
+      --space-lg:  2rem;
+      --space-xl:  3rem;
+      --space-2xl: 5rem;
+
+      /* --- Border Radius --- */
+      --radius-sm:   8px;
+      --radius-md:   12px;
+      --radius-lg:   20px;
+      --radius-pill: 100px;
+
+      /* --- Typography --- */
+      --font-display: 'Sora', sans-serif;
+      --font-mono:    'DM Mono', monospace;
+
+      /* --- Shadows --- */
+      --shadow-card: 0 4px 24px rgba(0, 0, 0, 0.35);
+      --shadow-neon-cyan:   0 0 20px rgba(6, 182, 212, 0.18);
+      --shadow-neon-purple: 0 0 20px rgba(168, 85, 247, 0.18);
+
+      /* --- Transition --- */
+      --ease-smooth: cubic-bezier(0.22, 0.68, 0, 1.2);
+      --ease-out:    cubic-bezier(0.16, 1, 0.3, 1);
+      --duration-fast: 0.2s;
+      --duration-base: 0.45s;
+    }
+
+    /* ============================================================
+       1. RESET & BASE
+    ============================================================ */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      font-size: 16px;
+      scroll-behavior: smooth;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    body {
+      font-family: var(--font-display);
+      background-color: var(--bg-base);
+      color: var(--text-primary);
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    /* 전체 배경에 미세한 노이즈 텍스처 레이어 */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        radial-gradient(ellipse 80% 50% at 10% 10%, rgba(6, 182, 212, 0.05) 0%, transparent 60%),
+        radial-gradient(ellipse 60% 40% at 90% 80%, rgba(168, 85, 247, 0.06) 0%, transparent 60%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    img { max-width: 100%; display: block; }
+    a   { color: inherit; text-decoration: none; }
+    ul  { list-style: none; }
+
+    /* ============================================================
+       2. GLASSMORPHISM HEADER
+       position: sticky + backdrop-filter로 구현한 글래스모피즘.
+       스크롤 시에도 콘텐츠 위에 반투명하게 떠 있습니다.
+    ============================================================ */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: var(--space-sm) var(--space-lg);
+      background-color: var(--bg-glass);
+      backdrop-filter: blur(20px) saturate(180%);
+      -webkit-backdrop-filter: blur(20px) saturate(180%);
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .header-logo {
+      display: flex;
+      align-items: center;
+      gap: var(--space-sm);
+    }
+
+    /* 로고 아이콘: 순수 CSS로 만든 기하학적 심볼 */
+    .logo-icon {
+      width: 2rem;
+      height: 2rem;
+      border-radius: 6px;
+      background: var(--gradient-neon);
+      display: grid;
+      place-items: center;
+      flex-shrink: 0;
+    }
+
+    .logo-icon svg {
+      width: 1.1rem;
+      height: 1.1rem;
+      fill: none;
+      stroke: #fff;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .logo-text {
+      font-size: 0.9rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: var(--text-primary);
+    }
+
+    .logo-text span {
+      background: var(--gradient-neon);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .header-meta {
+      display: flex;
+      align-items: center;
+      gap: var(--space-sm);
+    }
+
+    .header-badge {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      font-weight: 500;
+      padding: 0.2rem 0.6rem;
+      border-radius: var(--radius-pill);
+      border: 1px solid var(--border-base);
+      color: var(--text-secondary);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .status-dot {
+      display: inline-block;
+      width: 0.45rem;
+      height: 0.45rem;
+      border-radius: 50%;
+      background: var(--neon-cyan);
+      box-shadow: 0 0 6px var(--neon-cyan);
+      animation: pulse-dot 2.4s ease-in-out infinite;
+      margin-right: 0.3rem;
+    }
+
+    @keyframes pulse-dot {
+      0%, 100% { opacity: 1;   box-shadow: 0 0 6px var(--neon-cyan); }
+      50%       { opacity: 0.5; box-shadow: 0 0 2px var(--neon-cyan); }
+    }
+
+    /* ============================================================
+       3. HERO SECTION
+    ============================================================ */
+    .hero {
+      position: relative;
+      z-index: 1;
+      padding: var(--space-xl) var(--space-lg) var(--space-lg);
+      max-width: 72rem;
+      margin: 0 auto;
+    }
+
+    .hero-eyebrow {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--neon-cyan);
+      margin-bottom: var(--space-md);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .hero-eyebrow::before {
+      content: '';
+      display: inline-block;
+      width: 1.5rem;
+      height: 1px;
+      background: var(--neon-cyan);
+    }
+
+    .hero-title {
+      font-size: clamp(2.2rem, 5vw, 3.6rem);
+      font-weight: 800;
+      line-height: 1.08;
+      letter-spacing: -0.035em;
+      color: var(--text-primary);
+      margin-bottom: var(--space-md);
+    }
+
+    .hero-title .gradient-word {
+      background: var(--gradient-neon);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero-description {
+      font-size: 1rem;
+      font-weight: 300;
+      color: var(--text-secondary);
+      max-width: 38rem;
+      line-height: 1.75;
+    }
+
+    /* ============================================================
+       4. BENTO GRID LAYOUT
+       CSS Grid를 활용한 비정형 벤토 박스 레이아웃.
+       모바일: 1열 스택
+       태블릿: 2열 그리드
+       데스크톱: 4열 그리드 (다양한 span 조합)
+    ============================================================ */
+    .bento-grid {
+      position: relative;
+      z-index: 1;
+      max-width: 72rem;
+      margin: 0 auto;
+      padding: 0 var(--space-lg) var(--space-2xl);
+
+      display: grid;
+      grid-template-columns: 1fr;   /* mobile-first: 1열 */
+      gap: 1rem;
+    }
+
+    /* 태블릿 (768px 이상): 2열 */
+    @media (min-width: 48rem) {
+      .bento-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      /* 넓은 카드: 2열 전체 */
+      .card--wide  { grid-column: span 2; }
+      /* 큰 카드 (2x2) */
+      .card--large { grid-column: span 2; grid-row: span 2; }
+    }
+
+    /* 데스크톱 (1024px 이상): 4열 그리드 */
+    @media (min-width: 64rem) {
+      .bento-grid {
+        grid-template-columns: repeat(4, 1fr);
+        grid-auto-rows: minmax(11rem, auto);
+        gap: 1.1rem;
+      }
+
+      /* 다양한 크기의 카드로 벤토 박스 리듬감 부여 */
+      .card--wide   { grid-column: span 2; }
+      .card--tall   { grid-row: span 2;    }
+      .card--large  { grid-column: span 2; grid-row: span 2; }
+      .card--hero   { grid-column: span 3; }
+      .card--accent { grid-column: span 1; grid-row: span 2; }
+    }
+
+    /* ============================================================
+       5. PROMPT CARD COMPONENT
+          핵심 기능: Pure CSS Neon Border Slide Animation
+          구현 원리: position relative + ::before 가상 요소에
+                     conic-gradient를 적용하고, @keyframes로
+                     회전시켜 테두리를 따라 빛이 흐르는 효과를 냄.
+    ============================================================ */
+    .prompt-card {
+      position: relative;       /* ::before 가상 요소의 기준점 */
+      border-radius: var(--radius-md);
+      overflow: hidden;         /* 회전하는 그라디언트를 카드 안으로 클리핑 */
+      background-color: var(--bg-card);
+      padding: var(--space-md);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-sm);
+      box-shadow: var(--shadow-card);
+
+      /* 기본 상태: 투명한 1px 테두리 (공간 확보용) */
+      border: 1px solid var(--border-subtle);
+
+      /* 카드 올림(translateY) 트랜지션 */
+      transform: translateY(0);
+      transition:
+        transform var(--duration-base) var(--ease-out),
+        box-shadow var(--duration-base) var(--ease-out),
+        background-color var(--duration-fast) ease;
+    }
+
+    /* ---- [핵심] Neon Border Slide: Step 1 — 회전 그라디언트 레이어 ---- */
+    /* ::before 가상 요소는 카드보다 크게 만들어
+       @keyframes로 360도 회전시키는 '발전기' 역할을 합니다.
+       기본 상태(비호버)에서는 opacity: 0으로 완전히 숨깁니다.  */
+    .prompt-card::before {
+      content: '';
+      position: absolute;
+
+      /* 카드보다 충분히 크게: 대각선을 커버하기 위해 200% */
+      width: 200%;
+      height: 200%;
+
+      /* 카드 중앙에 위치시킵니다 */
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+
+      /* Conic Gradient: 원뿔형 그라디언트로 빛줄기를 표현 */
+      background: conic-gradient(
+        from 0deg at 50% 50%,
+        transparent   0deg,
+        var(--neon-cyan)   60deg,
+        var(--neon-mid)    120deg,
+        var(--neon-purple) 180deg,
+        transparent   240deg
+      );
+
+      /* 기본 상태: 보이지 않음 + 애니메이션 멈춤 */
+      opacity: 0;
+      animation: none;
+      transition: opacity var(--duration-base) ease;
+
+      /* overflow: hidden으로 잘리지만, z-index 순서 정의 */
+      z-index: 0;
+      border-radius: inherit;
+    }
+
+    /* ---- [핵심] Neon Border Slide: Step 2 — 내부 배경 레이어 ---- */
+    /* ::after 가상 요소는 카드 내부를 채워
+       ::before의 회전 그라디언트가 테두리 두께만큼만 보이게 합니다.
+       이것이 '테두리를 따라 흐르는 선'처럼 보이는 핵심 원리입니다. */
+    .prompt-card::after {
+      content: '';
+      position: absolute;
+
+      /* 카드 경계에서 1.5px 안쪽 — 이 틈이 네온 테두리 두께가 됩니다 */
+      inset: 1.5px;
+      background-color: var(--bg-card);
+      border-radius: calc(var(--radius-md) - 1.5px);
+      z-index: 1; /* 콘텐츠보다 아래, ::before보다 위 */
+      transition: background-color var(--duration-fast) ease;
+    }
+
+    /* ---- [핵심] Neon Border Slide: Step 3 — 카드 내부 콘텐츠 z-index ---- */
+    /* 실제 콘텐츠(자식 요소)들이 ::after(내부 배경) 위에 보이도록 z-index 설정 */
+    .prompt-card > * {
+      position: relative;
+      z-index: 2;
+    }
+
+    /* ---- [핵심] Neon Border Slide: Step 4 — Hover 활성화 ---- */
+    .prompt-card:hover::before {
+      opacity: 1;
+      /* 호버 시 @keyframes 애니메이션 실행: 2초마다 무한 회전 */
+      animation: neon-spin var(--duration-base) linear forwards,
+                 neon-spin-loop 2.5s linear 0.45s infinite;
+    }
+
+    .prompt-card:hover::after {
+      background-color: var(--bg-card-hover);
+    }
+
+    /* 호버 시 카드가 살짝 위로 이동 */
+    .prompt-card:hover {
+      transform: translateY(-5px);
+      box-shadow:
+        var(--shadow-card),
+        var(--shadow-neon-cyan),
+        var(--shadow-neon-purple);
+    }
+
+    /* ---- @keyframes: 회전 그라디언트 애니메이션 ---- */
+    /* 첫 번째(forwards): 0 -> 360deg로 1회 회전해 테두리를 '그리는' 효과 */
+    @keyframes neon-spin {
+      from { transform: translate(-50%, -50%) rotate(0deg);   }
+      to   { transform: translate(-50%, -50%) rotate(360deg); }
+    }
+
+    /* 두 번째(infinite): 이후 계속 회전해 '흐르는' 효과 유지 */
+    @keyframes neon-spin-loop {
+      from { transform: translate(-50%, -50%) rotate(0deg);   }
+      to   { transform: translate(-50%, -50%) rotate(360deg); }
+    }
+
+
+    /* ============================================================
+       6. CARD INTERNAL TYPOGRAPHY & COMPONENTS
+    ============================================================ */
+
+    /* 카드 헤더 영역 */
+    .card-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: var(--space-sm);
+      margin-bottom: 0.25rem;
+    }
+
+    /* 카드 타이틀 */
+    .card-title {
+      font-size: 1.05rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: var(--text-primary);
+      line-height: 1.3;
+    }
+
+    .card--large .card-title,
+    .card--hero  .card-title {
+      font-size: 1.35rem;
+    }
+
+    /* 카드 설명 텍스트 */
+    .card-description {
+      font-size: 0.875rem;
+      font-weight: 300;
+      color: var(--text-secondary);
+      line-height: 1.65;
+      flex-grow: 1;
+    }
+
+    /* 분류 뱃지 */
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 0.25rem 0.6rem;
+      border-radius: var(--radius-pill);
+      flex-shrink: 0;
+      white-space: nowrap;
+    }
+
+    .badge--technique {
+      background: rgba(6, 182, 212, 0.08);
+      color: var(--neon-cyan);
+      border: 1px solid rgba(6, 182, 212, 0.2);
+    }
+
+    .badge--method {
+      background: rgba(168, 85, 247, 0.08);
+      color: var(--neon-purple);
+      border: 1px solid rgba(168, 85, 247, 0.2);
+    }
+
+    .badge--advanced {
+      background: rgba(129, 140, 248, 0.08);
+      color: var(--neon-mid);
+      border: 1px solid rgba(129, 140, 248, 0.2);
+    }
+
+    .badge--neutral {
+      background: rgba(255, 255, 255, 0.05);
+      color: var(--text-secondary);
+      border: 1px solid var(--border-base);
+    }
+
+    /* 코드 블록 */
+    .card-code {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      line-height: 1.6;
+      background: rgba(0, 0, 0, 0.3);
+      border: 1px solid var(--border-subtle);
+      border-left: 2px solid var(--neon-cyan);
+      border-radius: var(--radius-sm);
+      padding: var(--space-sm) var(--space-md);
+      color: var(--neon-cyan);
+      overflow-x: auto;
+      margin-top: auto;
+      white-space: pre-wrap;
+      word-break: break-all;
+    }
+
+    .card-code .token-prompt { color: var(--text-secondary); }
+    .card-code .token-role   { color: var(--neon-purple); }
+    .card-code .token-value  { color: var(--text-primary); }
+
+    /* 구분선 */
+    .card-divider {
+      height: 1px;
+      background: var(--border-subtle);
+      margin: var(--space-xs) 0;
+    }
+
+    /* 태그 그룹 */
+    .tag-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-top: auto;
+    }
+
+    .tag {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      color: var(--text-muted);
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-pill);
+      padding: 0.15rem 0.55rem;
+    }
+
+    /* 아이콘 박스 */
+    .card-icon-box {
+      width: 2.5rem;
+      height: 2.5rem;
+      border-radius: var(--radius-sm);
+      display: grid;
+      place-items: center;
+      flex-shrink: 0;
+    }
+
+    .card-icon-box.cyan   { background: rgba(6,  182, 212, 0.12); }
+    .card-icon-box.purple { background: rgba(168, 85, 247, 0.12); }
+    .card-icon-box.mid    { background: rgba(129, 140, 248, 0.12); }
+    .card-icon-box.neutral{ background: rgba(255, 255, 255, 0.06); }
+
+    .card-icon-box svg {
+      width: 1.2rem;
+      height: 1.2rem;
+      fill: none;
+      stroke-width: 1.8;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+    .card-icon-box.cyan   svg { stroke: var(--neon-cyan);   }
+    .card-icon-box.purple svg { stroke: var(--neon-purple); }
+    .card-icon-box.mid    svg { stroke: var(--neon-mid);    }
+    .card-icon-box.neutral svg { stroke: var(--text-secondary); }
+
+    /* 대형 숫자 통계 */
+    .stat-number {
+      font-size: 3rem;
+      font-weight: 800;
+      letter-spacing: -0.05em;
+      line-height: 1;
+      background: var(--gradient-neon);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 0.25rem;
+    }
+
+    .stat-label {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      font-weight: 400;
+    }
+
+    /* 구분선 + 메타 정보 */
+    .card-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: var(--space-xs);
+      border-top: 1px solid var(--border-subtle);
+      margin-top: auto;
+    }
+
+    .card-level {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    /* 적용 단계 Progress Bar */
+    .progress-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      margin-top: auto;
+    }
+
+    .progress-item {
+      display: flex;
+      align-items: center;
+      gap: var(--space-sm);
+    }
+
+    .progress-label {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      color: var(--text-secondary);
+      width: 5rem;
+      flex-shrink: 0;
+    }
+
+    .progress-bar-track {
+      flex-grow: 1;
+      height: 3px;
+      background: rgba(255, 255, 255, 0.06);
+      border-radius: 100px;
+      overflow: hidden;
+    }
+
+    .progress-bar-fill {
+      height: 100%;
+      border-radius: 100px;
+      background: var(--gradient-neon);
+    }
+
+    /* 섹션 구분 레이블 */
+    .section-label {
+      position: relative;
+      z-index: 1;
+      max-width: 72rem;
+      margin: var(--space-lg) auto 0;
+      padding: 0 var(--space-lg) var(--space-sm);
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      font-weight: 500;
+      color: var(--text-muted);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      gap: var(--space-sm);
+    }
+
+    .section-label::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border-subtle);
+    }
+
+    /* ============================================================
+       7. FOOTER
+    ============================================================ */
+    .site-footer {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      padding: var(--space-lg);
+      border-top: 1px solid var(--border-subtle);
+      color: var(--text-muted);
+      font-size: 0.78rem;
+      font-family: var(--font-mono);
+      letter-spacing: 0.04em;
+    }
+
+    .site-footer strong {
+      background: var(--gradient-neon);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      font-weight: 600;
+    }
+
+    /* ============================================================
+       8. RESPONSIVE: Mobile-first Overrides
+    ============================================================ */
+    @media (max-width: 47.99rem) {
+      .site-header { padding: var(--space-sm) var(--space-md); }
+      .hero { padding: var(--space-lg) var(--space-md) var(--space-md); }
+      .bento-grid { padding: 0 var(--space-md) var(--space-xl); }
+      .section-label { padding: 0 var(--space-md) var(--space-sm); }
+      .stat-number { font-size: 2.2rem; }
+    }
+
+    .marquee-section {
+  padding: 5rem 0;
+  overflow: hidden;
+  position: relative;
+}
+
+.marquee-section::before,
+.marquee-section::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  width: 12rem;
+  height: 100%;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.marquee-section::before {
+  left: 0;
+  background: linear-gradient(to right, var(--bg-base) 0%, transparent 100%);
+}
+
+.marquee-section::after {
+  right: 0;
+  background: linear-gradient(to left, var(--bg-base) 0%, transparent 100%);
+}
+
+.marquee-section .section-header {
+  padding: 0 1.5rem;
+  margin-bottom: 3.5rem;
+}
+
+.marquee-wrapper {
+  overflow: hidden;
+  margin-bottom: 1rem;
+}
+
+.marquee-wrapper--rev {
+  margin-bottom: 0;
+}
+
+.marquee-track {
+  display: flex;
+  width: max-content;
+  will-change: transform;
+}
+
+.marquee-track--fwd {
+  animation: marquee-fwd 38s linear infinite;
+}
+
+.marquee-track--rev {
+  animation: marquee-rev 32s linear infinite;
+}
+
+@keyframes marquee-fwd {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+@keyframes marquee-rev {
+  from { transform: translateX(-50%); }
+  to   { transform: translateX(0); }
+}
+
+.marquee-wrapper:hover .marquee-track {
+  animation-play-state: paused;
+}
+
+.marquee-list {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.5rem 0.375rem;
+  list-style: none;
+  margin: 0;
+  flex-shrink: 0;
+}
+
+.marquee-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.45rem 1.1rem;
+  border-radius: 999px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+  cursor: default;
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease,
+    background 0.25s ease;
+}
+
+.marquee-pill:hover {
+  transform: translateY(-2px) scale(1.04);
+}
+
+.marquee-pill__dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.marquee-pill--cyan {
+  background: rgba(6, 182, 212, 0.07);
+  border: 1px solid rgba(6, 182, 212, 0.35);
+  color: var(--neon-cyan);
+  box-shadow: 0 0 14px rgba(6, 182, 212, 0.08);
+}
+
+.marquee-pill--cyan:hover {
+  background: rgba(6, 182, 212, 0.14);
+  box-shadow: 0 4px 20px rgba(6, 182, 212, 0.2);
+}
+
+.marquee-pill--cyan .marquee-pill__dot {
+  background: var(--neon-cyan);
+  box-shadow: 0 0 5px var(--neon-cyan);
+}
+
+.marquee-pill--purple {
+  background: rgba(168, 85, 247, 0.07);
+  border: 1px solid rgba(168, 85, 247, 0.35);
+  color: var(--neon-purple);
+  box-shadow: 0 0 14px rgba(168, 85, 247, 0.08);
+}
+
+.marquee-pill--purple:hover {
+  background: rgba(168, 85, 247, 0.14);
+  box-shadow: 0 4px 20px rgba(168, 85, 247, 0.2);
+}
+
+.marquee-pill--purple .marquee-pill__dot {
+  background: var(--neon-purple);
+  box-shadow: 0 0 5px var(--neon-purple);
+}
+
+.marquee-pill--default {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: var(--text-muted);
+}
+
+.marquee-pill--default:hover {
+  background: rgba(255, 255, 255, 0.07);
+  border-color: rgba(255, 255, 255, 0.18);
+  color: var(--text-base);
+}
+
+.marquee-pill--default .marquee-pill__dot {
+  background: var(--text-muted);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track--fwd,
+  .marquee-track--rev {
+    animation: none;
+  }
+}
+
+/* ------------------------------------------------------------------
+   섹션 4: FAQ 아코디언 (details/summary)
+   ------------------------------------------------------------------ */
+.faq-section {
+  padding: 5rem 1.5rem 6rem;
+  max-width: 56rem;
+  margin: 0 auto;
+}
+
+.faq-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.faq-item {
+  background: var(--bg-card);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 12px;
+  overflow: hidden;
+  transition:
+    border-color 0.3s ease,
+    box-shadow 0.3s ease;
+  position: relative;
+}
+
+.faq-item::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background: linear-gradient(180deg, var(--neon-cyan), var(--neon-purple));
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  border-radius: 3px 0 0 3px;
+}
+
+.faq-item[open] {
+  border-color: rgba(6, 182, 212, 0.3);
+  box-shadow:
+    0 0 0 1px rgba(6, 182, 212, 0.08),
+    0 8px 32px rgba(6, 182, 212, 0.07);
+}
+
+.faq-item[open]::before {
+  opacity: 1;
+}
+
+.faq-summary {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  padding: 1.15rem 1.25rem;
+  cursor: pointer;
+  list-style: none;
+  user-select: none;
+  -webkit-user-select: none;
+  position: relative;
+}
+
+.faq-summary::-webkit-details-marker {
+  display: none;
+}
+
+.faq-summary::marker {
+  display: none;
+}
+
+.faq-summary:hover {
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.faq-q-label {
+  flex-shrink: 0;
+  width: 1.75rem;
+  height: 1.75rem;
+  border-radius: 6px;
+  background: linear-gradient(135deg,
+    rgba(6, 182, 212, 0.15),
+    rgba(168, 85, 247, 0.15));
+  border: 1px solid rgba(6, 182, 212, 0.25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.72rem;
+  font-weight: 900;
+  letter-spacing: 0.05em;
+  color: var(--neon-cyan);
+  font-family: "JetBrains Mono", monospace;
+  transition: background 0.3s ease, border-color 0.3s ease;
+}
+
+.faq-item[open] .faq-q-label {
+  background: linear-gradient(135deg,
+    rgba(6, 182, 212, 0.25),
+    rgba(168, 85, 247, 0.2));
+  border-color: rgba(168, 85, 247, 0.4);
+  color: var(--neon-purple);
+}
+
+.faq-question {
+  flex: 1;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--text-base);
+  line-height: 1.5;
+  transition: color 0.25s ease;
+}
+
+.faq-item[open] .faq-question {
+  background: linear-gradient(90deg, var(--neon-cyan), var(--neon-purple));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* 열림/닫힘 아이콘 — ::before(세로선) + ::after(가로선) → + 모양, 열리면 x로 회전 */
+.faq-icon {
+  flex-shrink: 0;
+  width: 1.5rem;
+  height: 1.5rem;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.35s ease;
+}
+
+.faq-icon::before,
+.faq-icon::after {
+  content: "";
+  position: absolute;
+  background: var(--text-muted);
+  border-radius: 2px;
+  transition:
+    transform 0.35s ease,
+    background 0.3s ease;
+}
+
+.faq-icon::before {
+  width: 2px;
+  height: 12px;
+}
+
+.faq-icon::after {
+  width: 12px;
+  height: 2px;
+}
+
+.faq-item[open] .faq-icon::before {
+  transform: rotate(45deg);
+  background: var(--neon-cyan);
+}
+
+.faq-item[open] .faq-icon::after {
+  transform: rotate(45deg);
+  background: var(--neon-cyan);
+}
+
+.faq-item[open] .faq-icon {
+  transform: rotate(45deg);
+}
+
+.faq-answer {
+  padding: 0 1.25rem 1.25rem 1.25rem;
+  padding-left: calc(1.25rem + 1.75rem + 0.85rem);
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  margin-top: 0;
+}
+
+.faq-answer p {
+  font-size: 0.875rem;
+  color: var(--text-muted);
+  line-height: 1.8;
+  margin: 0.9rem 0 1rem;
+}
+
+.faq-strong {
+  color: var(--text-base);
+  font-weight: 600;
+}
+
+.faq-tag-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+@media (max-width: 36rem) {
+  .faq-answer {
+    padding-left: 1.25rem;
+  }
+
+  .faq-question {
+    font-size: 0.875rem;
+  }
+}
+
+.table-section {
+  padding: 5rem 1.5rem;
+}
+
+.table-section__inner {
+  max-width: 72rem;
+  margin: 0 auto;
+}
+
+.table-wrapper {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  box-shadow: 0 0 0 1px rgba(6, 182, 212, 0.06), 0 24px 60px rgba(0, 0, 0, 0.4);
+  margin-bottom: 1.5rem;
+}
+
+.model-table {
+  width: 100%;
+  min-width: 680px;
+  border-collapse: collapse;
+  background: var(--bg-card);
+  font-size: 0.875rem;
+}
+
+.model-table__th {
+  padding: 0.9rem 1.2rem;
+  text-align: left;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  background: linear-gradient(90deg, rgba(6, 182, 212, 0.12) 0%, rgba(168, 85, 247, 0.1) 60%, rgba(6, 182, 212, 0.06) 100%);
+  color: var(--text-base);
+  border-bottom: 1px solid rgba(6, 182, 212, 0.2);
+  position: relative;
+}
+
+.model-table__th::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(90deg, var(--neon-cyan), var(--neon-purple));
+  opacity: 0.6;
+}
+
+.model-table__th--model {
+  min-width: 180px;
+}
+
+.model-table__td {
+  padding: 1rem 1.2rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+  color: var(--text-muted);
+  vertical-align: middle;
+  transition: background 0.25s ease;
+}
+
+.model-table__row {
+  transition: background 0.25s ease;
+}
+
+.model-table__row:hover .model-table__td {
+  background: rgba(6, 182, 212, 0.05);
+}
+
+.model-table__row:hover .model-table__td--model {
+  background: rgba(6, 182, 212, 0.08);
+}
+
+.model-table__row:last-child .model-table__td {
+  border-bottom: none;
+}
+
+.model-name-wrap {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+}
+
+.model-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.model-dot--green {
+  background: #22c55e;
+  box-shadow: 0 0 6px #22c55e99;
+}
+
+.model-dot--cyan {
+  background: var(--neon-cyan);
+  box-shadow: 0 0 6px var(--neon-cyan);
+}
+
+.model-dot--yellow {
+  background: #f59e0b;
+  box-shadow: 0 0 6px #f59e0b99;
+}
+
+.model-dot--purple {
+  background: var(--neon-purple);
+  box-shadow: 0 0 6px var(--neon-purple);
+}
+
+.model-name {
+  display: block;
+  font-weight: 700;
+  font-size: 0.88rem;
+  color: var(--text-base);
+  white-space: nowrap;
+}
+
+.model-name--highlight {
+  background: linear-gradient(90deg, var(--neon-cyan), var(--neon-purple));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.model-maker {
+  display: block;
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  margin-top: 0.1rem;
+  opacity: 0.7;
+}
+
+.ctx-badge {
+  display: inline-block;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 0.2rem 0.55rem;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: var(--text-base);
+}
+
+.ctx-badge--cyan {
+  border-color: rgba(6, 182, 212, 0.35);
+  color: var(--neon-cyan);
+  background: rgba(6, 182, 212, 0.08);
+}
+
+.ctx-badge--yellow {
+  border-color: rgba(245, 158, 11, 0.35);
+  color: #fbbf24;
+  background: rgba(245, 158, 11, 0.08);
+}
+
+.ctx-badge--purple {
+  border-color: rgba(168, 85, 247, 0.35);
+  color: var(--neon-purple);
+  background: rgba(168, 85, 247, 0.08);
+}
+
+.tag-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem;
+}
+
+.tag {
+  font-size: 0.67rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 0.18rem 0.5rem;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+
+.tag--blue {
+  background: rgba(59, 130, 246, 0.1);
+  border: 1px solid rgba(59, 130, 246, 0.3);
+  color: #60a5fa;
+}
+
+.tag--purple {
+  background: rgba(168, 85, 247, 0.1);
+  border: 1px solid rgba(168, 85, 247, 0.3);
+  color: var(--neon-purple);
+}
+
+.tag--cyan {
+  background: rgba(6, 182, 212, 0.1);
+  border: 1px solid rgba(6, 182, 212, 0.3);
+  color: var(--neon-cyan);
+}
+
+.tag--yellow {
+  background: rgba(245, 158, 11, 0.1);
+  border: 1px solid rgba(245, 158, 11, 0.3);
+  color: #fbbf24;
+}
+
+.tag--green {
+  background: rgba(34, 197, 94, 0.1);
+  border: 1px solid rgba(34, 197, 94, 0.3);
+  color: #4ade80;
+}
+
+.check-icon {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-size: 0.78rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.check-icon--yes {
+  color: #4ade80;
+}
+
+.check-icon--no {
+  color: #f87171;
+}
+
+.speed-bar-wrap {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.speed-bar {
+  width: 70px;
+  height: 5px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.07);
+  overflow: hidden;
+}
+
+/* -----------------------------------------------------------   섹션 7: 3D Flip Cards   ----------------------------------------------------------- */.flip-section {  padding: 5rem 1.5rem;}
+.flip-section__inner {  max-width: 72rem;  margin: 0 auto;}
+/* 4열 그리드 */.flip-grid {  display: grid;  grid-template-columns: repeat(4, 1fr);  gap: 1.5rem;}
+@media (max-width: 64rem) {  .flip-grid { grid-template-columns: repeat(2, 1fr); }}
+@media (max-width: 36rem) {  .flip-grid { grid-template-columns: 1fr; }}
+/* 3D 뷰포트 컨테이너 */.flip-card {  perspective: 1000px;  height: 320px;  cursor: pointer;}
+/* 내부 래퍼 — 실제 회전 대상 */.flip-card__inner {  position: relative;  width: 100%;  height: 100%;  transform-style: preserve-3d;  transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);}
+/* hover 시 180도 Y축 회전 */.flip-card:hover .flip-card__inner {  transform: rotateY(180deg);}
+/* 앞면 / 뒷면 공통 */.flip-card__face {  position: absolute;  inset: 0;  border-radius: 16px;  padding: 1.75rem 1.5rem;  backface-visibility: hidden;  -webkit-backface-visibility: hidden;  display: flex;  flex-direction: column;  align-items: flex-start;  gap: 0;  overflow: hidden;}
+/* ------ 앞면 (Front) — 붉은 톤 ------ */.flip-card__face--front {  background: #160d0d;  border: 1px solid rgba(239, 68, 68, 0.25);  box-shadow:    inset 0 0 60px rgba(239, 68, 68, 0.05),    0 8px 32px rgba(0, 0, 0, 0.4);}
+/* 앞면 배경 패턴 — 미묘한 그리드 */.flip-card__face--front::before {  content: "";  position: absolute;  inset: 0;  background-image:    linear-gradient(rgba(239, 68, 68, 0.04) 1px, transparent 1px),    linear-gradient(90deg, rgba(239, 68, 68, 0.04) 1px, transparent 1px);  background-size: 24px 24px;  border-radius: 16px;  pointer-events: none;}
+.flip-card__mistake-badge {  font-size: 0.62rem;  font-weight: 800;  letter-spacing: 0.15em;  text-transform: uppercase;  color: #f87171;  background: rgba(239, 68, 68, 0.12);  border: 1px solid rgba(239, 68, 68, 0.3);  padding: 0.2rem 0.6rem;  border-radius: 999px;  margin-bottom: 1.1rem;  position: relative;  z-index: 1;}
+.flip-card__front-icon {  color: rgba(239, 68, 68, 0.7);  margin-bottom: 0.85rem;  position: relative;  z-index: 1;}
+.flip-card__front-title {  font-size: 1.05rem;  font-weight: 700;  color: #fca5a5;  margin-bottom: 0.65rem;  position: relative;  z-index: 1;  line-height: 1.3;}
+.flip-card__front-desc {  font-size: 0.8rem;  color: rgba(239, 68, 68, 0.55);  line-height: 1.7;  position: relative;  z-index: 1;  flex: 1;}
+.flip-card__hint {  margin-top: auto;  font-size: 0.68rem;  color: rgba(239, 68, 68, 0.35);  letter-spacing: 0.05em;  position: relative;  z-index: 1;  display: flex;  align-items: center;  gap: 0.3rem;}
+.flip-card__hint::before {  content: "";  display: inline-block;  width: 16px;  height: 1px;  background: rgba(239, 68, 68, 0.3);}
+/* ------ 뒷면 (Back) — 네온 시안/퍼플 톤 ------ */.flip-card__face--back {  background: #080f1a;  border: 1px solid rgba(6, 182, 212, 0.3);  box-shadow:    inset 0 0 60px rgba(6, 182, 212, 0.05),    0 8px 32px rgba(0, 0, 0, 0.5),    0 0 0 1px rgba(168, 85, 247, 0.08);  transform: rotateY(180deg); /* 뒷면은 처음부터 뒤집힌 상태 */}
+/* 뒷면 네온 그라디언트 테두리 효과 */.flip-card__face--back::before {  content: "";  position: absolute;  inset: -1px;  border-radius: 17px;  background: linear-gradient(135deg, var(--neon-cyan), var(--neon-purple));  z-index: -1;  opacity: 0.25;}
+/* 뒷면 배경 패턴 */.flip-card__face--back::after {  content: "";  position: absolute;  inset: 0;  background:    radial-gradient(ellipse 80% 60% at 50% 0%, rgba(6, 182, 212, 0.07) 0%, transparent 60%);  border-radius: 16px;  pointer-events: none;}
+.flip-card__solution-badge {  font-size: 0.62rem;  font-weight: 800;  letter-spacing: 0.15em;  text-transform: uppercase;  background: linear-gradient(90deg, var(--neon-cyan), var(--neon-purple));  -webkit-background-clip: text;  -webkit-text-fill-color: transparent;  background-clip: text;  border: 1px solid rgba(6, 182, 212, 0.3);  padding: 0.2rem 0.6rem;  border-radius: 999px;  margin-bottom: 1.1rem;  position: relative;  z-index: 1;  /* 그라디언트 텍스트에 배경색 분리 */  background-color: rgba(6, 182, 212, 0.08);}
+.flip-card__back-icon {  color: var(--neon-cyan);  margin-bottom: 0.85rem;  position: relative;  z-index: 1;}
+.flip-card__back-title {  font-size: 1.05rem;  font-weight: 700;  color: var(--text-base);  margin-bottom: 0.65rem;  position: relative;  z-index: 1;  line-height: 1.3;}
+.flip-card__back-desc {  font-size: 0.8rem;  color: var(--text-muted);  line-height: 1.75;  position: relative;  z-index: 1;  flex: 1;}
+.flip-card__code {  margin-top: auto;  display: block;  font-family: "JetBrains Mono", "Fira Code", monospace;  font-size: 0.72rem;  color: var(--neon-cyan);  background: rgba(6, 182, 212, 0.08);  border: 1px solid rgba(6, 182, 212, 0.2);  border-left: 2px solid var(--neon-purple);  padding: 0.35rem 0.65rem;  border-radius: 5px;  position: relative;  z-index: 1;  white-space: nowrap;}
+
+/* =====================================================   섹션 8: 이미지 프롬프트 갤러리 (완전 재구축본)   - inset: 0 절대 미사용   - z-index 3단계 명확 분리   - 클래스 접두사 s8- 로 기존 스타일 충돌 차단   ===================================================== */
+/* --- 섹션 래퍼 --- */.s8-gallery-section {  padding: 5rem 0 0;  overflow: hidden;}
+/* --- 섹션 헤더 --- */.s8-header {  max-width: 72rem;  margin: 0 auto;  padding: 0 1.5rem;  text-align: center;  margin-bottom: 3.5rem;}
+/* =====================================================   아코디언 컨테이너   ===================================================== */.s8-accordion {  display: flex;  flex-direction: row;    /* 가로 배치 */  width: 100%;  height: 500px;          /* 고정 높이 */  gap: 4px;}
+/* =====================================================   각 패널 공통   ===================================================== */.s8-panel {  flex: 1;                /* 기본: 균등 분할 */  min-width: 56px;        /* 접혔을 때 최소 너비 */  position: relative;     /* 자식 absolute의 기준점 */  overflow: hidden;  cursor: pointer;  border-radius: 4px;  transition: flex 0.6s cubic-bezier(0.4, 0, 0.2, 1);}
+/* 나머지 패널은 좁아지고 */.s8-accordion:hover .s8-panel {  flex: 0.35;}
+/* 호버된 패널만 넓어짐 */.s8-accordion .s8-panel:hover {  flex: 4;}
+/* =====================================================   레이어 1: 배경 이미지 (z-index: 1)   inset 미사용 — top/left/width/height 명시   ===================================================== */.s8-panel__bg {  position: absolute;  top: 0;  left: 0;  width: 100%;  height: 100%;  z-index: 1;             /* 가장 아래 */
+  background-size: cover;  background-position: center;  background-repeat: no-repeat;
+  transform: scale(1.08);  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);}
+.s8-panel:hover .s8-panel__bg {  transform: scale(1);    /* 호버 시 확대 풀림 */}
+/* =====================================================   레이어 2: 그라디언트 오버레이 (z-index: 2)   inset 미사용 — top/left/width/height 명시   이미지가 보이도록 상단은 transparent 유지   ===================================================== */.s8-panel__overlay {  position: absolute;  top: 0;  left: 0;  width: 100%;  height: 100%;  z-index: 2;             /* 이미지 위 */  pointer-events: none;   /* 클릭·hover 이벤트 통과 */
+  /* 하단 어둠 → 상단 완전 투명 */  background: linear-gradient(    to top,    rgba(6, 10, 22, 0.93) 0%,    rgba(6, 10, 22, 0.55) 35%,    rgba(6, 10, 22, 0.15) 60%,    transparent 100%  );  transition: background 0.4s ease;}
+.s8-panel:hover .s8-panel__overlay {  background: linear-gradient(    to top,    rgba(6, 10, 22, 0.97) 0%,    rgba(6, 10, 22, 0.65) 42%,    rgba(6, 10, 22, 0.18) 68%,    transparent 100%  );}
+/* =====================================================   레이어 3-A: 인덱스 번호 (z-index: 3)   ===================================================== */.s8-panel__index {  position: absolute;  top: 1.2rem;  left: 50%;  transform: translateX(-50%);  z-index: 3;             /* 텍스트 레이어 */
+  font-size: 0.65rem;  font-weight: 700;  letter-spacing: 0.2em;  color: rgba(255, 255, 255, 0.35);  white-space: nowrap;
+  transition: opacity 0.3s ease;}
+.s8-panel:hover .s8-panel__index {  opacity: 0;             /* 호버 시 숨김 */}
+/* =====================================================   레이어 3-B: 하단 텍스트 콘텐츠 (z-index: 3)   ===================================================== */.s8-panel__content {  position: absolute;  bottom: 0;  left: 0;  right: 0;  padding: 1.5rem 1.4rem 1.75rem;  z-index: 3;             /* 텍스트 레이어 */
+  display: flex;  flex-direction: column;  gap: 0.45rem;}
+/* -- 스타일 태그 뱃지 -- */.s8-panel__tag {  display: inline-block;  width: fit-content;  font-size: 0.6rem;  font-weight: 800;  letter-spacing: 0.14em;  text-transform: uppercase;  padding: 0.18rem 0.55rem;  border-radius: 999px;  background: linear-gradient(    90deg,    rgba(6, 182, 212, 0.2),    rgba(168, 85, 247, 0.2)  );  border: 1px solid rgba(6, 182, 212, 0.4);  color: var(--neon-cyan);
+  /* 기본: 숨김 */  opacity: 0;  transform: translateY(8px);  transition:    opacity  0.35s ease 0.12s,    transform 0.35s ease 0.12s;}
+.s8-panel:hover .s8-panel__tag {  opacity: 1;  transform: translateY(0);}
+/* -- 패널 제목 -- */.s8-panel__title {  font-size: 1.1rem;  font-weight: 700;  color: var(--text-base);  line-height: 1.2;  white-space: nowrap;  overflow: hidden;  text-overflow: ellipsis;
+  opacity: 0;  transform: translateY(10px);  transition:    opacity  0.35s ease 0.2s,    transform 0.35s ease 0.2s;}
+.s8-panel:hover .s8-panel__title {  opacity: 1;  transform: translateY(0);}
+/* -- 프롬프트 텍스트 래퍼 -- */.s8-panel__prompt-wrap {  opacity: 0;  transform: translateY(14px);  transition:    opacity  0.4s ease 0.28s,    transform 0.4s ease 0.28s;}
+.s8-panel:hover .s8-panel__prompt-wrap {  opacity: 1;  transform: translateY(0);}
+.s8-panel__prompt-label {  font-size: 0.58rem;  font-weight: 800;  letter-spacing: 0.2em;  color: var(--neon-purple);  margin-bottom: 0.3rem;}
+.s8-panel__prompt-text {  font-family: "JetBrains Mono", "Fira Code", monospace;  font-size: 0.71rem;  color: rgba(148, 163, 184, 0.8);  line-height: 1.68;  /* 3줄 초과 시 말줄임 */  display: -webkit-box; -webkit-box-orient: vertical;  overflow: hidden;}
+/* -- 패널 사이 구분선 -- */.s8-panel + .s8-panel {  border-left: 1px solid rgba(255, 255, 255, 0.05);}
+/* =====================================================   반응형: 모바일 (768px 이하)   세로 배치 + 높이 자동   ===================================================== */@media (max-width: 48rem) {  .s8-accordion {    flex-direction: column;    height: auto;  }
+  .s8-panel {    flex: none;    height: 180px;        /* 모바일에서 각 패널 고정 높이 */    min-width: unset;  }
+  /* 모바일: hover 효과 비활성 (터치 환경 고려) */  .s8-accordion:hover .s8-panel {    flex: none;  }
+  .s8-accordion .s8-panel:hover {    flex: none;    height: 320px;        /* 터치·호버 시 높이만 확장 */  }
+  .s8-panel + .s8-panel {    border-left: none;    border-top: 1px solid rgba(255, 255, 255, 0.05);  }}
+/* =====================================================   /섹션 8 끝   ===================================================== */
+
+  </style>
+</head>
+
+<body>
+  <header class="nav-header">
+  <div class="nav-inner">
+
+    <!-- 왼쪽: 로고 -->
+    <a href="#" class="nav-logo">
+      <span class="nav-logo__bracket">[</span>
+      Prompt Lab
+      <span class="nav-logo__bracket">]</span>
+    </a>
+
+    <!-- 오른쪽: 링크 목록 -->
+    <ul class="nav-links">
+      <li>
+        <a href="#section-anatomy" class="nav-link">
+          <span class="nav-link__dot"></span>
+          프롬프트 해부학
+        </a>
+      </li>
+      <li>
+        <a href="#section-gallery" class="nav-link">
+          <span class="nav-link__dot"></span>
+          비교 갤러리
+        </a>
+      </li>
+      <li>
+        <a href="#section-mistakes" class="nav-link">
+          <span class="nav-link__dot"></span>
+          자주 하는 실수
+        </a>
+      </li>
+      <li>
+        <a href="#section-image" class="nav-link nav-link--accent">
+          <span class="nav-link__dot"></span>
+          이미지 프롬프트
+        </a>
+      </li>
+    </ul>
+
+  </div>
+</header>
+  <!-- =====================================================
+       HEADER: Glassmorphism Sticky Nav
+  ====================================================== -->
+  <header class="site-header" role="banner">
+    <div class="header-logo" aria-label="Prompt Engineering Lab 로고">
+      <div class="logo-icon" aria-hidden="true">
+        <!-- SVG: 터미널 아이콘 -->
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <polyline points="4 17 10 11 4 5"></polyline>
+          <line x1="12" y1="19" x2="20" y2="19"></line>
+        </svg>
+      </div>
+      <span class="logo-text">Prompt<span> Lab</span></span>
+    </div>
+    <div class="header-meta">
+      <span class="header-badge">
+        <span class="status-dot" aria-hidden="true"></span>
+        Active Session
+      </span>
+      <span class="header-badge">v2.4.0</span>
+    </div>
+  </header>
+
+  <!-- =====================================================
+       MAIN CONTENT
+  ====================================================== -->
+  <main role="main">
+
+    <!-- HERO -->
+    <section class="hero" aria-labelledby="hero-heading">
+      <p class="hero-eyebrow" aria-label="섹션 카테고리">Prompt Engineering Lab</p>
+      <h1 class="hero-title" id="hero-heading">
+        AI와 대화하는<br />
+        <span class="gradient-word">과학적 기법</span>들
+      </h1>
+      <p class="hero-description">
+        프롬프트 엔지니어링은 대형 언어 모델(LLM)이 원하는 결과를 생성하도록
+        입력 텍스트를 설계하고 최적화하는 체계적인 방법론입니다.
+        핵심 기법들을 실험하고 패턴을 발견해 보세요.
+      </p>
+    </section>
+
+    <!-- SECTION LABEL -->
+    <p class="section-label" aria-hidden="true">Core Techniques // 7 Methods</p>
+
+    <!-- BENTO GRID -->
+    <section id="section-anatomy" class="bento-grid" aria-label="프롬프트 엔지니어링 기법 카드 목록">
+
+      <!-- ───────────────────────────────────────────
+           Card 01: Zero-Shot Prompting [WIDE: span 2]
+      ─────────────────────────────────────────── -->
+      <article class="prompt-card card--wide" aria-label="Zero-Shot Prompting 카드">
+        <div class="card-header">
+          <div>
+            <h2 class="card-title">Zero-Shot Prompting</h2>
+            <p class="card-description" style="margin-top: 0.4rem;">
+              모델에게 예시를 전혀 제공하지 않고 지시만으로 태스크를 수행시키는 가장 기본적인 기법입니다.
+              LLM의 사전 학습 지식에 전적으로 의존합니다.
+            </p>
+          </div>
+          <span class="badge badge--technique">Technique</span>
+        </div>
+        <div class="card-divider" aria-hidden="true"></div>
+        <code class="card-code" aria-label="Zero-Shot 프롬프트 예시">
+<span class="token-prompt">PROMPT  &gt;</span> <span class="token-value">다음 영화 리뷰의 감정을 긍정/부정으로 분류하시오.</span>
+<span class="token-prompt">REVIEW  &gt;</span> <span class="token-value">"이 영화는 시간 낭비였다. 스토리가 너무 진부했다."</span>
+<span class="token-prompt">OUTPUT  &gt;</span> <span class="token-role">부정 (Negative)</span></code>
+        <div class="card-footer">
+          <span class="card-level">Level: Beginner</span>
+          <div class="tag-group" style="margin-top: 0;">
+            <span class="tag">NLP</span>
+            <span class="tag">Classification</span>
+            <span class="tag">Sentiment</span>
+          </div>
+        </div>
+      </article>
+
+      <!-- ───────────────────────────────────────────
+           Card 02: Chain-of-Thought [TALL: row span 2]
+      ─────────────────────────────────────────── -->
+      <article class="prompt-card card--tall" aria-label="Chain-of-Thought 카드">
+        <div class="card-header">
+          <div class="card-icon-box cyan" aria-hidden="true">
+            <svg viewBox="0 0 24 24">
+              <path d="M9 18h6M12 2v4M6.34 6.34l2.83 2.83M2 12h4M17.66 6.34l-2.83 2.83M22 12h-4M6.34 17.66l2.83-2.83M17.66 17.66l-2.83-2.83"></path>
+            </svg>
+          </div>
+          <span class="badge badge--advanced">Advanced</span>
+        </div>
+        <h2 class="card-title">Chain-of-Thought</h2>
+        <p class="card-description">
+          "Step by step으로 생각하시오"라는 지시를 포함하여, 모델이 최종 답변을 내리기 전
+          중간 추론 과정을 명시적으로 생성하도록 유도합니다.
+          복잡한 수학 문제나 다단계 논리 문제에 탁월한 성능을 발휘합니다.
+        </p>
+        <div class="card-divider" aria-hidden="true"></div>
+        <code class="card-code" style="border-left-color: var(--neon-mid);" aria-label="CoT 프롬프트 예시">
+<span class="token-role">단계별로 추론하시오.</span>
+<span class="token-prompt">Q:</span> <span class="token-value">사과 5개에서 2개를 먹고,
+   친구에게 1개를 주면?</span>
+<span class="token-prompt">A:</span> <span class="token-value">1단계: 5 - 2 = 3개 남음
+2단계: 3 - 1 = 2개 남음
+   최종 답: 2개</span></code>
+        <div class="progress-group">
+          <div class="progress-item">
+            <span class="progress-label">정확도 향상</span>
+            <div class="progress-bar-track" role="progressbar" aria-valuenow="88" aria-valuemin="0" aria-valuemax="100" aria-label="정확도 향상 88%">
+              <div class="progress-bar-fill" style="width: 88%;"></div>
+            </div>
+          </div>
+          <div class="progress-item">
+            <span class="progress-label">복잡도 대응</span>
+            <div class="progress-bar-track" role="progressbar" aria-valuenow="95" aria-valuemin="0" aria-valuemax="100" aria-label="복잡도 대응 95%">
+              <div class="progress-bar-fill" style="width: 95%;"></div>
+            </div>
+          </div>
+          <div class="progress-item">
+            <span class="progress-label">설명 가능성</span>
+            <div class="progress-bar-track" role="progressbar" aria-valuenow="72" aria-valuemin="0" aria-valuemax="100" aria-label="설명 가능성 72%">
+              <div class="progress-bar-fill" style="width: 72%;"></div>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- ───────────────────────────────────────────
+           Card 03: Few-Shot Learning [NORMAL]
+      ─────────────────────────────────────────── -->
+      <article class="prompt-card" aria-label="Few-Shot Learning 카드">
+        <div class="card-header">
+          <div class="card-icon-box purple" aria-hidden="true">
+            <svg viewBox="0 0 24 24">
+              <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+              <line x1="8" y1="21" x2="16" y2="21"></line>
+              <line x1="12" y1="17" x2="12" y2="21"></line>
+            </svg>
+          </div>
+          <span class="badge badge--method">Method</span>
+        </div>
+        <h2 class="card-title">Few-Shot Learning</h2>
+        <p class="card-description">
+          소수의 입출력 예시(shots)를 프롬프트에 포함하여 모델이 원하는 패턴과 형식을 학습하도록 합니다.
+        </p>
+        <div class="tag-group">
+          <span class="tag">1-shot</span>
+          <span class="tag">3-shot</span>
+          <span class="tag">5-shot</span>
+          <span class="tag">In-Context</span>
+        </div>
+      </article>
+
+      <!-- ───────────────────────────────────────────
+           Card 04: Stat Card [NORMAL]
+      ─────────────────────────────────────────── -->
+      <article class="prompt-card" aria-label="통계 카드: 핵심 기법 수">
+        <p class="stat-number" aria-label="12가지">12</p>
+        <p class="stat-label">Core Prompting<br />Techniques</p>
+        <div class="card-divider" aria-hidden="true"></div>
+        <p class="card-description" style="font-size: 0.8rem;">
+          Zero-shot부터 Self-Consistency까지,
+          체계적으로 정리된 핵심 기법들.
+        </p>
+      </article>
+
+      <!-- ───────────────────────────────────────────
+           Card 05: Role Prompting [WIDE: span 2]
+      ─────────────────────────────────────────── -->
+      <article class="prompt-card card--wide" aria-label="Role Prompting 카드">
+        <div class="card-header">
+          <div>
+            <h2 class="card-title">Role Prompting (Persona)</h2>
+            <p class="card-description" style="margin-top: 0.4rem;">
+              모델에게 특정 전문가 역할이나 페르소나를 부여하여 해당 관점에서 응답하도록 유도합니다.
+              "당신은 10년 경력의 보안 전문가입니다"와 같은 시스템 프롬프트가 대표적입니다.
+            </p>
+          </div>
+          <span class="badge badge--technique">Technique</span>
+        </div>
+        <div class="card-divider" aria-hidden="true"></div>
+        <code class="card-code" style="border-left-color: var(--neon-purple);" aria-label="Role Prompting 예시">
+<span class="token-role">SYSTEM:</span> <span class="token-value">당신은 15년 경력의 사이버 보안 전문가입니다.
+        기술적 정확성과 명확한 설명을 최우선으로 합니다.</span>
+<span class="token-prompt">USER  :</span> <span class="token-value">SQL Injection 공격 원리를 초보자에게 설명해 주세요.</span></code>
+      </article>
+
+      <!-- ───────────────────────────────────────────
+           Card 06: Output Formatting [NORMAL]
+      ─────────────────────────────────────────── -->
+      <article class="prompt-card" aria-label="Output Formatting 카드">
+        <div class="card-header">
+          <div class="card-icon-box mid" aria-hidden="true">
+            <svg viewBox="0 0 24 24">
+              <line x1="21" y1="10" x2="3" y2="10"></line>
+              <line x1="21" y1="6"  x2="3" y2="6"></line>
+              <line x1="21" y1="14" x2="3" y2="14"></line>
+              <line x1="21" y1="18" x2="7" y2="18"></line>
+            </svg>
+          </div>
+          <span class="badge badge--advanced">Format</span>
+        </div>
+        <h2 class="card-title">Output Formatting</h2>
+        <p class="card-description">
+          JSON, Markdown, XML 등 원하는 출력 형식을 명시적으로 지정합니다. 구조화된 데이터 추출에 필수적입니다.
+        </p>
+        <div class="tag-group">
+          <span class="tag">JSON</span>
+          <span class="tag">Markdown</span>
+          <span class="tag">XML</span>
+          <span class="tag">CSV</span>
+        </div>
+      </article>
+
+      <!-- ───────────────────────────────────────────
+           Card 07: Self-Consistency [NORMAL]
+      ─────────────────────────────────────────── -->
+      <article class="prompt-card" aria-label="Self-Consistency 카드">
+        <div class="card-header">
+          <div class="card-icon-box neutral" aria-hidden="true">
+            <svg viewBox="0 0 24 24">
+              <polyline points="1 4 1 10 7 10"></polyline>
+              <path d="M3.51 15a9 9 0 1 0 .49-3.51"></path>
+            </svg>
+          </div>
+          <span class="badge badge--neutral">Reliability</span>
+        </div>
+        <h2 class="card-title">Self-Consistency</h2>
+        <p class="card-description">
+          동일한 프롬프트를 여러 번 실행하고 다수결 투표로 가장 일관된 답을 선택해 신뢰도를 높입니다.
+        </p>
+        <div class="progress-group">
+          <div class="progress-item">
+            <span class="progress-label">신뢰도</span>
+            <div class="progress-bar-track" role="progressbar" aria-valuenow="92" aria-valuemin="0" aria-valuemax="100" aria-label="신뢰도 92%">
+              <div class="progress-bar-fill" style="width: 92%;"></div>
+            </div>
+          </div>
+        </div>
+      </article>
+
+    </section>
+    <!-- END BENTO GRID -->
+
+  </main>
+
+  <!-- =====================================================
+       FOOTER
+  ====================================================== -->
+  <section class="marquee-section" aria-label="프롬프트 엔지니어링 적용 분야">
+
+  <div class="section-header">
+    <p class="section-eyebrow">Applications</p>
+    <h2 class="section-title">
+      활용되는 모든 곳
+    </h2>
+    <p class="section-desc">
+      프롬프트 엔지니어링은 특정 분야에 국한되지 않습니다.<br>
+      생각할 수 있는 모든 창작·분석·개발 영역에 적용됩니다.
+    </p>
+  </div>
+
+  <!-- 트랙 1: 왼쪽 → 오른쪽으로 흐름 -->
+  <div class="marquee-wrapper" aria-hidden="true">
+    <div class="marquee-track marquee-track--fwd">
+      <!-- 원본 세트 -->
+      <ul class="marquee-list">
+        <li class="marquee-pill marquee-pill--cyan">
+          <span class="marquee-pill__dot"></span>Code Generation
+        </li>
+        <li class="marquee-pill marquee-pill--purple">
+          <span class="marquee-pill__dot"></span>Creative Writing
+        </li>
+        <li class="marquee-pill marquee-pill--cyan">
+          <span class="marquee-pill__dot"></span>Data Analysis
+        </li>
+        <li class="marquee-pill marquee-pill--default">
+          <span class="marquee-pill__dot"></span>Translation
+        </li>
+        <li class="marquee-pill marquee-pill--purple">
+          <span class="marquee-pill__dot"></span>Sentiment Analysis
+        </li>
+        <li class="marquee-pill marquee-pill--cyan">
+          <span class="marquee-pill__dot"></span>Image Captioning
+        </li>
+        <li class="marquee-pill marquee-pill--default">
+          <span class="marquee-pill__dot"></span>Summarization
+        </li>
+        <li class="marquee-pill marquee-pill--purple">
+          <span class="marquee-pill__dot"></span>SQL Querying
+        </li>
+        <li class="marquee-pill marquee-pill--cyan">
+          <span class="marquee-pill__dot"></span>Chatbot Design
+        </li>
+        <li class="marquee-pill marquee-pill--default">
+          <span class="marquee-pill__dot"></span>Persona Crafting
+        </li>
+      </ul>
+      <!-- 무한 루프용 복제 세트 (aria-hidden으로 스크린리더 제외) -->
+      <ul class="marquee-list" aria-hidden="true">
+        <li class="marquee-pill marquee-pill--cyan">
+          <span class="marquee-pill__dot"></span>Code Generation
+        </li>
+        <li class="marquee-pill marquee-pill--purple">
+          <span class="marquee-pill__dot"></span>Creative Writing
+        </li>
+        <li class="marquee-pill marquee-pill--cyan">
+          <span class="marquee-pill__dot"></span>Data Analysis
+        </li>
+        <li class="marquee-pill marquee-pill--default">
+          <span class="marquee-pill__dot"></span>Translation
+        </li>
+        <li class="marquee-pill marquee-pill--purple">
+          <span class="marquee-pill__dot"></span>Sentiment Analysis
+        </li>
+        <li class="marquee-pill marquee-pill--cyan">
+          <span class="marquee-pill__dot"></span>Image Captioning
+        </li>
+        <li class="marquee-pill marquee-pill--default">
+          <span class="marquee-pill__dot"></span>Summarization
+        </li>
+        <li class="marquee-pill marquee-pill--purple">
+          <span class="marquee-pill__dot"></span>SQL Querying
+        </li>
+        <li class="marquee-pill marquee-pill--cyan">
+          <span class="marquee-pill__dot"></span>Chatbot Design
+        </li>
+        <li class="marquee-pill marquee-pill--default">
+          <span class="marquee-pill__dot"></span>Persona Crafting
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- 트랙 2: 오른쪽 → 왼쪽으로 흐름 (역방향) -->
+  <div class="marquee-wrapper marquee-wrapper--rev" aria-hidden="true">
+    <div class="marquee-track marquee-track--rev">
+      <ul class="marquee-list">
+        <li class="marquee-pill marquee-pill--purple">
+          <span class="marquee-pill__dot"></span>Legal Document Review
+        </li>
+        <li class="marquee-pill marquee-pill--cyan">
+          <span class="marquee-pill__dot"></span>Medical Triage
+        </li>
+        <li class="marquee-pill marquee-pill--default">
+          <span class="marquee-pill__dot"></span>Education Tutoring
+        </li>
+        <li class="marquee-pill marquee-pill--cyan">
+          <span class="marquee-pill__dot"></span>SEO Optimization
+        </li>
+        <li class="marquee-pill marquee-pill--purple">
+          <span class="marquee-pill__dot"></span>Product Descriptions
+        </li>
+        <li class="marquee-pill marquee-pill--default">
+          <span class="marquee-pill__dot"></span>Bug Debugging
+        </li>
+        <li class="marquee-pill marquee-pill--cyan">
+          <span class="marquee-pill__dot"></span>API Documentation
+        </li>
+        <li class="marquee-pill marquee-pill--purple">
+          <span class="marquee-pill__dot"></span>UX Copywriting
+        </li>
+        <li class="marquee-pill marquee-pill--default">
+          <span class="marquee-pill__dot"></span>Research Synthesis
+        </li>
+        <li class="marquee-pill marquee-pill--cyan">
+          <span class="marquee-pill__dot"></span>Game Narrative
+        </li>
+      </ul>
+      <ul class="marquee-list" aria-hidden="true">
+        <li class="marquee-pill marquee-pill--purple">
+          <span class="marquee-pill__dot"></span>Legal Document Review
+        </li>
+        <li class="marquee-pill marquee-pill--cyan">
+          <span class="marquee-pill__dot"></span>Medical Triage
+        </li>
+        <li class="marquee-pill marquee-pill--default">
+          <span class="marquee-pill__dot"></span>Education Tutoring
+        </li>
+        <li class="marquee-pill marquee-pill--cyan">
+          <span class="marquee-pill__dot"></span>SEO Optimization
+        </li>
+        <li class="marquee-pill marquee-pill--purple">
+          <span class="marquee-pill__dot"></span>Product Descriptions
+        </li>
+        <li class="marquee-pill marquee-pill--default">
+          <span class="marquee-pill__dot"></span>Bug Debugging
+        </li>
+        <li class="marquee-pill marquee-pill--cyan">
+          <span class="marquee-pill__dot"></span>API Documentation
+        </li>
+        <li class="marquee-pill marquee-pill--purple">
+          <span class="marquee-pill__dot"></span>UX Copywriting
+        </li>
+        <li class="marquee-pill marquee-pill--default">
+          <span class="marquee-pill__dot"></span>Research Synthesis
+        </li>
+        <li class="marquee-pill marquee-pill--cyan">
+          <span class="marquee-pill__dot"></span>Game Narrative
+        </li>
+      </ul>
+    </div>
+  </div>
+
+</section>
+
+
+<!-- ============================================================
+     [섹션 4] FAQ 아코디언 (details/summary, JS 없음)
+     삽입 위치: 섹션 3 </section> 바로 다음, <footer> 바로 위
+     ============================================================ -->
+<section class="faq-section">
+
+  <div class="section-header">
+    <p class="section-eyebrow">FAQ</p>
+    <h2 class="section-title">
+      자주 묻는 <span class="section-title--accent">질문들</span>
+    </h2>
+    <p class="section-desc">
+      프롬프트 엔지니어링을 처음 접할 때 가장 많이 하는 질문들을 모았습니다.
+    </p>
+  </div>
+
+  <div class="faq-list">
+
+    <details class="faq-item">
+      <summary class="faq-summary">
+        <span class="faq-q-label">Q</span>
+        <span class="faq-question">프롬프트 엔지니어링은 개발자만 배울 수 있나요?</span>
+        <span class="faq-icon" aria-hidden="true"></span>
+      </summary>
+      <div class="faq-answer">
+        <p>
+          전혀 그렇지 않습니다. 프롬프트 엔지니어링은 <strong class="faq-strong">코딩 지식이 없어도 배울 수 있는 커뮤니케이션 기술</strong>에 가깝습니다.
+          마케터, 작가, 연구자, 교육자 등 다양한 직군의 전문가들이 이미 적극적으로 활용하고 있습니다.
+          핵심은 AI 모델이 어떻게 생각하는지를 이해하고, 그에 맞게 의도를 명확히 전달하는 능력입니다.
+        </p>
+        <ul class="faq-tag-list">
+          <li class="badge badge--cyan">비개발자 친화적</li>
+          <li class="badge badge--outline">커뮤니케이션 스킬</li>
+          <li class="badge badge--outline">진입 장벽 낮음</li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="faq-item">
+      <summary class="faq-summary">
+        <span class="faq-q-label">Q</span>
+        <span class="faq-question">GPT, Claude, Gemini 등 모델마다 프롬프트가 달라야 하나요?</span>
+        <span class="faq-icon" aria-hidden="true"></span>
+      </summary>
+      <div class="faq-answer">
+        <p>
+          핵심 원칙(Context, Task, Constraint, Format)은 어느 모델에나 동일하게 적용됩니다.
+          다만 <strong class="faq-strong">모델별 특성과 학습 방식이 다르기 때문에</strong> 세부 표현이나 강조점은 조금씩 달라질 수 있습니다.
+          예를 들어 Claude는 역할 부여에 민감하고, GPT-4o는 단계별 지시에 잘 반응하는 경향이 있습니다.
+        </p>
+        <ul class="faq-tag-list">
+          <li class="badge badge--purple">모델 불가지론적 접근</li>
+          <li class="badge badge--outline">미세 조정 필요</li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="faq-item">
+      <summary class="faq-summary">
+        <span class="faq-q-label">Q</span>
+        <span class="faq-question">Few-Shot 프롬프트는 언제 사용해야 하나요?</span>
+        <span class="faq-icon" aria-hidden="true"></span>
+      </summary>
+      <div class="faq-answer">
+        <p>
+          출력 형식이 매우 특정하거나, Zero-Shot으로 원하는 결과를 얻기 어려울 때 사용합니다.
+          예를 들어 <strong class="faq-strong">특정 브랜드 보이스로 카피라이팅</strong>을 해야 하거나,
+          <strong class="faq-strong">정형화된 JSON/CSV 구조</strong>로 데이터를 추출해야 할 때 2~5개의 예시를 제공하면 정확도가 크게 향상됩니다.
+          단, 예시가 너무 많으면 토큰 비용이 증가하므로 균형을 맞추는 것이 중요합니다.
+        </p>
+        <ul class="faq-tag-list">
+          <li class="badge badge--cyan">Few-Shot</li>
+          <li class="badge badge--outline">2-5개 예시 권장</li>
+          <li class="badge badge--outline">구조화된 출력</li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="faq-item">
+      <summary class="faq-summary">
+        <span class="faq-q-label">Q</span>
+        <span class="faq-question">Chain-of-Thought(CoT)는 항상 효과적인가요?</span>
+        <span class="faq-icon" aria-hidden="true"></span>
+      </summary>
+      <div class="faq-answer">
+        <p>
+          CoT는 <strong class="faq-strong">추론 단계가 필요한 복잡한 문제</strong>에서 뛰어난 효과를 보입니다.
+          수학 계산, 논리적 추론, 다단계 분석 등이 대표적입니다.
+          반면 간단한 사실 확인이나 단순 번역처럼 직접적인 답이 있는 작업에는 불필요한 토큰 낭비가 될 수 있습니다.
+          &ldquo;단계적으로 생각해 줘(Think step by step)&rdquo;라는 한 문장이 놀라운 성능 향상을 가져올 수 있습니다.
+        </p>
+        <ul class="faq-tag-list">
+          <li class="badge badge--purple">Chain-of-Thought</li>
+          <li class="badge badge--outline">복잡한 추론에 최적</li>
+          <li class="badge badge--outline">토큰 효율 고려</li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="faq-item">
+      <summary class="faq-summary">
+        <span class="faq-q-label">Q</span>
+        <span class="faq-question">프롬프트가 길수록 결과가 좋아지나요?</span>
+        <span class="faq-icon" aria-hidden="true"></span>
+      </summary>
+      <div class="faq-answer">
+        <p>
+          길이와 품질은 비례하지 않습니다. <strong class="faq-strong">명확성과 밀도</strong>가 핵심입니다.
+          불필요한 수식어, 중복 지시, 모호한 표현은 오히려 모델을 혼란스럽게 합니다.
+          &ldquo;친절하고 전문적이고 간결하고 이해하기 쉽게&rdquo; 같은 중첩된 수식보다
+          &ldquo;대상 독자: 비전공자 성인, 톤: 간결하고 친근하게&rdquo; 처럼 <strong class="faq-strong">구조화된 지시</strong>가 훨씬 효과적입니다.
+        </p>
+        <ul class="faq-tag-list">
+          <li class="badge badge--cyan">명확성 > 길이</li>
+          <li class="badge badge--outline">구조화 우선</li>
+          <li class="badge badge--outline">중복 제거</li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="faq-item">
+      <summary class="faq-summary">
+        <span class="faq-q-label">Q</span>
+        <span class="faq-question">System Prompt와 User Prompt의 차이는 무엇인가요?</span>
+        <span class="faq-icon" aria-hidden="true"></span>
+      </summary>
+      <div class="faq-answer">
+        <p>
+          <strong class="faq-strong">System Prompt</strong>는 AI의 전체 행동 방식, 역할, 제약 조건을 정의하는 고수준 지시입니다.
+          마치 직원 교육 매뉴얼처럼, 모든 대화에 일관되게 적용됩니다.
+          반면 <strong class="faq-strong">User Prompt</strong>는 개별 대화에서의 구체적인 요청입니다.
+          API를 직접 활용하는 개발자라면 System Prompt를 통해 페르소나, 응답 형식, 금지 사항을 명확히 설정하는 것이 매우 중요합니다.
+        </p>
+        <ul class="faq-tag-list">
+          <li class="badge badge--purple">System Prompt</li>
+          <li class="badge badge--cyan">User Prompt</li>
+          <li class="badge badge--outline">역할 분리 설계</li>
+        </ul>
+      </div>
+    </details>
+
+  </div>
+</section>
+
+<section id="section-gallery" class="table-section">
+  <div class="table-section__inner">
+
+    <div class="section-header">
+      <p class="section-eyebrow">Model Intelligence</p>
+      <h2 class="section-title">
+        AI 모델 <span class="section-title--accent">스펙 비교</span>
+      </h2>
+      <p class="section-desc">
+        프롬프트 엔지니어링에서 자주 활용되는 대표 모델들의 핵심 지표를 한눈에 비교합니다.
+        모델의 특성을 이해하는 것이 최적의 프롬프트를 설계하는 첫 번째 단계입니다.
+      </p>
+    </div>
+
+    <!-- 반응형 래퍼: overflow-x:auto 로 모바일 대응 -->
+    <div class="table-wrapper">
+      <table class="model-table">
+        <thead>
+          <tr>
+            <th scope="col" class="model-table__th model-table__th--model">Model</th>
+            <th scope="col" class="model-table__th">컨텍스트 윈도우</th>
+            <th scope="col" class="model-table__th">강점 분야</th>
+            <th scope="col" class="model-table__th">멀티모달</th>
+            <th scope="col" class="model-table__th">속도</th>
+            <th scope="col" class="model-table__th">프롬프트 적합도</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Row 1: GPT-4o -->
+          <tr class="model-table__row">
+            <td class="model-table__td model-table__td--model">
+              <div class="model-name-wrap">
+                <span class="model-dot model-dot--green"></span>
+                <div>
+                  <strong class="model-name">GPT-4o</strong>
+                  <span class="model-maker">OpenAI</span>
+                </div>
+              </div>
+            </td>
+            <td class="model-table__td">
+              <span class="ctx-badge">128K</span>
+            </td>
+            <td class="model-table__td">
+              <div class="tag-list">
+                <span class="tag tag--blue">글쓰기</span>
+                <span class="tag tag--purple">추론</span>
+              </div>
+            </td>
+            <td class="model-table__td">
+              <span class="check-icon check-icon--yes">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                  <path d="M3 8.5L6.5 12L13 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                지원
+              </span>
+            </td>
+            <td class="model-table__td">
+              <div class="speed-bar-wrap">
+                <div class="speed-bar">
+                  <div class="speed-bar__fill" style="--fill: 80%"></div>
+                </div>
+                <span class="speed-label">빠름</span>
+              </div>
+            </td>
+            <td class="model-table__td">
+              <div class="star-row">
+                <span class="star star--on">*</span>
+                <span class="star star--on">*</span>
+                <span class="star star--on">*</span>
+                <span class="star star--on">*</span>
+                <span class="star star--half">*</span>
+              </div>
+            </td>
+          </tr>
+
+          <!-- Row 2: Claude 3.5 Opus -->
+          <tr class="model-table__row">
+            <td class="model-table__td model-table__td--model">
+              <div class="model-name-wrap">
+                <span class="model-dot model-dot--cyan"></span>
+                <div>
+                  <strong class="model-name model-name--highlight">Claude 3.5 Opus</strong>
+                  <span class="model-maker">Anthropic</span>
+                </div>
+              </div>
+            </td>
+            <td class="model-table__td">
+              <span class="ctx-badge ctx-badge--cyan">200K</span>
+            </td>
+            <td class="model-table__td">
+              <div class="tag-list">
+                <span class="tag tag--cyan">코드 생성</span>
+                <span class="tag tag--purple">분석</span>
+              </div>
+            </td>
+            <td class="model-table__td">
+              <span class="check-icon check-icon--yes">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                  <path d="M3 8.5L6.5 12L13 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                지원
+              </span>
+            </td>
+            <td class="model-table__td">
+              <div class="speed-bar-wrap">
+                <div class="speed-bar">
+                  <div class="speed-bar__fill" style="--fill: 65%"></div>
+                </div>
+                <span class="speed-label">보통</span>
+              </div>
+            </td>
+            <td class="model-table__td">
+              <div class="star-row">
+                <span class="star star--on">*</span>
+                <span class="star star--on">*</span>
+                <span class="star star--on">*</span>
+                <span class="star star--on">*</span>
+                <span class="star star--on">*</span>
+              </div>
+            </td>
+          </tr>
+
+          <!-- Row 3: Gemini 1.5 Pro -->
+          <tr class="model-table__row">
+            <td class="model-table__td model-table__td--model">
+              <div class="model-name-wrap">
+                <span class="model-dot model-dot--yellow"></span>
+                <div>
+                  <strong class="model-name">Gemini 3.5 Pro</strong>
+                  <span class="model-maker">Google</span>
+                </div>
+              </div>
+            </td>
+            <td class="model-table__td">
+              <span class="ctx-badge ctx-badge--yellow">1M</span>
+            </td>
+            <td class="model-table__td">
+              <div class="tag-list">
+                <span class="tag tag--yellow">데이터</span>
+                <span class="tag tag--blue">번역</span>
+              </div>
+            </td>
+            <td class="model-table__td">
+              <span class="check-icon check-icon--yes">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                  <path d="M3 8.5L6.5 12L13 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                지원
+              </span>
+            </td>
+            <td class="model-table__td">
+              <div class="speed-bar-wrap">
+                <div class="speed-bar">
+                  <div class="speed-bar__fill" style="--fill: 72%"></div>
+                </div>
+                <span class="speed-label">빠름</span>
+              </div>
+            </td>
+            <td class="model-table__td">
+              <div class="star-row">
+                <span class="star star--on">*</span>
+                <span class="star star--on">*</span>
+                <span class="star star--on">*</span>
+                <span class="star star--on">*</span>
+                <span class="star star--off">*</span>
+              </div>
+            </td>
+          </tr>
+
+          <!-- Row 4: Llama 3.1 405B -->
+          <tr class="model-table__row">
+            <td class="model-table__td model-table__td--model">
+              <div class="model-name-wrap">
+                <span class="model-dot model-dot--purple"></span>
+                <div>
+                  <strong class="model-name">Llama 3.1 405B</strong>
+                  <span class="model-maker">Meta (Open Source)</span>
+                </div>
+              </div>
+            </td>
+            <td class="model-table__td">
+              <span class="ctx-badge ctx-badge--purple">128K</span>
+            </td>
+            <td class="model-table__td">
+              <div class="tag-list">
+                <span class="tag tag--green">오픈소스</span>
+                <span class="tag tag--blue">커스텀</span>
+              </div>
+            </td>
+            <td class="model-table__td">
+              <span class="check-icon check-icon--no">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                  <path d="M4.5 4.5L11.5 11.5M11.5 4.5L4.5 11.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+                텍스트
+              </span>
+            </td>
+            <td class="model-table__td">
+              <div class="speed-bar-wrap">
+                <div class="speed-bar">
+                  <div class="speed-bar__fill speed-bar__fill--purple" style="--fill: 55%"></div>
+                </div>
+                <span class="speed-label">느림</span>
+              </div>
+            </td>
+            <td class="model-table__td">
+              <div class="star-row">
+                <span class="star star--on">*</span>
+                <span class="star star--on">*</span>
+                <span class="star star--on">*</span>
+                <span class="star star--half">*</span>
+                <span class="star star--off">*</span>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- 테이블 하단 범례 -->
+    <div class="table-legend">
+      <span class="legend-item">
+        <span class="model-dot model-dot--cyan" style="display:inline-block"></span>
+        추천 모델
+      </span>
+      <span class="legend-item">
+        <span class="star star--on" style="font-size:0.8rem">*</span>
+        프롬프트 반응 우수
+      </span>
+      <span class="legend-item">
+        <span class="ctx-badge" style="font-size:0.65rem; padding:0.1rem 0.4rem">K / M</span>
+        토큰 단위
+      </span>
+    </div>
+
+  </div>
+</section>
+<!-- [섹션 5 끝] -->
+
+
+
+
+<!-- ============================================================
+     섹션 7: 자주 하는 실수 — 3D Flip Cards
+     삽입 위치: 섹션 6 </section> 바로 다음, <footer> 바로 위
+     ============================================================ -->
+<section id="section-mistakes" class="flip-section">
+  <div class="flip-section__inner">
+
+    <div class="section-header">
+      <p class="section-eyebrow">Common Pitfalls</p>
+      <h2 class="section-title">
+        자주 하는 <span class="section-title--accent">실수</span>들
+      </h2>
+      <p class="section-desc">
+        카드 위에 마우스를 올려 실수의 해결책을 확인하세요.
+        작은 습관의 차이가 프롬프트 품질을 결정합니다.
+      </p>
+    </div>
+
+    <div class="flip-grid">
+
+      <!-- 카드 1 -->
+      <div class="flip-card">
+        <div class="flip-card__inner">
+
+          <!-- 앞면 -->
+          <div class="flip-card__face flip-card__face--front">
+            <div class="flip-card__mistake-badge">Mistake 01</div>
+            <div class="flip-card__front-icon">
+              <svg width="32" height="32" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                <path stroke-linecap="round" stroke-linejoin="round"
+                  d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126z"/>
+              </svg>
+            </div>
+            <h3 class="flip-card__front-title">너무 모호한 지시</h3>
+            <p class="flip-card__front-desc">
+              "좋은 글 써줘", "코드 고쳐줘"처럼<br>
+              목적·대상·형식이 전혀 없는<br>
+              지시는 엉뚱한 결과를 냅니다.
+            </p>
+            <div class="flip-card__hint">뒤집어서 해결책 보기</div>
+          </div>
+
+          <!-- 뒷면 -->
+          <div class="flip-card__face flip-card__face--back">
+            <div class="flip-card__solution-badge">Solution</div>
+            <div class="flip-card__back-icon">
+              <svg width="28" height="28" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                <path stroke-linecap="round" stroke-linejoin="round"
+                  d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+              </svg>
+            </div>
+            <h3 class="flip-card__back-title">Context + Task 명시</h3>
+            <p class="flip-card__back-desc">
+              "마케터를 위한 SNS 캡션을<br>
+              인스타그램 스타일로, 150자 이내로<br>
+              3가지 버전으로 작성해 줘."
+            </p>
+            <code class="flip-card__code">Role + Goal + Format + Limit</code>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- 카드 2 -->
+      <div class="flip-card">
+        <div class="flip-card__inner">
+
+          <div class="flip-card__face flip-card__face--front">
+            <div class="flip-card__mistake-badge">Mistake 02</div>
+            <div class="flip-card__front-icon">
+              <svg width="32" height="32" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                <path stroke-linecap="round" stroke-linejoin="round"
+                  d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636"/>
+              </svg>
+            </div>
+            <h3 class="flip-card__front-title">역할 부여 없음</h3>
+            <p class="flip-card__front-desc">
+              AI에게 '누구처럼' 행동할지<br>
+              알려주지 않으면 일반적이고<br>
+              밋밋한 답변만 돌아옵니다.
+            </p>
+            <div class="flip-card__hint">뒤집어서 해결책 보기</div>
+          </div>
+
+          <div class="flip-card__face flip-card__face--back">
+            <div class="flip-card__solution-badge">Solution</div>
+            <div class="flip-card__back-icon">
+              <svg width="28" height="28" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                <path stroke-linecap="round" stroke-linejoin="round"
+                  d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"/>
+              </svg>
+            </div>
+            <h3 class="flip-card__back-title">Persona 설정</h3>
+            <p class="flip-card__back-desc">
+              "당신은 10년 경력의 UX 라이터입니다.<br>
+              전환율 최적화 관점에서<br>
+              랜딩 페이지 카피를 작성해 주세요."
+            </p>
+            <code class="flip-card__code">Act as [Expert] with [Experience]</code>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- 카드 3 -->
+      <div class="flip-card">
+        <div class="flip-card__inner">
+
+          <div class="flip-card__face flip-card__face--front">
+            <div class="flip-card__mistake-badge">Mistake 03</div>
+            <div class="flip-card__front-icon">
+              <svg width="32" height="32" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                <path stroke-linecap="round" stroke-linejoin="round"
+                  d="M3.98 8.223A10.477 10.477 0 001.934 12C3.226 16.338 7.244 19.5 12 19.5c.993 0 1.953-.138 2.863-.395M6.228 6.228A10.45 10.45 0 0112 4.5c4.756 0 8.773 3.162 10.065 7.498a10.523 10.523 0 01-4.293 5.774M6.228 6.228L3 3m3.228 3.228l3.65 3.65m7.894 7.894L21 21m-3.228-3.228l-3.65-3.65m0 0a3 3 0 10-4.243-4.243m4.242 4.242L9.88 9.88"/>
+              </svg>
+            </div>
+            <h3 class="flip-card__front-title">출력 형식 미지정</h3>
+            <p class="flip-card__front-desc">
+              결과물의 형식(JSON, 표, 목록 등)을<br>
+              지정하지 않으면 매번<br>
+              다른 형태로 응답이 옵니다.
+            </p>
+            <div class="flip-card__hint">뒤집어서 해결책 보기</div>
+          </div>
+
+          <div class="flip-card__face flip-card__face--back">
+            <div class="flip-card__solution-badge">Solution</div>
+            <div class="flip-card__back-icon">
+              <svg width="28" height="28" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                <path stroke-linecap="round" stroke-linejoin="round"
+                  d="M17.25 6.75L22.5 12l-5.25 5.25m-10.5 0L1.5 12l5.25-5.25m7.5-3l-4.5 16.5"/>
+              </svg>
+            </div>
+            <h3 class="flip-card__back-title">Format 명시</h3>
+            <p class="flip-card__back-desc">
+              "결과는 JSON 형식으로,<br>
+              title / summary / tags<br>
+              3개의 키만 포함해 주세요."
+            </p>
+            <code class="flip-card__code">Output: JSON / Markdown / Table</code>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- 카드 4 -->
+      <div class="flip-card">
+        <div class="flip-card__inner">
+
+          <div class="flip-card__face flip-card__face--front">
+            <div class="flip-card__mistake-badge">Mistake 04</div>
+            <div class="flip-card__front-icon">
+              <svg width="32" height="32" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                <path stroke-linecap="round" stroke-linejoin="round"
+                  d="M9.75 9.75l4.5 4.5m0-4.5l-4.5 4.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+              </svg>
+            </div>
+            <h3 class="flip-card__front-title">한 번에 너무 많은 요청</h3>
+            <p class="flip-card__front-desc">
+              하나의 프롬프트에 10가지를<br>
+              한꺼번에 요청하면 AI가<br>
+              우선순위를 잃고 품질이 저하됩니다.
+            </p>
+            <div class="flip-card__hint">뒤집어서 해결책 보기</div>
+          </div>
+
+          <div class="flip-card__face flip-card__face--back">
+            <div class="flip-card__solution-badge">Solution</div>
+            <div class="flip-card__back-icon">
+              <svg width="28" height="28" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                <path stroke-linecap="round" stroke-linejoin="round"
+                  d="M3.75 12h16.5m-16.5 3.75h16.5M3.75 19.5h16.5M5.625 4.5h12.75a1.875 1.875 0 010 3.75H5.625a1.875 1.875 0 010-3.75z"/>
+              </svg>
+            </div>
+            <h3 class="flip-card__back-title">단계별 Chain 분리</h3>
+            <p class="flip-card__back-desc">
+              작업을 3~4단계로 쪼개어<br>
+              순서대로 요청하는<br>
+              Chain-of-Thought 전략을 사용하세요.
+            </p>
+            <code class="flip-card__code">Step 1 → Step 2 → Step 3</code>
+          </div>
+
+        </div>
+      </div>
+
+    </div><!-- /.flip-grid -->
+  </div>
+</section>
+<!-- ============================================================
+     /섹션 7 끝
+     ============================================================ -->
+
+
+<!-- =====================================================
+     섹션 8: 이미지 프롬프트 갤러리 (CSS Accordion)
+     삽입 위치: 섹션 7 </section> 다음, <footer> 바로 위
+     ===================================================== -->
+<section id="section-image" class="s8-gallery-section">
+
+  <!-- 섹션 헤더 -->
+  <div class="s8-header">
+    <span class="section-eyebrow">IMAGE PROMPTS</span>
+    <h2 class="section-title">
+      갤러리: 프롬프트가 만든
+      <span class="section-title--accent">비주얼</span>
+    </h2>
+    <p class="section-desc">
+      실제 이미지 생성 AI에 사용된 프롬프트와 그 결과물을 확인하세요.
+      패널에 마우스를 올려 프롬프트를 확인하세요.
+    </p>
+  </div>
+
+  <!-- 아코디언 컨테이너 -->
+  <div class="s8-accordion">
+
+    <!-- 패널 1 -->
+    <div class="s8-panel">
+      <!-- 레이어 1: 배경 이미지 -->
+      <div class="s8-panel__bg" style="background-image: url('https://picsum.photos/800/1200?random=1');"></div>
+      <!-- 레이어 2: 그라디언트 오버레이 -->
+      <div class="s8-panel__overlay"></div>
+      <!-- 레이어 3: 인덱스 번호 -->
+      <span class="s8-panel__index">01</span>
+      <!-- 레이어 3: 하단 텍스트 콘텐츠 -->
+      <div class="s8-panel__content">
+        <span class="s8-panel__tag">Cinematic</span>
+        <p class="s8-panel__title">Neon City Dusk</p>
+        <div class="s8-panel__prompt-wrap">
+          <p class="s8-panel__prompt-label">PROMPT</p>
+          <p class="s8-panel__prompt-text">
+            cinematic shot, neon-lit cyberpunk city at dusk, rain-soaked streets reflecting purple and cyan light, ultra-detailed, 8k, volumetric fog
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- 패널 2 -->
+    <div class="s8-panel">
+      <div class="s8-panel__bg" style="background-image: url('https://picsum.photos/800/1200?random=2');"></div>
+      <div class="s8-panel__overlay"></div>
+      <span class="s8-panel__index">02</span>
+      <div class="s8-panel__content">
+        <span class="s8-panel__tag">Portrait</span>
+        <p class="s8-panel__title">AI Genesis</p>
+        <div class="s8-panel__prompt-wrap">
+          <p class="s8-panel__prompt-label">PROMPT</p>
+          <p class="s8-panel__prompt-text">
+            hyper-realistic portrait of an android, glowing circuit patterns on skin, soft studio lighting, shallow depth of field, photorealistic, 4k
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- 패널 3 -->
+    <div class="s8-panel">
+      <div class="s8-panel__bg" style="background-image: url('https://picsum.photos/800/1200?random=3');"></div>
+      <div class="s8-panel__overlay"></div>
+      <span class="s8-panel__index">03</span>
+      <div class="s8-panel__content">
+        <span class="s8-panel__tag">Landscape</span>
+        <p class="s8-panel__title">Digital Horizon</p>
+        <div class="s8-panel__prompt-wrap">
+          <p class="s8-panel__prompt-label">PROMPT</p>
+          <p class="s8-panel__prompt-text">
+            vast alien landscape, towering crystalline mountains, twin moons rising, bioluminescent flora, matte painting style, epic scale, concept art
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- 패널 4 -->
+    <div class="s8-panel">
+      <div class="s8-panel__bg" style="background-image: url('https://picsum.photos/800/1200?random=4');"></div>
+      <div class="s8-panel__overlay"></div>
+      <span class="s8-panel__index">04</span>
+      <div class="s8-panel__content">
+        <span class="s8-panel__tag">Abstract</span>
+        <p class="s8-panel__title">Neural Dreams</p>
+        <div class="s8-panel__prompt-wrap">
+          <p class="s8-panel__prompt-label">PROMPT</p>
+          <p class="s8-panel__prompt-text">
+            abstract neural network visualization, flowing data streams, deep purple and electric blue palette, macro lens, generative art, ultra-high detail
+          </p>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /.s8-accordion -->
+</section>
+<!-- ===================================================
+     /섹션 8 끝
+     =================================================== -->
+
+<!-- ============================================================
+     [섹션 6] 실험실 합류 & 가상 터미널
+     삽입 위치: 섹션 5 </section> 바로 다음, <footer> 바로 위
+     ============================================================ -->
+<section class="join-section">
+  <div class="join-section__inner">
+
+    <div class="join-grid">
+
+      <!-- ── 왼쪽: 구독 Form UI ── -->
+      <div class="join-form-panel">
+
+        <div class="join-form-eyebrow">
+          <span class="join-form-eyebrow__dot"></span>
+          실험실 합류하기
+        </div>
+
+        <h2 class="join-form-title">
+          최신 프롬프트 기법을<br>
+          <span class="join-form-title--accent">가장 먼저</span> 받아보세요
+        </h2>
+
+        <p class="join-form-desc">
+          매주 검증된 프롬프트 패턴, 모델 업데이트, 실전 예제를
+          이메일로 받아보세요. 언제든지 구독 해지 가능합니다.
+        </p>
+
+        <!-- 구독 폼 -->
+        <form class="subscribe-form" action="#" method="post" novalidate>
+          <div class="subscribe-form__field-wrap">
+            <label for="subscribe-email" class="subscribe-form__label">
+              이메일 주소
+            </label>
+            <div class="subscribe-form__input-group">
+              <!-- 이메일 아이콘 -->
+              <span class="subscribe-form__icon" aria-hidden="true">
+                <svg width="16" height="16" viewBox="0 0 20 20" fill="none">
+                  <rect x="2" y="4" width="16" height="12" rx="2"
+                    stroke="currentColor" stroke-width="1.5"/>
+                  <path d="M2 7L10 12L18 7" stroke="currentColor"
+                    stroke-width="1.5" stroke-linecap="round"/>
+                </svg>
+              </span>
+              <input
+                type="email"
+                id="subscribe-email"
+                name="email"
+                class="subscribe-form__input"
+                placeholder="you@example.com"
+                autocomplete="email"
+                required
+              />
+            </div>
+          </div>
+
+          <!-- 체크박스 동의 -->
+          <div class="subscribe-form__checkbox-wrap">
+            <input
+              type="checkbox"
+              id="subscribe-agree"
+              name="agree"
+              class="subscribe-form__checkbox"
+              required
+            />
+            <label for="subscribe-agree" class="subscribe-form__checkbox-label">
+              프롬프트 엔지니어링 뉴스레터 수신에 동의합니다
+            </label>
+          </div>
+
+          <!-- 제출 버튼 -->
+          <button type="submit" class="subscribe-form__btn">
+            <span class="subscribe-form__btn-text">실험실 합류하기</span>
+            <span class="subscribe-form__btn-icon" aria-hidden="true">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                <path d="M3 8H13M9 4L13 8L9 12"
+                  stroke="currentColor" stroke-width="1.8"
+                  stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </span>
+          </button>
+        </form>
+
+        <!-- 신뢰 지표 -->
+        <div class="join-trust">
+          <span class="join-trust__item">
+            <svg width="13" height="13" viewBox="0 0 16 16" fill="none">
+              <path d="M8 2L10 6H14L11 9L12 13L8 11L4 13L5 9L2 6H6L8 2Z"
+                stroke="currentColor" stroke-width="1.5"
+                stroke-linejoin="round"/>
+            </svg>
+            스팸 없음
+          </span>
+          <span class="join-trust__item">
+            <svg width="13" height="13" viewBox="0 0 16 16" fill="none">
+              <rect x="3" y="7" width="10" height="7" rx="1.5"
+                stroke="currentColor" stroke-width="1.5"/>
+              <path d="M5 7V5a3 3 0 016 0v2"
+                stroke="currentColor" stroke-width="1.5"
+                stroke-linecap="round"/>
+            </svg>
+            언제든 해지
+          </span>
+          <span class="join-trust__item">
+            <svg width="13" height="13" viewBox="0 0 16 16" fill="none">
+              <circle cx="8" cy="8" r="5.5"
+                stroke="currentColor" stroke-width="1.5"/>
+              <path d="M6 8.5L7.5 10L10 6.5"
+                stroke="currentColor" stroke-width="1.5"
+                stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            매주 1회 발송
+          </span>
+        </div>
+
+      </div><!-- /join-form-panel -->
+
+      <!-- ── 오른쪽: 가상 터미널 ── -->
+      <div class="terminal-panel">
+
+        <!-- 터미널 창 상단 바 -->
+        <div class="terminal-bar">
+          <div class="terminal-bar__dots">
+            <span class="terminal-dot terminal-dot--red"></span>
+            <span class="terminal-dot terminal-dot--yellow"></span>
+            <span class="terminal-dot terminal-dot--green"></span>
+          </div>
+          <span class="terminal-bar__title">prompt-lab ~ terminal</span>
+          <span class="terminal-bar__spacer"></span>
+        </div>
+
+        <!-- 터미널 본문 -->
+        <div class="terminal-body">
+
+          <!-- 기존 출력 라인들 (고정 텍스트) -->
+          <p class="terminal-line terminal-line--dim">
+            <span class="terminal-prompt">$</span>
+            cd /prompt-engineering-lab
+          </p>
+          <p class="terminal-line terminal-line--success">
+            <span class="terminal-prompt">$</span>
+            git clone https://lab.ai/prompt-patterns
+          </p>
+          <p class="terminal-line terminal-line--info">
+            Cloning into 'prompt-patterns'...
+          </p>
+          <p class="terminal-line terminal-line--info">
+            Resolving deltas: 100% (2847/2847), done.
+          </p>
+          <p class="terminal-line terminal-line--dim">
+            <span class="terminal-prompt">$</span>
+            npm run init-lab
+          </p>
+          <p class="terminal-line terminal-line--success">
+            [INFO] Context window: READY
+          </p>
+          <p class="terminal-line terminal-line--success">
+            [INFO] Few-shot examples: LOADED
+          </p>
+          <p class="terminal-line terminal-line--warn">
+            [WAIT] Awaiting input...
+          </p>
+
+          <!-- 구분선 -->
+          <div class="terminal-divider"></div>
+
+          <!-- 타이핑 애니메이션 줄 — CSS @keyframes steps() 활용 -->
+          <p class="terminal-line terminal-line--typing">
+            <span class="terminal-prompt terminal-prompt--active">$</span>
+            <!-- 순수 CSS 타이핑 효과 래퍼 -->
+            <span class="typewriter" aria-label="Waiting for your prompt...">
+              Waiting for your prompt...
+            </span>
+            <!-- 커서 — 별도 span으로 깜빡임 분리 -->
+            <span class="terminal-cursor" aria-hidden="true"></span>
+          </p>
+
+        </div><!-- /terminal-body -->
+
+      </div><!-- /terminal-panel -->
+
+    </div><!-- /join-grid -->
+
+  </div>
+</section>
+  
+  <footer class="site-footer" role="contentinfo">
+    <p>
+      <strong>Prompt Engineering Lab</strong> &nbsp;&mdash;&nbsp;
+      Web Programming Basics Midterm Project &nbsp;&middot;&nbsp; Built with Pure HTML5 &amp; CSS3
+    </p>
+  </footer>
+
+</body>
+</html>
