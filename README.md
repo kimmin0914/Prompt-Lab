@@ -24,6 +24,7 @@
 📦 prompt-engineering-lab
  ┣ 📜 index.html    # 메인 웹페이지 (시맨틱 마크업)
  ┗ 📜 style.css     # 스타일 및 전체 애니메이션 제어
+<\br>
 
 ✨ Key Features & CSS Techniques
 본 프로젝트에서 실험하고 적용한 핵심 CSS 기술 목록입니다.
