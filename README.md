@@ -10,21 +10,21 @@
 
 <br>
 
-## 📌 Project Overview
-최신 AI 모델을 다루기 위한 프롬프트 기법들을 직관적으로 학습할 수 있는 '사이버펑크/네온' 테마의 웹사이트입니다. 
+📌 Project Overview
+최신 AI 모델을 다루기 위한 프롬프트 기법들을 직관적으로 학습할 수 있는 '사이버펑크/네온' 테마의 웹사이트입니다.
 
-이 프로젝트의 가장 큰 특징은 **JavaScript를 전혀 사용하지 않고**, 오직 **HTML5와 CSS3의 고급 애니메이션 및 레이아웃 속성**만을 극한으로 활용하여 화려한 상호작용(Interaction)과 동적인 UI를 구현했다는 점입니다.
+이 프로젝트의 가장 큰 특징은 JavaScript를 전혀 사용하지 않고, 오직 HTML5와 CSS3의 고급 애니메이션 및 레이아웃 속성만을 극한으로 활용하여 화려한 상호작용(Interaction)과 동적인 UI를 구현했다는 점입니다.
 
-<br>
-
-## 📂 Folder Structure
+📂 Folder Structure
 유지보수와 가독성을 위해 HTML 구조와 CSS 스타일을 완벽하게 분리하여 설계했습니다.
 
-```text
 📦 prompt-engineering-lab
- ┣ 📜 index.html    # 메인 웹페이지 (시맨틱 마크업)
- ┗ 📜 style.css     # 스타일 및 전체 애니메이션 제어
-</br>
+
+
+┣ 📜 index.html    (메인 웹페이지 / 시맨틱 마크업)
+
+
+┗ 📜 style.css      (스타일 및 전체 애니메이션 제어)
 
 ✨ Key Features & CSS Techniques
 본 프로젝트에서 실험하고 적용한 핵심 CSS 기술 목록입니다.
