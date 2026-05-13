@@ -24,3 +24,5 @@
 📦 prompt-engineering-lab
  ┣ 📜 index.html    # 메인 웹페이지 (시맨틱 마크업)
  ┗ 📜 style.css     # 스타일 및 전체 애니메이션 제어
+
+✨ Key Features & CSS Techniques본 프로젝트에서 실험하고 적용한 핵심 CSS 기술 목록입니다.카테고리구현 기능적용된 주요 CSS 및 HTML 기술🎨 디자인글래스모피즘 네비게이션backdrop-filter: blur(), position: fixed🍱 레이아웃반응형 벤토 그리드CSS Grid (grid-template-columns, span)⚡ 애니메이션네온 테두리 슬라이드가상요소, conic-gradient, @keyframes 회전🔄 인터랙션3D 플립 카드 (자주 하는 실수)perspective, transform: rotateY(), backface-visibility🖼️ 인터랙션Flexbox 아코디언 갤러리Flexbox (flex-grow), transition 조합📖 UI 요소스크립트 없는 FAQHTML5 <details>, <summary>, CSS 상태 선택자♾️ 애니메이션무한 롤링 텍스트 (마키)@keyframes, transform: translateX() 무한 반복🚀 How to Run별도의 설치나 서버 세팅이 필요하지 않습니다.이 저장소를 Clone 하거나 .zip 파일로 다운로드합니다.폴더 내의 index.html 파일을 Chrome, Safari, Edge 등 모던 웹 브라우저로 엽니다.👨‍💻 AuthorName: [본인 이름 입력]Contact: [본인 이메일 입력]GitHub: @본인아이디
