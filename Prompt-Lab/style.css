@@ -731,6 +731,7 @@
 .marquee-section .section-header {
   padding: 0 1.5rem;
   margin-bottom: 3.5rem;
+  text-align: center;
 }
 
 .marquee-wrapper {
@@ -1885,4 +1886,36 @@
       display: none;
     }
   }
+}
+
+/* ============================================================
+   고정형 태그 클라우드 스타일 (Static Tags)
+============================================================= */
+.static-tags-wrapper {
+  width: 100%;
+  max-width: 900px; /* 태그들이 너무 넓게 퍼지지 않도록 최대 너비 제한 */
+  margin: 0 auto;
+  padding: 2rem 1rem;
+}
+
+.static-tags-list {
+  display: flex;
+  flex-wrap: wrap; /* 화면이 좁아지면 자동으로 밑으로 줄바꿈 */
+  justify-content: center; /* 가운데 정렬 */
+  align-items: center;
+  gap: 0.8rem 1rem; /* 상하 0.8rem, 좌우 1rem 간격 */
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+/* 마우스 올렸을 때 살짝 떠오르는 애니메이션 (옵션) */
+.static-tags-list .marquee-pill {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  cursor: default;
+}
+
+.static-tags-list .marquee-pill:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
 }
