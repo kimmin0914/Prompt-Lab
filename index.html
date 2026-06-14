@@ -9,165 +9,52 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Sora:wght@300;400;600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
-  
 </head>
 
 <body>
   <header class="nav-header">
-  <div class="nav-inner">
-
-    <header class="nav-header">
-  <div class="nav-inner">
-
-    <!-- 왼쪽: 로고 -->
-    <a href="#" class="nav-logo">
-      <span class="nav-logo__bracket">[</span>
-      Prompt Lab
-      <span class="nav-logo__bracket">]</span>
-    </a>
-
-    <!-- 오른쪽 전체 영역 (메뉴 + 버튼) -->
-    <div class="nav-right">
-      
-      <!-- 기존 링크 목록 -->
-      <ul class="nav-links">
-        <li>
-          <a href="#section-anatomy" class="nav-link">
-            <span class="nav-link__dot"></span>기법들
-          </a>
-        </li>
-        <li>
-          <a href="#section-gallery" class="nav-link">
-            <span class="nav-link__dot"></span>활용 사례
-          </a>
-        </li>
-        <li>
-          <a href="#section-mistakes" class="nav-link">
-            <span class="nav-link__dot"></span>모델
-          </a>
-        </li>
-        <li>
-          <a href="#section-image" class="nav-link nav-link--accent">
-            <span class="nav-link__dot"></span>갤러리
-          </a>
-        </li>
-      </ul>
-
-      <!-- 메뉴와 인증 버튼을 구분하는 세로선 -->
-      <div class="nav-divider" aria-hidden="true"></div>
-
-      <!-- 신규: 로그인 & 회원가입 영역 -->
-      <div class="nav-auth">
-        <a href="#login" class="nav-btn nav-btn--ghost">로그인</a>
-        <a href="#signup" class="nav-btn nav-btn--glow">회원가입</a>
+    <div class="nav-inner">
+      <a href="#" class="nav-logo">
+        <span class="nav-logo__bracket">[</span> Prompt Lab <span class="nav-logo__bracket">]</span>
+      </a>
+      <div class="nav-right">
+        <ul class="nav-links">
+          <li><a href="#section-anatomy" class="nav-link"><span class="nav-link__dot"></span>기법들</a></li>
+          <li><a href="#section-gallery" class="nav-link"><span class="nav-link__dot"></span>활용 사례</a></li>
+          <li><a href="#section-mistakes" class="nav-link"><span class="nav-link__dot"></span>모델</a></li>
+          <li><a href="#section-image" class="nav-link nav-link--accent"><span class="nav-link__dot"></span>갤러리</a></li>
+        </ul>
+        <div class="nav-divider" aria-hidden="true"></div>
+        <div class="nav-auth">
+          <a href="#login" class="nav-btn nav-btn--ghost">로그인</a>
+          <a href="#signup" class="nav-btn nav-btn--glow">회원가입</a>
+        </div>
       </div>
-
-    </div><!-- /.nav-right -->
-
-  </div>
-</header>
-
-    <!-- 왼쪽: 로고 -->
-    <a href="#" class="nav-logo">
-      <span class="nav-logo__bracket">[</span>
-      Prompt Lab
-      <span class="nav-logo__bracket">]</span>
-    </a>
-
-    <!-- 오른쪽: 링크 목록 -->
-    <ul class="nav-links">
-      <li>
-        <a href="#section-anatomy" class="nav-link">
-          <span class="nav-link__dot"></span>
-          프롬프트 해부학
-        </a>
-      </li>
-      <li>
-        <a href="#section-gallery" class="nav-link">
-          <span class="nav-link__dot"></span>
-          비교 갤러리
-        </a>
-      </li>
-      <li>
-        <a href="#section-mistakes" class="nav-link">
-          <span class="nav-link__dot"></span>
-          자주 하는 실수
-        </a>
-      </li>
-      <li>
-        <a href="#section-image" class="nav-link nav-link--accent">
-          <span class="nav-link__dot"></span>
-          이미지 프롬프트
-        </a>
-      </li>
-    </ul>
-
-  </div>
-</header>
-  <!-- =====================================================
-       HEADER: Glassmorphism Sticky Nav
-  ====================================================== -->
-  <header class="site-header" role="banner">
-    <div class="header-logo" aria-label="Prompt Engineering Lab 로고">
-      <div class="logo-icon" aria-hidden="true">
-        <!-- SVG: 터미널 아이콘 -->
-        <svg viewBox="0 0 24 24" aria-hidden="true">
-          <polyline points="4 17 10 11 4 5"></polyline>
-          <line x1="12" y1="19" x2="20" y2="19"></line>
-        </svg>
-      </div>
-      <span class="logo-text">Prompt<span> Lab</span></span>
-    </div>
-    <div class="header-meta">
-      <span class="header-badge">
-        <span class="status-dot" aria-hidden="true"></span>
-        Active Session
-      </span>
-      <span class="header-badge">v2.4.0</span>
     </div>
   </header>
 
-  <!-- =====================================================
-       MAIN CONTENT
-  ====================================================== -->
   <main role="main">
-
-    <!-- HERO -->
     <section class="hero hero--centered" aria-labelledby="hero-heading">
-      
-      <!-- 상단 상태 배지 -->
       <div class="hero-badge">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
         프롬프트 최적화 프로토콜 활성화
       </div>
-
-      <!-- 메인 타이틀 (전체 그라데이션) -->
       <h1 class="hero-title" id="hero-heading">
-        <span class="gradient-word">AI와 대화하는<br>과학적 기법들
+        <span class="gradient-word">AI와 대화하는<br>과학적 기법들</span>
       </h1>
-
-      <!-- 설명 텍스트 및 보라색 하이라이트 -->
       <p class="hero-description">
         프롬프트 엔지니어링을 한 단계 끌어올리세요. 프로덕션 환경에서 대규모<br/>
         <span class="text-highlight">언어 모델(LLM)을 제어하고 최적화하는 고급 기법을 마스터하세요.</span>
       </p>
-
-      <!-- 하단 버튼 2개 -->
       <div class="hero-buttons">
-        <button class="btn-primary">실험실 시작하기 ✨</button>
+        <button id="start-lab-btn" class="btn-primary">실험실 시작하기 ✨</button>
         <button class="btn-secondary">공식 문서 보기</button>
       </div>
-
     </section>
 
-
-    <!-- ============================================================
-         새롭게 추가된 한 줄짜리 마키(Marquee) 구분선 
-         ============================================================ -->
     <div class="hero-marquee-divider">
       <div class="marquee-wrapper" style="margin-bottom: 0;">
         <div class="marquee-track marquee-track--fwd">
-          <!-- 원본 리스트 -->
           <ul class="marquee-list">
             <li class="marquee-pill marquee-pill--default">API 연동</li>
             <li class="marquee-pill marquee-pill--cyan"><span class="marquee-pill__dot"></span>유닛 테스트 작성</li>
@@ -182,7 +69,6 @@
             <li class="marquee-pill marquee-pill--default">논리적 추론</li>
             <li class="marquee-pill marquee-pill--cyan"><span class="marquee-pill__dot"></span>수학 문제 해결</li>
           </ul>
-          <!-- 무한 루프용 복제 리스트 -->
           <ul class="marquee-list" aria-hidden="true">
             <li class="marquee-pill marquee-pill--default">API 연동</li>
             <li class="marquee-pill marquee-pill--cyan"><span class="marquee-pill__dot"></span>유닛 테스트 작성</li>
@@ -201,25 +87,17 @@
       </div>
     </div>
 
-    <!-- BENTO GRID -->
     <section id="section-anatomy" class="bento-grid" aria-label="프롬프트 엔지니어링 기법 카드 목록">
-
-      <!-- ───────────────────────────────────────────
-           Card 01: Zero-Shot Prompting [WIDE: span 2]
-      ─────────────────────────────────────────── -->
-      <article class="prompt-card card--wide" aria-label="Zero-Shot Prompting 카드">
+      <article class="prompt-card card--wide">
         <div class="card-header">
           <div>
             <h2 class="card-title">Zero-Shot Prompting</h2>
-            <p class="card-description" style="margin-top: 0.4rem;">
-              모델에게 예시를 전혀 제공하지 않고 지시만으로 태스크를 수행시키는 가장 기본적인 기법입니다.
-              LLM의 사전 학습 지식에 전적으로 의존합니다.
-            </p>
+            <p class="card-description" style="margin-top: 0.4rem;">모델에게 예시를 전혀 제공하지 않고 지시만으로 태스크를 수행시키는 가장 기본적인 기법입니다.</p>
           </div>
           <span class="badge badge--technique">Technique</span>
         </div>
-        <div class="card-divider" aria-hidden="true"></div>
-        <code class="card-code" aria-label="Zero-Shot 프롬프트 예시">
+        <div class="card-divider"></div>
+        <code class="card-code">
 <span class="token-prompt">PROMPT  &gt;</span> <span class="token-value">다음 영화 리뷰의 감정을 긍정/부정으로 분류하시오.</span>
 <span class="token-prompt">REVIEW  &gt;</span> <span class="token-value">"이 영화는 시간 낭비였다. 스토리가 너무 진부했다."</span>
 <span class="token-prompt">OUTPUT  &gt;</span> <span class="token-role">부정 (Negative)</span></code>
@@ -233,72 +111,41 @@
         </div>
       </article>
 
-      <!-- ───────────────────────────────────────────
-           Card 02: Chain-of-Thought [TALL: row span 2]
-      ─────────────────────────────────────────── -->
-      <article class="prompt-card card--tall" aria-label="Chain-of-Thought 카드">
+      <article class="prompt-card card--tall">
         <div class="card-header">
-          <div class="card-icon-box cyan" aria-hidden="true">
-            <svg viewBox="0 0 24 24">
-              <path d="M9 18h6M12 2v4M6.34 6.34l2.83 2.83M2 12h4M17.66 6.34l-2.83 2.83M22 12h-4M6.34 17.66l2.83-2.83M17.66 17.66l-2.83-2.83"></path>
-            </svg>
+          <div class="card-icon-box cyan">
+            <svg viewBox="0 0 24 24"><path d="M9 18h6M12 2v4M6.34 6.34l2.83 2.83M2 12h4M17.66 6.34l-2.83 2.83M22 12h-4M6.34 17.66l2.83-2.83M17.66 17.66l-2.83-2.83"></path></svg>
           </div>
           <span class="badge badge--advanced">Advanced</span>
         </div>
         <h2 class="card-title">Chain-of-Thought</h2>
-        <p class="card-description">
-          "Step by step으로 생각하시오"라는 지시를 포함하여, 모델이 최종 답변을 내리기 전
-          중간 추론 과정을 명시적으로 생성하도록 유도합니다.
-          복잡한 수학 문제나 다단계 논리 문제에 탁월한 성능을 발휘합니다.
-        </p>
-        <div class="card-divider" aria-hidden="true"></div>
-        <code class="card-code" style="border-left-color: var(--neon-mid);" aria-label="CoT 프롬프트 예시">
+        <p class="card-description">"Step by step으로 생각하시오"라는 지시를 포함하여 중간 추론 과정을 유도합니다. 복잡한 논리 문제에 탁월합니다.</p>
+        <div class="card-divider"></div>
+        <code class="card-code" style="border-left-color: var(--neon-mid);">
 <span class="token-role">단계별로 추론하시오.</span>
-<span class="token-prompt">Q:</span> <span class="token-value">사과 5개에서 2개를 먹고,
-   친구에게 1개를 주면?</span>
-<span class="token-prompt">A:</span> <span class="token-value">1단계: 5 - 2 = 3개 남음
-2단계: 3 - 1 = 2개 남음
-   최종 답: 2개</span></code>
+<span class="token-prompt">Q:</span> <span class="token-value">사과 5개에서 2개 먹고...</span>
+<span class="token-prompt">A:</span> <span class="token-value">1단계: 5 - 2 = 3개...</span></code>
         <div class="progress-group">
           <div class="progress-item">
             <span class="progress-label">정확도 향상</span>
-            <div class="progress-bar-track" role="progressbar" aria-valuenow="88" aria-valuemin="0" aria-valuemax="100" aria-label="정확도 향상 88%">
-              <div class="progress-bar-fill" style="width: 88%;"></div>
-            </div>
+            <div class="progress-bar-track"><div class="progress-bar-fill" data-width="88%" style="width: 0%;"></div></div>
           </div>
           <div class="progress-item">
             <span class="progress-label">복잡도 대응</span>
-            <div class="progress-bar-track" role="progressbar" aria-valuenow="95" aria-valuemin="0" aria-valuemax="100" aria-label="복잡도 대응 95%">
-              <div class="progress-bar-fill" style="width: 95%;"></div>
-            </div>
-          </div>
-          <div class="progress-item">
-            <span class="progress-label">설명 가능성</span>
-            <div class="progress-bar-track" role="progressbar" aria-valuenow="72" aria-valuemin="0" aria-valuemax="100" aria-label="설명 가능성 72%">
-              <div class="progress-bar-fill" style="width: 72%;"></div>
-            </div>
+            <div class="progress-bar-track"><div class="progress-bar-fill" data-width="95%" style="width: 0%;"></div></div>
           </div>
         </div>
       </article>
 
-      <!-- ───────────────────────────────────────────
-           Card 03: Few-Shot Learning [NORMAL]
-      ─────────────────────────────────────────── -->
-      <article class="prompt-card" aria-label="Few-Shot Learning 카드">
+      <article class="prompt-card">
         <div class="card-header">
-          <div class="card-icon-box purple" aria-hidden="true">
-            <svg viewBox="0 0 24 24">
-              <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
-              <line x1="8" y1="21" x2="16" y2="21"></line>
-              <line x1="12" y1="17" x2="12" y2="21"></line>
-            </svg>
+          <div class="card-icon-box purple">
+            <svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>
           </div>
           <span class="badge badge--method">Method</span>
         </div>
         <h2 class="card-title">Few-Shot Learning</h2>
-        <p class="card-description">
-          소수의 입출력 예시(shots)를 프롬프트에 포함하여 모델이 원하는 패턴과 형식을 학습하도록 합니다.
-        </p>
+        <p class="card-description">소수의 입출력 예시(shots)를 프롬프트에 포함하여 패턴을 학습시킵니다.</p>
         <div class="tag-group">
           <span class="tag">1-shot</span>
           <span class="tag">3-shot</span>
@@ -307,1021 +154,435 @@
         </div>
       </article>
 
-      <!-- ───────────────────────────────────────────
-           Card 04: Stat Card [NORMAL]
-      ─────────────────────────────────────────── -->
-      <article class="prompt-card" aria-label="통계 카드: 핵심 기법 수">
-        <p class="stat-number" aria-label="12가지">12</p>
+      <article class="prompt-card">
+        <p class="stat-number">12</p>
         <p class="stat-label">Core Prompting<br />Techniques</p>
-        <div class="card-divider" aria-hidden="true"></div>
-        <p class="card-description" style="font-size: 0.8rem;">
-          Zero-shot부터 Self-Consistency까지,
-          체계적으로 정리된 핵심 기법들.
-        </p>
+        <div class="card-divider"></div>
+        <p class="card-description">Zero-shot부터 Self-Consistency까지 정리된 핵심 기법들.</p>
       </article>
 
-      <!-- ───────────────────────────────────────────
-           Card 05: Role Prompting [WIDE: span 2]
-      ─────────────────────────────────────────── -->
-      <article class="prompt-card card--wide" aria-label="Role Prompting 카드">
+      <article class="prompt-card card--wide">
         <div class="card-header">
           <div>
             <h2 class="card-title">Role Prompting (Persona)</h2>
-            <p class="card-description" style="margin-top: 0.4rem;">
-              모델에게 특정 전문가 역할이나 페르소나를 부여하여 해당 관점에서 응답하도록 유도합니다.
-              "당신은 10년 경력의 보안 전문가입니다"와 같은 시스템 프롬프트가 대표적입니다.
-            </p>
+            <p class="card-description" style="margin-top: 0.4rem;">모델에게 특정 전문가 역할이나 페르소나를 부여하여 해당 관점에서 응답하도록 유도합니다.</p>
           </div>
           <span class="badge badge--technique">Technique</span>
         </div>
-        <div class="card-divider" aria-hidden="true"></div>
-        <code class="card-code" style="border-left-color: var(--neon-purple);" aria-label="Role Prompting 예시">
-<span class="token-role">SYSTEM:</span> <span class="token-value">당신은 15년 경력의 사이버 보안 전문가입니다.
-        기술적 정확성과 명확한 설명을 최우선으로 합니다.</span>
-<span class="token-prompt">USER  :</span> <span class="token-value">SQL Injection 공격 원리를 초보자에게 설명해 주세요.</span></code>
+        <div class="card-divider"></div>
+        <code class="card-code" style="border-left-color: var(--neon-purple);">
+<span class="token-role">SYSTEM:</span> <span class="token-value">당신은 15년 경력의 사이버 보안 전문가입니다.</span>
+<span class="token-prompt">USER  :</span> <span class="token-value">SQL Injection 공격 원리를 설명해 주세요.</span></code>
       </article>
 
-      <!-- ───────────────────────────────────────────
-           Card 06: Output Formatting [NORMAL]
-      ─────────────────────────────────────────── -->
-      <article class="prompt-card" aria-label="Output Formatting 카드">
+      <article class="prompt-card">
         <div class="card-header">
-          <div class="card-icon-box mid" aria-hidden="true">
-            <svg viewBox="0 0 24 24">
-              <line x1="21" y1="10" x2="3" y2="10"></line>
-              <line x1="21" y1="6"  x2="3" y2="6"></line>
-              <line x1="21" y1="14" x2="3" y2="14"></line>
-              <line x1="21" y1="18" x2="7" y2="18"></line>
-            </svg>
+          <div class="card-icon-box mid">
+            <svg viewBox="0 0 24 24"><line x1="21" y1="10" x2="3" y2="10"></line><line x1="21" y1="6"  x2="3" y2="6"></line><line x1="21" y1="14" x2="3" y2="14"></line><line x1="21" y1="18" x2="7" y2="18"></line></svg>
           </div>
           <span class="badge badge--advanced">Format</span>
         </div>
         <h2 class="card-title">Output Formatting</h2>
-        <p class="card-description">
-          JSON, Markdown, XML 등 원하는 출력 형식을 명시적으로 지정합니다. 구조화된 데이터 추출에 필수적입니다.
-        </p>
+        <p class="card-description">JSON, Markdown, XML 등 출력 형식을 명시적으로 지정합니다.</p>
         <div class="tag-group">
           <span class="tag">JSON</span>
           <span class="tag">Markdown</span>
           <span class="tag">XML</span>
-          <span class="tag">CSV</span>
         </div>
       </article>
 
-      <!-- ───────────────────────────────────────────
-           Card 07: Self-Consistency [NORMAL]
-      ─────────────────────────────────────────── -->
-      <article class="prompt-card" aria-label="Self-Consistency 카드">
+      <article class="prompt-card">
         <div class="card-header">
-          <div class="card-icon-box neutral" aria-hidden="true">
-            <svg viewBox="0 0 24 24">
-              <polyline points="1 4 1 10 7 10"></polyline>
-              <path d="M3.51 15a9 9 0 1 0 .49-3.51"></path>
-            </svg>
+          <div class="card-icon-box neutral">
+            <svg viewBox="0 0 24 24"><polyline points="1 4 1 10 7 10"></polyline><path d="M3.51 15a9 9 0 1 0 .49-3.51"></path></svg>
           </div>
           <span class="badge badge--neutral">Reliability</span>
         </div>
         <h2 class="card-title">Self-Consistency</h2>
-        <p class="card-description">
-          동일한 프롬프트를 여러 번 실행하고 다수결 투표로 가장 일관된 답을 선택해 신뢰도를 높입니다.
-        </p>
+        <p class="card-description">동일한 프롬프트를 여러 번 실행하고 다수결 투표로 신뢰도를 높입니다.</p>
         <div class="progress-group">
           <div class="progress-item">
             <span class="progress-label">신뢰도</span>
-            <div class="progress-bar-track" role="progressbar" aria-valuenow="92" aria-valuemin="0" aria-valuemax="100" aria-label="신뢰도 92%">
-              <div class="progress-bar-fill" style="width: 92%;"></div>
-            </div>
+            <div class="progress-bar-track"><div class="progress-bar-fill" data-width="92%" style="width: 0%;"></div></div>
           </div>
         </div>
       </article>
-
     </section>
-    <!-- END BENTO GRID -->
-
   </main>
 
-  <!-- =====================================================
-       FOOTER
-  ====================================================== -->
-  <section class="marquee-section" aria-label="프롬프트 엔지니어링 적용 분야">
-
-  <div class="section-header">
-    <p class="section-eyebrow">Applications</p>
-    <h2 class="section-title">
-      활용되는 모든 곳
-    </h2>
-    <p class="section-desc">
-      프롬프트 엔지니어링은 특정 분야에 국한되지 않습니다.<br>
-      생각할 수 있는 모든 창작·분석·개발 영역에 적용됩니다.
-    </p>
-  </div>
-
-  <!-- ============================================================
-     고정형 태그 클라우드 (Static Tag List)
-============================================================= -->
-<div class="static-tags-wrapper">
-  <ul class="static-tags-list">
-    <!-- 기존 트랙 1 내용 -->
-    <li class="marquee-pill marquee-pill--cyan"><span class="marquee-pill__dot"></span>Code Generation</li>
-    <li class="marquee-pill marquee-pill--purple"><span class="marquee-pill__dot"></span>Creative Writing</li>
-    <li class="marquee-pill marquee-pill--cyan"><span class="marquee-pill__dot"></span>Data Analysis</li>
-    <li class="marquee-pill marquee-pill--default"><span class="marquee-pill__dot"></span>Translation</li>
-    <li class="marquee-pill marquee-pill--purple"><span class="marquee-pill__dot"></span>Sentiment Analysis</li>
-    <li class="marquee-pill marquee-pill--cyan"><span class="marquee-pill__dot"></span>Image Captioning</li>
-    <li class="marquee-pill marquee-pill--default"><span class="marquee-pill__dot"></span>Summarization</li>
-    <li class="marquee-pill marquee-pill--purple"><span class="marquee-pill__dot"></span>SQL Querying</li>
-    <li class="marquee-pill marquee-pill--cyan"><span class="marquee-pill__dot"></span>Chatbot Design</li>
-    <li class="marquee-pill marquee-pill--default"><span class="marquee-pill__dot"></span>Persona Crafting</li>
-    
-    <!-- 기존 트랙 2 내용 -->
-    <li class="marquee-pill marquee-pill--purple"><span class="marquee-pill__dot"></span>Legal Document Review</li>
-    <li class="marquee-pill marquee-pill--cyan"><span class="marquee-pill__dot"></span>Medical Triage</li>
-    <li class="marquee-pill marquee-pill--default"><span class="marquee-pill__dot"></span>Education Tutoring</li>
-    <li class="marquee-pill marquee-pill--cyan"><span class="marquee-pill__dot"></span>SEO Optimization</li>
-    <li class="marquee-pill marquee-pill--purple"><span class="marquee-pill__dot"></span>Product Descriptions</li>
-    <li class="marquee-pill marquee-pill--default"><span class="marquee-pill__dot"></span>Bug Debugging</li>
-    <li class="marquee-pill marquee-pill--cyan"><span class="marquee-pill__dot"></span>API Documentation</li>
-    <li class="marquee-pill marquee-pill--purple"><span class="marquee-pill__dot"></span>UX Copywriting</li>
-    <li class="marquee-pill marquee-pill--default"><span class="marquee-pill__dot"></span>Research Synthesis</li>
-    <li class="marquee-pill marquee-pill--cyan"><span class="marquee-pill__dot"></span>Game Narrative</li>
-  </ul>
-</div>
-
-</section>
-
-
-<!-- ============================================================
-     [섹션 4] FAQ 아코디언 (details/summary, JS 없음)
-     삽입 위치: 섹션 3 </section> 바로 다음, <footer> 바로 위
-     ============================================================ -->
-<section class="faq-section">
-
-  <div class="section-header">
-    <p class="section-eyebrow">FAQ</p>
-    <h2 class="section-title">
-      자주 묻는 <span class="section-title--accent">질문들</span>
-    </h2>
-    <p class="section-desc">
-      프롬프트 엔지니어링을 처음 접할 때 가장 많이 하는 질문들을 모았습니다.
-    </p>
-  </div>
-
-  <div class="faq-list">
-
-    <details class="faq-item">
-      <summary class="faq-summary">
-        <span class="faq-q-label">Q</span>
-        <span class="faq-question">프롬프트 엔지니어링은 개발자만 배울 수 있나요?</span>
-        <span class="faq-icon" aria-hidden="true"></span>
-      </summary>
-      <div class="faq-answer">
-        <p>
-          전혀 그렇지 않습니다. 프롬프트 엔지니어링은 <strong class="faq-strong">코딩 지식이 없어도 배울 수 있는 커뮤니케이션 기술</strong>에 가깝습니다.
-          마케터, 작가, 연구자, 교육자 등 다양한 직군의 전문가들이 이미 적극적으로 활용하고 있습니다.
-          핵심은 AI 모델이 어떻게 생각하는지를 이해하고, 그에 맞게 의도를 명확히 전달하는 능력입니다.
-        </p>
-        <ul class="faq-tag-list">
-          <li class="badge badge--cyan">비개발자 친화적</li>
-          <li class="badge badge--outline">커뮤니케이션 스킬</li>
-          <li class="badge badge--outline">진입 장벽 낮음</li>
-        </ul>
-      </div>
-    </details>
-
-    <details class="faq-item">
-      <summary class="faq-summary">
-        <span class="faq-q-label">Q</span>
-        <span class="faq-question">GPT, Claude, Gemini 등 모델마다 프롬프트가 달라야 하나요?</span>
-        <span class="faq-icon" aria-hidden="true"></span>
-      </summary>
-      <div class="faq-answer">
-        <p>
-          핵심 원칙(Context, Task, Constraint, Format)은 어느 모델에나 동일하게 적용됩니다.
-          다만 <strong class="faq-strong">모델별 특성과 학습 방식이 다르기 때문에</strong> 세부 표현이나 강조점은 조금씩 달라질 수 있습니다.
-          예를 들어 Claude는 역할 부여에 민감하고, GPT-4o는 단계별 지시에 잘 반응하는 경향이 있습니다.
-        </p>
-        <ul class="faq-tag-list">
-          <li class="badge badge--purple">모델 불가지론적 접근</li>
-          <li class="badge badge--outline">미세 조정 필요</li>
-        </ul>
-      </div>
-    </details>
-
-    <details class="faq-item">
-      <summary class="faq-summary">
-        <span class="faq-q-label">Q</span>
-        <span class="faq-question">Few-Shot 프롬프트는 언제 사용해야 하나요?</span>
-        <span class="faq-icon" aria-hidden="true"></span>
-      </summary>
-      <div class="faq-answer">
-        <p>
-          출력 형식이 매우 특정하거나, Zero-Shot으로 원하는 결과를 얻기 어려울 때 사용합니다.
-          예를 들어 <strong class="faq-strong">특정 브랜드 보이스로 카피라이팅</strong>을 해야 하거나,
-          <strong class="faq-strong">정형화된 JSON/CSV 구조</strong>로 데이터를 추출해야 할 때 2~5개의 예시를 제공하면 정확도가 크게 향상됩니다.
-          단, 예시가 너무 많으면 토큰 비용이 증가하므로 균형을 맞추는 것이 중요합니다.
-        </p>
-        <ul class="faq-tag-list">
-          <li class="badge badge--cyan">Few-Shot</li>
-          <li class="badge badge--outline">2-5개 예시 권장</li>
-          <li class="badge badge--outline">구조화된 출력</li>
-        </ul>
-      </div>
-    </details>
-
-    <details class="faq-item">
-      <summary class="faq-summary">
-        <span class="faq-q-label">Q</span>
-        <span class="faq-question">Chain-of-Thought(CoT)는 항상 효과적인가요?</span>
-        <span class="faq-icon" aria-hidden="true"></span>
-      </summary>
-      <div class="faq-answer">
-        <p>
-          CoT는 <strong class="faq-strong">추론 단계가 필요한 복잡한 문제</strong>에서 뛰어난 효과를 보입니다.
-          수학 계산, 논리적 추론, 다단계 분석 등이 대표적입니다.
-          반면 간단한 사실 확인이나 단순 번역처럼 직접적인 답이 있는 작업에는 불필요한 토큰 낭비가 될 수 있습니다.
-          &ldquo;단계적으로 생각해 줘(Think step by step)&rdquo;라는 한 문장이 놀라운 성능 향상을 가져올 수 있습니다.
-        </p>
-        <ul class="faq-tag-list">
-          <li class="badge badge--purple">Chain-of-Thought</li>
-          <li class="badge badge--outline">복잡한 추론에 최적</li>
-          <li class="badge badge--outline">토큰 효율 고려</li>
-        </ul>
-      </div>
-    </details>
-
-    <details class="faq-item">
-      <summary class="faq-summary">
-        <span class="faq-q-label">Q</span>
-        <span class="faq-question">프롬프트가 길수록 결과가 좋아지나요?</span>
-        <span class="faq-icon" aria-hidden="true"></span>
-      </summary>
-      <div class="faq-answer">
-        <p>
-          길이와 품질은 비례하지 않습니다. <strong class="faq-strong">명확성과 밀도</strong>가 핵심입니다.
-          불필요한 수식어, 중복 지시, 모호한 표현은 오히려 모델을 혼란스럽게 합니다.
-          &ldquo;친절하고 전문적이고 간결하고 이해하기 쉽게&rdquo; 같은 중첩된 수식보다
-          &ldquo;대상 독자: 비전공자 성인, 톤: 간결하고 친근하게&rdquo; 처럼 <strong class="faq-strong">구조화된 지시</strong>가 훨씬 효과적입니다.
-        </p>
-        <ul class="faq-tag-list">
-          <li class="badge badge--cyan">명확성 > 길이</li>
-          <li class="badge badge--outline">구조화 우선</li>
-          <li class="badge badge--outline">중복 제거</li>
-        </ul>
-      </div>
-    </details>
-
-    <details class="faq-item">
-      <summary class="faq-summary">
-        <span class="faq-q-label">Q</span>
-        <span class="faq-question">System Prompt와 User Prompt의 차이는 무엇인가요?</span>
-        <span class="faq-icon" aria-hidden="true"></span>
-      </summary>
-      <div class="faq-answer">
-        <p>
-          <strong class="faq-strong">System Prompt</strong>는 AI의 전체 행동 방식, 역할, 제약 조건을 정의하는 고수준 지시입니다.
-          마치 직원 교육 매뉴얼처럼, 모든 대화에 일관되게 적용됩니다.
-          반면 <strong class="faq-strong">User Prompt</strong>는 개별 대화에서의 구체적인 요청입니다.
-          API를 직접 활용하는 개발자라면 System Prompt를 통해 페르소나, 응답 형식, 금지 사항을 명확히 설정하는 것이 매우 중요합니다.
-        </p>
-        <ul class="faq-tag-list">
-          <li class="badge badge--purple">System Prompt</li>
-          <li class="badge badge--cyan">User Prompt</li>
-          <li class="badge badge--outline">역할 분리 설계</li>
-        </ul>
-      </div>
-    </details>
-
-  </div>
-</section>
-
-<section id="section-gallery" class="table-section">
-  <div class="table-section__inner">
-
+  <section class="marquee-section">
     <div class="section-header">
-      <p class="section-eyebrow">Model Intelligence</p>
-      <h2 class="section-title">
-        AI 모델 <span class="section-title--accent">스펙 비교</span>
-      </h2>
-      <p class="section-desc">
-        프롬프트 엔지니어링에서 자주 활용되는 대표 모델들의 핵심 지표를 한눈에 비교합니다.
-        모델의 특성을 이해하는 것이 최적의 프롬프트를 설계하는 첫 번째 단계입니다.
-      </p>
+      <p class="section-eyebrow">Applications</p>
+      <h2 class="section-title">활용되는 모든 곳</h2>
+      <p class="section-desc">생각할 수 있는 모든 창작·분석·개발 영역에 적용됩니다.</p>
     </div>
-
-    <!-- 반응형 래퍼: overflow-x:auto 로 모바일 대응 -->
-    <div class="table-wrapper">
-      <table class="model-table">
-        <thead>
-          <tr>
-            <th scope="col" class="model-table__th model-table__th--model">Model</th>
-            <th scope="col" class="model-table__th">컨텍스트 윈도우</th>
-            <th scope="col" class="model-table__th">강점 분야</th>
-            <th scope="col" class="model-table__th">멀티모달</th>
-            <th scope="col" class="model-table__th">속도</th>
-            <th scope="col" class="model-table__th">프롬프트 적합도</th>
-          </tr>
-        </thead>
-        <tbody>
-          <!-- Row 1: GPT-4o -->
-          <tr class="model-table__row">
-            <td class="model-table__td model-table__td--model">
-              <div class="model-name-wrap">
-                <span class="model-dot model-dot--green"></span>
-                <div>
-                  <strong class="model-name">GPT-4o</strong>
-                  <span class="model-maker">OpenAI</span>
-                </div>
-              </div>
-            </td>
-            <td class="model-table__td">
-              <span class="ctx-badge">128K</span>
-            </td>
-            <td class="model-table__td">
-              <div class="tag-list">
-                <span class="tag tag--blue">글쓰기</span>
-                <span class="tag tag--purple">추론</span>
-              </div>
-            </td>
-            <td class="model-table__td">
-              <span class="check-icon check-icon--yes">
-                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                  <path d="M3 8.5L6.5 12L13 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-                지원
-              </span>
-            </td>
-            <td class="model-table__td">
-              <div class="speed-bar-wrap">
-                <div class="speed-bar">
-                  <div class="speed-bar__fill" style="--fill: 80%"></div>
-                </div>
-                <span class="speed-label">빠름</span>
-              </div>
-            </td>
-            <td class="model-table__td">
-              <div class="star-row">
-                <span class="star star--on">*</span>
-                <span class="star star--on">*</span>
-                <span class="star star--on">*</span>
-                <span class="star star--on">*</span>
-                <span class="star star--half">*</span>
-              </div>
-            </td>
-          </tr>
-
-          <!-- Row 2: Claude 3.5 Opus -->
-          <tr class="model-table__row">
-            <td class="model-table__td model-table__td--model">
-              <div class="model-name-wrap">
-                <span class="model-dot model-dot--cyan"></span>
-                <div>
-                  <strong class="model-name model-name--highlight">Claude 3.5 Opus</strong>
-                  <span class="model-maker">Anthropic</span>
-                </div>
-              </div>
-            </td>
-            <td class="model-table__td">
-              <span class="ctx-badge ctx-badge--cyan">200K</span>
-            </td>
-            <td class="model-table__td">
-              <div class="tag-list">
-                <span class="tag tag--cyan">코드 생성</span>
-                <span class="tag tag--purple">분석</span>
-              </div>
-            </td>
-            <td class="model-table__td">
-              <span class="check-icon check-icon--yes">
-                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                  <path d="M3 8.5L6.5 12L13 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-                지원
-              </span>
-            </td>
-            <td class="model-table__td">
-              <div class="speed-bar-wrap">
-                <div class="speed-bar">
-                  <div class="speed-bar__fill" style="--fill: 65%"></div>
-                </div>
-                <span class="speed-label">보통</span>
-              </div>
-            </td>
-            <td class="model-table__td">
-              <div class="star-row">
-                <span class="star star--on">*</span>
-                <span class="star star--on">*</span>
-                <span class="star star--on">*</span>
-                <span class="star star--on">*</span>
-                <span class="star star--on">*</span>
-              </div>
-            </td>
-          </tr>
-
-          <!-- Row 3: Gemini 1.5 Pro -->
-          <tr class="model-table__row">
-            <td class="model-table__td model-table__td--model">
-              <div class="model-name-wrap">
-                <span class="model-dot model-dot--yellow"></span>
-                <div>
-                  <strong class="model-name">Gemini 3.1 Pro</strong>
-                  <span class="model-maker">Google</span>
-                </div>
-              </div>
-            </td>
-            <td class="model-table__td">
-              <span class="ctx-badge ctx-badge--yellow">1M</span>
-            </td>
-            <td class="model-table__td">
-              <div class="tag-list">
-                <span class="tag tag--yellow">데이터</span>
-                <span class="tag tag--blue">번역</span>
-              </div>
-            </td>
-            <td class="model-table__td">
-              <span class="check-icon check-icon--yes">
-                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                  <path d="M3 8.5L6.5 12L13 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-                지원
-              </span>
-            </td>
-            <td class="model-table__td">
-              <div class="speed-bar-wrap">
-                <div class="speed-bar">
-                  <div class="speed-bar__fill" style="--fill: 72%"></div>
-                </div>
-                <span class="speed-label">빠름</span>
-              </div>
-            </td>
-            <td class="model-table__td">
-              <div class="star-row">
-                <span class="star star--on">*</span>
-                <span class="star star--on">*</span>
-                <span class="star star--on">*</span>
-                <span class="star star--on">*</span>
-                <span class="star star--off">*</span>
-              </div>
-            </td>
-          </tr>
-
-          <!-- Row 4: Llama 3.1 405B -->
-          <tr class="model-table__row">
-            <td class="model-table__td model-table__td--model">
-              <div class="model-name-wrap">
-                <span class="model-dot model-dot--purple"></span>
-                <div>
-                  <strong class="model-name">Llama 3.1 405B</strong>
-                  <span class="model-maker">Meta (Open Source)</span>
-                </div>
-              </div>
-            </td>
-            <td class="model-table__td">
-              <span class="ctx-badge ctx-badge--purple">128K</span>
-            </td>
-            <td class="model-table__td">
-              <div class="tag-list">
-                <span class="tag tag--green">오픈소스</span>
-                <span class="tag tag--blue">커스텀</span>
-              </div>
-            </td>
-            <td class="model-table__td">
-              <span class="check-icon check-icon--no">
-                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                  <path d="M4.5 4.5L11.5 11.5M11.5 4.5L4.5 11.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                </svg>
-                텍스트
-              </span>
-            </td>
-            <td class="model-table__td">
-              <div class="speed-bar-wrap">
-                <div class="speed-bar">
-                  <div class="speed-bar__fill speed-bar__fill--purple" style="--fill: 55%"></div>
-                </div>
-                <span class="speed-label">느림</span>
-              </div>
-            </td>
-            <td class="model-table__td">
-              <div class="star-row">
-                <span class="star star--on">*</span>
-                <span class="star star--on">*</span>
-                <span class="star star--on">*</span>
-                <span class="star star--half">*</span>
-                <span class="star star--off">*</span>
-              </div>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+    <div class="static-tags-wrapper">
+      <ul class="static-tags-list">
+        <li class="marquee-pill marquee-pill--cyan"><span class="marquee-pill__dot"></span>Code Generation</li>
+        <li class="marquee-pill marquee-pill--purple"><span class="marquee-pill__dot"></span>Creative Writing</li>
+        <li class="marquee-pill marquee-pill--cyan"><span class="marquee-pill__dot"></span>Data Analysis</li>
+        <li class="marquee-pill marquee-pill--default"><span class="marquee-pill__dot"></span>Translation</li>
+        <li class="marquee-pill marquee-pill--purple"><span class="marquee-pill__dot"></span>Sentiment Analysis</li>
+        <li class="marquee-pill marquee-pill--cyan"><span class="marquee-pill__dot"></span>Image Captioning</li>
+        <li class="marquee-pill marquee-pill--default"><span class="marquee-pill__dot"></span>Summarization</li>
+        <li class="marquee-pill marquee-pill--purple"><span class="marquee-pill__dot"></span>SQL Querying</li>
+      </ul>
     </div>
+  </section>
 
-    <!-- 테이블 하단 범례 -->
-    <div class="table-legend">
-      <span class="legend-item">
-        <span class="model-dot model-dot--cyan" style="display:inline-block"></span>
-        추천 모델
-      </span>
-      <span class="legend-item">
-        <span class="star star--on" style="font-size:0.8rem">*</span>
-        프롬프트 반응 우수
-      </span>
-      <span class="legend-item">
-        <span class="ctx-badge" style="font-size:0.65rem; padding:0.1rem 0.4rem">K / M</span>
-        토큰 단위
-      </span>
-    </div>
-
-  </div>
-</section>
-<!-- [섹션 5 끝] -->
-
-
-
-
-<!-- ============================================================
-     섹션 7: 자주 하는 실수 — 3D Flip Cards
-     삽입 위치: 섹션 6 </section> 바로 다음, <footer> 바로 위
-     ============================================================ -->
-<section id="section-mistakes" class="flip-section">
-  <div class="flip-section__inner">
-
+  <section class="faq-section">
     <div class="section-header">
-      <p class="section-eyebrow">Common Pitfalls</p>
-      <h2 class="section-title">
-        자주 하는 <span class="section-title--accent">실수</span>들
-      </h2>
-      <p class="section-desc">
-        카드 위에 마우스를 올려 실수의 해결책을 확인하세요.
-        작은 습관의 차이가 프롬프트 품질을 결정합니다.
-      </p>
+      <p class="section-eyebrow">FAQ</p>
+      <h2 class="section-title">자주 묻는 <span class="section-title--accent">질문들</span></h2>
     </div>
+    <div class="faq-list">
+      <details class="faq-item">
+        <summary class="faq-summary"><span class="faq-q-label">Q</span><span class="faq-question">프롬프트 엔지니어링은 개발자만 배울 수 있나요?</span><span class="faq-icon"></span></summary>
+        <div class="faq-answer"><p>코딩 지식이 없어도 배울 수 있는 커뮤니케이션 기술에 가깝습니다.</p></div>
+      </details>
+      <details class="faq-item">
+        <summary class="faq-summary"><span class="faq-q-label">Q</span><span class="faq-question">GPT, Claude, Gemini 등 모델마다 프롬프트가 달라야 하나요?</span><span class="faq-icon"></span></summary>
+        <div class="faq-answer"><p>핵심 원칙은 동일하지만 모델별 특성에 따라 미세 조정이 필요합니다.</p></div>
+      </details>
+      <details class="faq-item">
+        <summary class="faq-summary"><span class="faq-q-label">Q</span><span class="faq-question">Few-Shot 프롬프트는 언제 사용해야 하나요?</span><span class="faq-icon"></span></summary>
+        <div class="faq-answer"><p>정형화된 데이터나 특정 톤앤매너를 추출해야 할 때 예시를 제공하면 좋습니다.</p></div>
+      </details>
+      <details class="faq-item">
+        <summary class="faq-summary"><span class="faq-q-label">Q</span><span class="faq-question">Chain-of-Thought(CoT)는 항상 효과적인가요?</span><span class="faq-icon"></span></summary>
+        <div class="faq-answer"><p>추론이 필요한 복잡한 문제에서만 효과적이며, 단순 작업에는 토큰 낭비입니다.</p></div>
+      </details>
+      <details class="faq-item">
+        <summary class="faq-summary"><span class="faq-q-label">Q</span><span class="faq-question">프롬프트가 길수록 결과가 좋아지나요?</span><span class="faq-icon"></span></summary>
+        <div class="faq-answer"><p>길이보다 명확성과 밀도가 중요합니다. 불필요한 수식어는 혼란을 줍니다.</p></div>
+      </details>
+      <details class="faq-item">
+        <summary class="faq-summary"><span class="faq-q-label">Q</span><span class="faq-question">System Prompt와 User Prompt의 차이는 무엇인가요?</span><span class="faq-icon"></span></summary>
+        <div class="faq-answer"><p>System은 전체 행동 방식과 역할을 정의하고, User는 개별 대화에서의 구체적 요청입니다.</p></div>
+      </details>
+    </div>
+  </section>
 
-    <div class="flip-grid">
+  <section id="section-gallery" class="table-section">
+    <div class="table-section__inner">
+      <div class="section-header">
+        <p class="section-eyebrow">Model Intelligence</p>
+        <h2 class="section-title">AI 모델 <span class="section-title--accent">스펙 비교</span></h2>
+      </div>
+      <div class="table-wrapper">
+        <table class="model-table">
+          <thead>
+            <tr>
+              <th scope="col" class="model-table__th model-table__th--model">Model</th>
+              <th scope="col" class="model-table__th">컨텍스트 윈도우</th>
+              <th scope="col" class="model-table__th">강점 분야</th>
+              <th scope="col" class="model-table__th">멀티모달</th>
+              <th scope="col" class="model-table__th">속도</th>
+              <th scope="col" class="model-table__th">프롬프트 적합도</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="model-table__row">
+              <td class="model-table__td model-table__td--model">
+                <div class="model-name-wrap"><span class="model-dot model-dot--green"></span><div><strong class="model-name">GPT-4o</strong><span class="model-maker">OpenAI</span></div></div>
+              </td>
+              <td class="model-table__td"><span class="ctx-badge">128K</span></td>
+              <td class="model-table__td"><div class="tag-list"><span class="tag tag--blue">글쓰기</span><span class="tag tag--purple">추론</span></div></td>
+              <td class="model-table__td"><span class="check-icon check-icon--yes"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8.5L6.5 12L13 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> 지원</span></td>
+              <td class="model-table__td">
+                <div class="speed-bar-wrap">
+                  <div class="speed-bar"><div class="speed-bar__fill" data-width="80%" style="width: 0%;"></div></div>
+                  <span class="speed-label">빠름</span>
+                </div>
+              </td>
+              <td class="model-table__td"><div class="star-row"><span class="star star--on">*</span><span class="star star--on">*</span><span class="star star--on">*</span><span class="star star--on">*</span><span class="star star--half">*</span></div></td>
+            </tr>
+            <tr class="model-table__row">
+              <td class="model-table__td model-table__td--model">
+                <div class="model-name-wrap"><span class="model-dot model-dot--cyan"></span><div><strong class="model-name model-name--highlight">Claude 3.5 Opus</strong><span class="model-maker">Anthropic</span></div></div>
+              </td>
+              <td class="model-table__td"><span class="ctx-badge ctx-badge--cyan">200K</span></td>
+              <td class="model-table__td"><div class="tag-list"><span class="tag tag--cyan">코드 생성</span><span class="tag tag--purple">분석</span></div></td>
+              <td class="model-table__td"><span class="check-icon check-icon--yes"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8.5L6.5 12L13 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> 지원</span></td>
+              <td class="model-table__td">
+                <div class="speed-bar-wrap">
+                  <div class="speed-bar"><div class="speed-bar__fill" data-width="65%" style="width: 0%;"></div></div>
+                  <span class="speed-label">보통</span>
+                </div>
+              </td>
+              <td class="model-table__td"><div class="star-row"><span class="star star--on">*</span><span class="star star--on">*</span><span class="star star--on">*</span><span class="star star--on">*</span><span class="star star--on">*</span></div></td>
+            </tr>
+            <tr class="model-table__row">
+              <td class="model-table__td model-table__td--model">
+                <div class="model-name-wrap"><span class="model-dot model-dot--yellow"></span><div><strong class="model-name">Gemini 3.1 Pro</strong><span class="model-maker">Google</span></div></div>
+              </td>
+              <td class="model-table__td"><span class="ctx-badge ctx-badge--yellow">1M</span></td>
+              <td class="model-table__td"><div class="tag-list"><span class="tag tag--yellow">데이터</span><span class="tag tag--blue">번역</span></div></td>
+              <td class="model-table__td"><span class="check-icon check-icon--yes"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8.5L6.5 12L13 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> 지원</span></td>
+              <td class="model-table__td">
+                <div class="speed-bar-wrap">
+                  <div class="speed-bar"><div class="speed-bar__fill" data-width="72%" style="width: 0%;"></div></div>
+                  <span class="speed-label">빠름</span>
+                </div>
+              </td>
+              <td class="model-table__td"><div class="star-row"><span class="star star--on">*</span><span class="star star--on">*</span><span class="star star--on">*</span><span class="star star--on">*</span><span class="star star--off">*</span></div></td>
+            </tr>
+            <tr class="model-table__row">
+              <td class="model-table__td model-table__td--model">
+                <div class="model-name-wrap"><span class="model-dot model-dot--purple"></span><div><strong class="model-name">Llama 3.1 405B</strong><span class="model-maker">Meta (Open Source)</span></div></div>
+              </td>
+              <td class="model-table__td"><span class="ctx-badge ctx-badge--purple">128K</span></td>
+              <td class="model-table__td"><div class="tag-list"><span class="tag tag--green">오픈소스</span><span class="tag tag--blue">커스텀</span></div></td>
+              <td class="model-table__td"><span class="check-icon check-icon--no"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4.5 4.5L11.5 11.5M11.5 4.5L4.5 11.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg> 텍스트</span></td>
+              <td class="model-table__td">
+                <div class="speed-bar-wrap">
+                  <div class="speed-bar"><div class="speed-bar__fill speed-bar__fill--purple" data-width="55%" style="width: 0%;"></div></div>
+                  <span class="speed-label">느림</span>
+                </div>
+              </td>
+              <td class="model-table__td"><div class="star-row"><span class="star star--on">*</span><span class="star star--on">*</span><span class="star star--on">*</span><span class="star star--half">*</span><span class="star star--off">*</span></div></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="table-legend">
+        <span class="legend-item"><span class="model-dot model-dot--cyan" style="display:inline-block"></span> 추천 모델</span>
+        <span class="legend-item"><span class="star star--on" style="font-size:0.8rem">*</span> 프롬프트 반응 우수</span>
+        <span class="legend-item"><span class="ctx-badge" style="font-size:0.65rem; padding:0.1rem 0.4rem">K / M</span> 토큰 단위</span>
+      </div>
+    </div>
+  </section>
 
-      <!-- 카드 1 -->
-      <div class="flip-card">
-        <div class="flip-card__inner">
-
-          <!-- 앞면 -->
-          <div class="flip-card__face flip-card__face--front">
-            <div class="flip-card__mistake-badge">Mistake 01</div>
-            <div class="flip-card__front-icon">
-              <svg width="32" height="32" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
-                <path stroke-linecap="round" stroke-linejoin="round"
-                  d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126z"/>
-              </svg>
+  <section id="section-mistakes" class="flip-section">
+    <div class="flip-section__inner">
+      <div class="section-header">
+        <p class="section-eyebrow">Common Pitfalls</p>
+        <h2 class="section-title">자주 하는 <span class="section-title--accent">실수</span>들</h2>
+        <p class="section-desc">카드 위에 마우스를 올려 실수의 해결책을 확인하세요. 작은 습관의 차이가 프롬프트 품질을 결정합니다.</p>
+      </div>
+      <div class="flip-grid">
+        <div class="flip-card">
+          <div class="flip-card__inner">
+            <div class="flip-card__face flip-card__face--front">
+              <div class="flip-card__mistake-badge">Mistake 01</div>
+              <div class="flip-card__front-icon"><svg width="32" height="32" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126z"/></svg></div>
+              <h3 class="flip-card__front-title">너무 모호한 지시</h3>
+              <p class="flip-card__front-desc">"좋은 글 써줘", "코드 고쳐줘"처럼 목적·대상·형식이 전혀 없는 지시는 엉뚱한 결과를 냅니다.</p>
+              <div class="flip-card__hint">뒤집어서 해결책 보기</div>
             </div>
-            <h3 class="flip-card__front-title">너무 모호한 지시</h3>
-            <p class="flip-card__front-desc">
-              "좋은 글 써줘", "코드 고쳐줘"처럼<br>
-              목적·대상·형식이 전혀 없는<br>
-              지시는 엉뚱한 결과를 냅니다.
-            </p>
-            <div class="flip-card__hint">뒤집어서 해결책 보기</div>
-          </div>
-
-          <!-- 뒷면 -->
-          <div class="flip-card__face flip-card__face--back">
-            <div class="flip-card__solution-badge">Solution</div>
-            <div class="flip-card__back-icon">
-              <svg width="28" height="28" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
-                <path stroke-linecap="round" stroke-linejoin="round"
-                  d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
-              </svg>
+            <div class="flip-card__face flip-card__face--back">
+              <div class="flip-card__solution-badge">Solution</div>
+              <div class="flip-card__back-icon"><svg width="28" height="28" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg></div>
+              <h3 class="flip-card__back-title">Context + Task 명시</h3>
+              <p class="flip-card__back-desc">"마케터를 위한 SNS 캡션을 인스타그램 스타일로, 150자 이내로 3가지 버전으로 작성해 줘."</p>
+              <code class="flip-card__code">Role + Goal + Format + Limit</code>
             </div>
-            <h3 class="flip-card__back-title">Context + Task 명시</h3>
-            <p class="flip-card__back-desc">
-              "마케터를 위한 SNS 캡션을<br>
-              인스타그램 스타일로, 150자 이내로<br>
-              3가지 버전으로 작성해 줘."
-            </p>
-            <code class="flip-card__code">Role + Goal + Format + Limit</code>
           </div>
-
+        </div>
+        <div class="flip-card">
+          <div class="flip-card__inner">
+            <div class="flip-card__face flip-card__face--front">
+              <div class="flip-card__mistake-badge">Mistake 02</div>
+              <div class="flip-card__front-icon"><svg width="32" height="32" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636"/></svg></div>
+              <h3 class="flip-card__front-title">역할 부여 없음</h3>
+              <p class="flip-card__front-desc">AI에게 '누구처럼' 행동할지 알려주지 않으면 일반적이고 밋밋한 답변만 돌아옵니다.</p>
+              <div class="flip-card__hint">뒤집어서 해결책 보기</div>
+            </div>
+            <div class="flip-card__face flip-card__face--back">
+              <div class="flip-card__solution-badge">Solution</div>
+              <div class="flip-card__back-icon"><svg width="28" height="28" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"/></svg></div>
+              <h3 class="flip-card__back-title">Persona 설정</h3>
+              <p class="flip-card__back-desc">"당신은 10년 경력의 UX 라이터입니다. 전환율 최적화 관점에서 랜딩 페이지 카피를 작성해 주세요."</p>
+              <code class="flip-card__code">Act as [Expert]</code>
+            </div>
+          </div>
+        </div>
+        <div class="flip-card">
+          <div class="flip-card__inner">
+            <div class="flip-card__face flip-card__face--front">
+              <div class="flip-card__mistake-badge">Mistake 03</div>
+              <div class="flip-card__front-icon"><svg width="32" height="32" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M3.98 8.223A10.477 10.477 0 001.934 12C3.226 16.338 7.244 19.5 12 19.5c.993 0 1.953-.138 2.863-.395M6.228 6.228A10.45 10.45 0 0112 4.5c4.756 0 8.773 3.162 10.065 7.498a10.523 10.523 0 01-4.293 5.774M6.228 6.228L3 3m3.228 3.228l3.65 3.65m7.894 7.894L21 21m-3.228-3.228l-3.65-3.65m0 0a3 3 0 10-4.243-4.243m4.242 4.242L9.88 9.88"/></svg></div>
+              <h3 class="flip-card__front-title">출력 형식 미지정</h3>
+              <p class="flip-card__front-desc">결과물의 형식(JSON, 표, 목록 등)을 지정하지 않으면 매번 다른 형태로 응답이 옵니다.</p>
+              <div class="flip-card__hint">뒤집어서 해결책 보기</div>
+            </div>
+            <div class="flip-card__face flip-card__face--back">
+              <div class="flip-card__solution-badge">Solution</div>
+              <div class="flip-card__back-icon"><svg width="28" height="28" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M17.25 6.75L22.5 12l-5.25 5.25m-10.5 0L1.5 12l5.25-5.25m7.5-3l-4.5 16.5"/></svg></div>
+              <h3 class="flip-card__back-title">Format 명시</h3>
+              <p class="flip-card__back-desc">"결과는 JSON 형식으로, title / summary / tags 3개의 키만 포함해 주세요."</p>
+              <code class="flip-card__code">Output: JSON / Markdown / Table</code>
+            </div>
+          </div>
+        </div>
+        <div class="flip-card">
+          <div class="flip-card__inner">
+            <div class="flip-card__face flip-card__face--front">
+              <div class="flip-card__mistake-badge">Mistake 04</div>
+              <div class="flip-card__front-icon"><svg width="32" height="32" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9.75 9.75l4.5 4.5m0-4.5l-4.5 4.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg></div>
+              <h3 class="flip-card__front-title">과도한 다중 요청</h3>
+              <p class="flip-card__front-desc">하나의 프롬프트에 10가지를 한꺼번에 요청하면 AI가 우선순위를 잃고 품질이 저하됩니다.</p>
+              <div class="flip-card__hint">뒤집어서 해결책 보기</div>
+            </div>
+            <div class="flip-card__face flip-card__face--back">
+              <div class="flip-card__solution-badge">Solution</div>
+              <div class="flip-card__back-icon"><svg width="28" height="28" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 12h16.5m-16.5 3.75h16.5M3.75 19.5h16.5M5.625 4.5h12.75a1.875 1.875 0 010 3.75H5.625a1.875 1.875 0 010-3.75z"/></svg></div>
+              <h3 class="flip-card__back-title">단계별 분리</h3>
+              <p class="flip-card__back-desc">작업을 3~4단계로 쪼개어 순서대로 요청하는 Chain-of-Thought 전략을 사용하세요.</p>
+              <code class="flip-card__code">Step 1 → Step 2 → Step 3</code>
+            </div>
+          </div>
         </div>
       </div>
+    </div>
+  </section>
 
-      <!-- 카드 2 -->
-      <div class="flip-card">
-        <div class="flip-card__inner">
-
-          <div class="flip-card__face flip-card__face--front">
-            <div class="flip-card__mistake-badge">Mistake 02</div>
-            <div class="flip-card__front-icon">
-              <svg width="32" height="32" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
-                <path stroke-linecap="round" stroke-linejoin="round"
-                  d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636"/>
-              </svg>
-            </div>
-            <h3 class="flip-card__front-title">역할 부여 없음</h3>
-            <p class="flip-card__front-desc">
-              AI에게 '누구처럼' 행동할지<br>
-              알려주지 않으면 일반적이고<br>
-              밋밋한 답변만 돌아옵니다.
-            </p>
-            <div class="flip-card__hint">뒤집어서 해결책 보기</div>
-          </div>
-
-          <div class="flip-card__face flip-card__face--back">
-            <div class="flip-card__solution-badge">Solution</div>
-            <div class="flip-card__back-icon">
-              <svg width="28" height="28" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
-                <path stroke-linecap="round" stroke-linejoin="round"
-                  d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"/>
-              </svg>
-            </div>
-            <h3 class="flip-card__back-title">Persona 설정</h3>
-            <p class="flip-card__back-desc">
-              "당신은 10년 경력의 UX 라이터입니다.<br>
-              전환율 최적화 관점에서<br>
-              랜딩 페이지 카피를 작성해 주세요."
-            </p>
-            <code class="flip-card__code">Act as [Expert] with [Experience]</code>
-          </div>
-
+  <section id="section-image" class="s8-gallery-section">
+    <div class="s8-header">
+      <span class="section-eyebrow">IMAGE PROMPTS</span>
+      <h2 class="section-title">갤러리: 프롬프트가 만든 <span class="section-title--accent">비주얼</span></h2>
+      <p class="section-desc">실제 이미지 생성 AI에 사용된 프롬프트와 그 결과물을 확인하세요.</p>
+    </div>
+    <div class="s8-accordion">
+      <div class="s8-panel">
+        <div class="s8-panel__bg" style="background-image: url('https://picsum.photos/800/1200?random=1');"></div>
+        <div class="s8-panel__overlay"></div>
+        <span class="s8-panel__index">01</span>
+        <div class="s8-panel__content">
+          <span class="s8-panel__tag">Cinematic</span>
+          <p class="s8-panel__title">Neon City Dusk</p>
+          <div class="s8-panel__prompt-wrap"><p class="s8-panel__prompt-label">PROMPT</p><p class="s8-panel__prompt-text">cinematic shot, neon-lit cyberpunk city at dusk, ultra-detailed</p></div>
         </div>
       </div>
-
-      <!-- 카드 3 -->
-      <div class="flip-card">
-        <div class="flip-card__inner">
-
-          <div class="flip-card__face flip-card__face--front">
-            <div class="flip-card__mistake-badge">Mistake 03</div>
-            <div class="flip-card__front-icon">
-              <svg width="32" height="32" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
-                <path stroke-linecap="round" stroke-linejoin="round"
-                  d="M3.98 8.223A10.477 10.477 0 001.934 12C3.226 16.338 7.244 19.5 12 19.5c.993 0 1.953-.138 2.863-.395M6.228 6.228A10.45 10.45 0 0112 4.5c4.756 0 8.773 3.162 10.065 7.498a10.523 10.523 0 01-4.293 5.774M6.228 6.228L3 3m3.228 3.228l3.65 3.65m7.894 7.894L21 21m-3.228-3.228l-3.65-3.65m0 0a3 3 0 10-4.243-4.243m4.242 4.242L9.88 9.88"/>
-              </svg>
-            </div>
-            <h3 class="flip-card__front-title">출력 형식 미지정</h3>
-            <p class="flip-card__front-desc">
-              결과물의 형식(JSON, 표, 목록 등)을<br>
-              지정하지 않으면 매번<br>
-              다른 형태로 응답이 옵니다.
-            </p>
-            <div class="flip-card__hint">뒤집어서 해결책 보기</div>
-          </div>
-
-          <div class="flip-card__face flip-card__face--back">
-            <div class="flip-card__solution-badge">Solution</div>
-            <div class="flip-card__back-icon">
-              <svg width="28" height="28" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
-                <path stroke-linecap="round" stroke-linejoin="round"
-                  d="M17.25 6.75L22.5 12l-5.25 5.25m-10.5 0L1.5 12l5.25-5.25m7.5-3l-4.5 16.5"/>
-              </svg>
-            </div>
-            <h3 class="flip-card__back-title">Format 명시</h3>
-            <p class="flip-card__back-desc">
-              "결과는 JSON 형식으로,<br>
-              title / summary / tags<br>
-              3개의 키만 포함해 주세요."
-            </p>
-            <code class="flip-card__code">Output: JSON / Markdown / Table</code>
-          </div>
-
+      <div class="s8-panel">
+        <div class="s8-panel__bg" style="background-image: url('https://picsum.photos/800/1200?random=2');"></div>
+        <div class="s8-panel__overlay"></div>
+        <span class="s8-panel__index">02</span>
+        <div class="s8-panel__content">
+          <span class="s8-panel__tag">Portrait</span>
+          <p class="s8-panel__title">AI Genesis</p>
+          <div class="s8-panel__prompt-wrap"><p class="s8-panel__prompt-label">PROMPT</p><p class="s8-panel__prompt-text">hyper-realistic portrait of an android, glowing circuit patterns</p></div>
         </div>
       </div>
-
-      <!-- 카드 4 -->
-      <div class="flip-card">
-        <div class="flip-card__inner">
-
-          <div class="flip-card__face flip-card__face--front">
-            <div class="flip-card__mistake-badge">Mistake 04</div>
-            <div class="flip-card__front-icon">
-              <svg width="32" height="32" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
-                <path stroke-linecap="round" stroke-linejoin="round"
-                  d="M9.75 9.75l4.5 4.5m0-4.5l-4.5 4.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
-              </svg>
-            </div>
-            <h3 class="flip-card__front-title">한 번에 너무 많은 요청</h3>
-            <p class="flip-card__front-desc">
-              하나의 프롬프트에 10가지를<br>
-              한꺼번에 요청하면 AI가<br>
-              우선순위를 잃고 품질이 저하됩니다.
-            </p>
-            <div class="flip-card__hint">뒤집어서 해결책 보기</div>
-          </div>
-
-          <div class="flip-card__face flip-card__face--back">
-            <div class="flip-card__solution-badge">Solution</div>
-            <div class="flip-card__back-icon">
-              <svg width="28" height="28" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
-                <path stroke-linecap="round" stroke-linejoin="round"
-                  d="M3.75 12h16.5m-16.5 3.75h16.5M3.75 19.5h16.5M5.625 4.5h12.75a1.875 1.875 0 010 3.75H5.625a1.875 1.875 0 010-3.75z"/>
-              </svg>
-            </div>
-            <h3 class="flip-card__back-title">단계별 Chain 분리</h3>
-            <p class="flip-card__back-desc">
-              작업을 3~4단계로 쪼개어<br>
-              순서대로 요청하는<br>
-              Chain-of-Thought 전략을 사용하세요.
-            </p>
-            <code class="flip-card__code">Step 1 → Step 2 → Step 3</code>
-          </div>
-
+      <div class="s8-panel">
+        <div class="s8-panel__bg" style="background-image: url('https://picsum.photos/800/1200?random=3');"></div>
+        <div class="s8-panel__overlay"></div>
+        <span class="s8-panel__index">03</span>
+        <div class="s8-panel__content">
+          <span class="s8-panel__tag">Landscape</span>
+          <p class="s8-panel__title">Digital Horizon</p>
+          <div class="s8-panel__prompt-wrap"><p class="s8-panel__prompt-label">PROMPT</p><p class="s8-panel__prompt-text">vast alien landscape, towering crystalline mountains, matte painting</p></div>
         </div>
       </div>
+      <div class="s8-panel">
+        <div class="s8-panel__bg" style="background-image: url('https://picsum.photos/800/1200?random=4');"></div>
+        <div class="s8-panel__overlay"></div>
+        <span class="s8-panel__index">04</span>
+        <div class="s8-panel__content">
+          <span class="s8-panel__tag">Abstract</span>
+          <p class="s8-panel__title">Neural Dreams</p>
+          <div class="s8-panel__prompt-wrap"><p class="s8-panel__prompt-label">PROMPT</p><p class="s8-panel__prompt-text">abstract neural network visualization, flowing data streams</p></div>
+        </div>
+      </div>
+      <div class="s8-panel">
+        <div class="s8-panel__bg" style="background-image: url('https://picsum.photos/800/1200?random=5');"></div>
+        <div class="s8-panel__overlay"></div>
+        <span class="s8-panel__index">05</span>
+        <div class="s8-panel__content">
+          <span class="s8-panel__tag">Concept Art</span>
+          <p class="s8-panel__title">Quantum Core</p>
+          <div class="s8-panel__prompt-wrap"><p class="s8-panel__prompt-label">PROMPT</p><p class="s8-panel__prompt-text">quantum computing core, glowing energetic spheres, sci-fi concept art</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-    </div><!-- /.flip-grid -->
+  <section id="terminal-section" class="join-section">
+    <div class="join-section__inner">
+      <div class="join-grid">
+        <div class="join-form-panel">
+          <div class="join-form-eyebrow"><span class="join-form-eyebrow__dot"></span> 실험실 합류하기</div>
+          <h2 class="join-form-title">최신 기법을 <span class="join-form-title--accent">가장 먼저</span> 받아보세요</h2>
+          <p class="join-form-desc">매주 검증된 패턴과 예제를 이메일로 받아보세요.</p>
+          
+          <form id="lab-subscribe-form" class="subscribe-form" action="#" method="post">
+            <div class="subscribe-form__field-wrap">
+              <label for="subscribe-email" class="subscribe-form__label">이메일 주소</label>
+              <div class="subscribe-form__input-group">
+                <input type="email" id="subscribe-email" class="subscribe-form__input" placeholder="you@example.com" required />
+              </div>
+            </div>
+            <div class="subscribe-form__checkbox-wrap">
+              <input type="checkbox" id="subscribe-agree" class="subscribe-form__checkbox" required />
+              <label for="subscribe-agree" class="subscribe-form__checkbox-label">뉴스레터 수신에 동의합니다</label>
+            </div>
+            <button type="submit" class="subscribe-form__btn">실험실 합류하기</button>
+          </form>
+
+        </div>
+        <div class="terminal-panel">
+          <div class="terminal-bar">
+            <div class="terminal-bar__dots">
+              <span class="terminal-dot terminal-dot--red"></span><span class="terminal-dot terminal-dot--yellow"></span><span class="terminal-dot terminal-dot--green"></span>
+            </div>
+            <span class="terminal-bar__title">prompt-lab ~ terminal</span>
+            <span class="terminal-bar__spacer"></span>
+          </div>
+          <div class="terminal-body">
+            <p class="terminal-line terminal-line--dim"><span class="terminal-prompt">$</span> npm run init-lab</p>
+            <p class="terminal-line terminal-line--success">[INFO] Context window: READY</p>
+            <p class="terminal-line terminal-line--warn">[WAIT] Awaiting input...</p>
+            <div class="terminal-divider"></div>
+            
+            <div class="terminal-input-group">
+              <span class="terminal-prompt terminal-prompt--active">$</span>
+              <input type="text" id="terminal-input" placeholder="여기에 프롬프트를 입력하고 엔터를 쳐보세요... (예: 안녕)" autocomplete="off">
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div id="auth-modal" class="modal-overlay">
+    <div class="auth-content">
+      <span class="close-auth-btn">&times;</span>
+      
+      <div class="auth-header">
+        <button class="auth-tab active" data-target="login-form">로그인</button>
+        <button class="auth-tab" data-target="signup-form">회원가입</button>
+      </div>
+
+      <form id="login-form" class="auth-form active">
+        <input type="email" class="auth-input" placeholder="이메일 주소" required>
+        <input type="password" class="auth-input" placeholder="비밀번호" required>
+        <button type="submit" class="auth-submit-btn">시스템 접속</button>
+      </form>
+
+      <form id="signup-form" class="auth-form">
+        <input type="text" class="auth-input" placeholder="닉네임 (예: 수석연구원)" required>
+        <input type="email" class="auth-input" placeholder="이메일 주소" required>
+        <input type="password" class="auth-input" placeholder="비밀번호" required>
+        <button type="submit" class="auth-submit-btn">연구원 등록</button>
+      </form>
+    </div>
   </div>
-</section>
-<!-- ============================================================
-     /섹션 7 끝
-     ============================================================ -->
 
-
-<!-- =====================================================
-     섹션 8: 이미지 프롬프트 갤러리 (CSS Accordion)
-     삽입 위치: 섹션 7 </section> 다음, <footer> 바로 위
-     ===================================================== -->
-<section id="section-image" class="s8-gallery-section">
-
-  <!-- 섹션 헤더 -->
-  <div class="s8-header">
-    <span class="section-eyebrow">IMAGE PROMPTS</span>
-    <h2 class="section-title">
-      갤러리: 프롬프트가 만든
-      <span class="section-title--accent">비주얼</span>
-    </h2>
-    <p class="section-desc">
-      실제 이미지 생성 AI에 사용된 프롬프트와 그 결과물을 확인하세요.
-      패널에 마우스를 올려 프롬프트를 확인하세요.
-    </p>
+  <div id="tech-modal" class="modal-overlay">
+    <div class="modal-content">
+      <span class="close-btn">&times;</span>
+      <h2 id="modal-title" class="neon-text-cyan">기술 이름</h2>
+      <p id="modal-desc">여기에 상세한 설명이 나타납니다.</p>
+      <button class="modal-action-btn">실험해보기</button>
+    </div>
   </div>
 
-  <!-- 아코디언 컨테이너 -->
-  <div class="s8-accordion">
-
-    <!-- 패널 1 -->
-    <div class="s8-panel">
-      <!-- 레이어 1: 배경 이미지 -->
-      <div class="s8-panel__bg" style="background-image: url('https://picsum.photos/800/1200?random=1');"></div>
-      <!-- 레이어 2: 그라디언트 오버레이 -->
-      <div class="s8-panel__overlay"></div>
-      <!-- 레이어 3: 인덱스 번호 -->
-      <span class="s8-panel__index">01</span>
-      <!-- 레이어 3: 하단 텍스트 콘텐츠 -->
-      <div class="s8-panel__content">
-        <span class="s8-panel__tag">Cinematic</span>
-        <p class="s8-panel__title">Neon City Dusk</p>
-        <div class="s8-panel__prompt-wrap">
-          <p class="s8-panel__prompt-label">PROMPT</p>
-          <p class="s8-panel__prompt-text">
-            cinematic shot, neon-lit cyberpunk city at dusk, rain-soaked streets reflecting purple and cyan light, ultra-detailed, 8k, volumetric fog
-          </p>
-        </div>
-      </div>
-    </div>
-
-    <!-- 패널 2 -->
-    <div class="s8-panel">
-      <div class="s8-panel__bg" style="background-image: url('https://picsum.photos/800/1200?random=2');"></div>
-      <div class="s8-panel__overlay"></div>
-      <span class="s8-panel__index">02</span>
-      <div class="s8-panel__content">
-        <span class="s8-panel__tag">Portrait</span>
-        <p class="s8-panel__title">AI Genesis</p>
-        <div class="s8-panel__prompt-wrap">
-          <p class="s8-panel__prompt-label">PROMPT</p>
-          <p class="s8-panel__prompt-text">
-            hyper-realistic portrait of an android, glowing circuit patterns on skin, soft studio lighting, shallow depth of field, photorealistic, 4k
-          </p>
-        </div>
-      </div>
-    </div>
-
-    <!-- 패널 3 -->
-    <div class="s8-panel">
-      <div class="s8-panel__bg" style="background-image: url('https://picsum.photos/800/1200?random=3');"></div>
-      <div class="s8-panel__overlay"></div>
-      <span class="s8-panel__index">03</span>
-      <div class="s8-panel__content">
-        <span class="s8-panel__tag">Landscape</span>
-        <p class="s8-panel__title">Digital Horizon</p>
-        <div class="s8-panel__prompt-wrap">
-          <p class="s8-panel__prompt-label">PROMPT</p>
-          <p class="s8-panel__prompt-text">
-            vast alien landscape, towering crystalline mountains, twin moons rising, bioluminescent flora, matte painting style, epic scale, concept art
-          </p>
-        </div>
-      </div>
-    </div>
-
-    <!-- 패널 4 -->
-    <div class="s8-panel">
-      <div class="s8-panel__bg" style="background-image: url('https://picsum.photos/800/1200?random=4');"></div>
-      <div class="s8-panel__overlay"></div>
-      <span class="s8-panel__index">04</span>
-      <div class="s8-panel__content">
-        <span class="s8-panel__tag">Abstract</span>
-        <p class="s8-panel__title">Neural Dreams</p>
-        <div class="s8-panel__prompt-wrap">
-          <p class="s8-panel__prompt-label">PROMPT</p>
-          <p class="s8-panel__prompt-text">
-            abstract neural network visualization, flowing data streams, deep purple and electric blue palette, macro lens, generative art, ultra-high detail
-          </p>
-        </div>
-      </div>
-    </div>
-
-  </div><!-- /.s8-accordion -->
-</section>
-<!-- ===================================================
-     /섹션 8 끝
-     =================================================== -->
-
-<!-- ============================================================
-     [섹션 6] 실험실 합류 & 가상 터미널
-     삽입 위치: 섹션 5 </section> 바로 다음, <footer> 바로 위
-     ============================================================ -->
-<section class="join-section">
-  <div class="join-section__inner">
-
-    <div class="join-grid">
-
-      <!-- ── 왼쪽: 구독 Form UI ── -->
-      <div class="join-form-panel">
-
-        <div class="join-form-eyebrow">
-          <span class="join-form-eyebrow__dot"></span>
-          실험실 합류하기
-        </div>
-
-        <h2 class="join-form-title">
-          최신 프롬프트 기법을<br>
-          <span class="join-form-title--accent">가장 먼저</span> 받아보세요
-        </h2>
-
-        <p class="join-form-desc">
-          매주 검증된 프롬프트 패턴, 모델 업데이트, 실전 예제를
-          이메일로 받아보세요. 언제든지 구독 해지 가능합니다.
-        </p>
-
-        <!-- 구독 폼 -->
-        <form class="subscribe-form" action="#" method="post" novalidate>
-          <div class="subscribe-form__field-wrap">
-            <label for="subscribe-email" class="subscribe-form__label">
-              이메일 주소
-            </label>
-            <div class="subscribe-form__input-group">
-              <!-- 이메일 아이콘 -->
-              <span class="subscribe-form__icon" aria-hidden="true">
-                <svg width="16" height="16" viewBox="0 0 20 20" fill="none">
-                  <rect x="2" y="4" width="16" height="12" rx="2"
-                    stroke="currentColor" stroke-width="1.5"/>
-                  <path d="M2 7L10 12L18 7" stroke="currentColor"
-                    stroke-width="1.5" stroke-linecap="round"/>
-                </svg>
-              </span>
-              <input
-                type="email"
-                id="subscribe-email"
-                name="email"
-                class="subscribe-form__input"
-                placeholder="you@example.com"
-                autocomplete="email"
-                required
-              />
-            </div>
-          </div>
-
-          <!-- 체크박스 동의 -->
-          <div class="subscribe-form__checkbox-wrap">
-            <input
-              type="checkbox"
-              id="subscribe-agree"
-              name="agree"
-              class="subscribe-form__checkbox"
-              required
-            />
-            <label for="subscribe-agree" class="subscribe-form__checkbox-label">
-              프롬프트 엔지니어링 뉴스레터 수신에 동의합니다
-            </label>
-          </div>
-
-          <!-- 제출 버튼 -->
-          <button type="submit" class="subscribe-form__btn">
-            <span class="subscribe-form__btn-text">실험실 합류하기</span>
-            <span class="subscribe-form__btn-icon" aria-hidden="true">
-              <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                <path d="M3 8H13M9 4L13 8L9 12"
-                  stroke="currentColor" stroke-width="1.8"
-                  stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-            </span>
-          </button>
-        </form>
-
-        <!-- 신뢰 지표 -->
-        <div class="join-trust">
-          <span class="join-trust__item">
-            <svg width="13" height="13" viewBox="0 0 16 16" fill="none">
-              <path d="M8 2L10 6H14L11 9L12 13L8 11L4 13L5 9L2 6H6L8 2Z"
-                stroke="currentColor" stroke-width="1.5"
-                stroke-linejoin="round"/>
-            </svg>
-            스팸 없음
-          </span>
-          <span class="join-trust__item">
-            <svg width="13" height="13" viewBox="0 0 16 16" fill="none">
-              <rect x="3" y="7" width="10" height="7" rx="1.5"
-                stroke="currentColor" stroke-width="1.5"/>
-              <path d="M5 7V5a3 3 0 016 0v2"
-                stroke="currentColor" stroke-width="1.5"
-                stroke-linecap="round"/>
-            </svg>
-            언제든 해지
-          </span>
-          <span class="join-trust__item">
-            <svg width="13" height="13" viewBox="0 0 16 16" fill="none">
-              <circle cx="8" cy="8" r="5.5"
-                stroke="currentColor" stroke-width="1.5"/>
-              <path d="M6 8.5L7.5 10L10 6.5"
-                stroke="currentColor" stroke-width="1.5"
-                stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-            매주 1회 발송
-          </span>
-        </div>
-
-      </div><!-- /join-form-panel -->
-
-      <!-- ── 오른쪽: 가상 터미널 ── -->
-      <div class="terminal-panel">
-
-        <!-- 터미널 창 상단 바 -->
-        <div class="terminal-bar">
-          <div class="terminal-bar__dots">
-            <span class="terminal-dot terminal-dot--red"></span>
-            <span class="terminal-dot terminal-dot--yellow"></span>
-            <span class="terminal-dot terminal-dot--green"></span>
-          </div>
-          <span class="terminal-bar__title">prompt-lab ~ terminal</span>
-          <span class="terminal-bar__spacer"></span>
-        </div>
-
-        <!-- 터미널 본문 -->
-        <div class="terminal-body">
-
-          <!-- 기존 출력 라인들 (고정 텍스트) -->
-          <p class="terminal-line terminal-line--dim">
-            <span class="terminal-prompt">$</span>
-            cd /prompt-engineering-lab
-          </p>
-          <p class="terminal-line terminal-line--success">
-            <span class="terminal-prompt">$</span>
-            git clone https://lab.ai/prompt-patterns
-          </p>
-          <p class="terminal-line terminal-line--info">
-            Cloning into 'prompt-patterns'...
-          </p>
-          <p class="terminal-line terminal-line--info">
-            Resolving deltas: 100% (2847/2847), done.
-          </p>
-          <p class="terminal-line terminal-line--dim">
-            <span class="terminal-prompt">$</span>
-            npm run init-lab
-          </p>
-          <p class="terminal-line terminal-line--success">
-            [INFO] Context window: READY
-          </p>
-          <p class="terminal-line terminal-line--success">
-            [INFO] Few-shot examples: LOADED
-          </p>
-          <p class="terminal-line terminal-line--warn">
-            [WAIT] Awaiting input...
-          </p>
-
-          <!-- 구분선 -->
-          <div class="terminal-divider"></div>
-
-          <!-- 타이핑 애니메이션 줄 — CSS @keyframes steps() 활용 -->
-          <p class="terminal-line terminal-line--typing">
-            <span class="terminal-prompt terminal-prompt--active">$</span>
-            <!-- 순수 CSS 타이핑 효과 래퍼 -->
-            <span class="typewriter" aria-label="Waiting for your prompt...">
-              Waiting for your prompt...
-            </span>
-            <!-- 커서 — 별도 span으로 깜빡임 분리 -->
-            <span class="terminal-cursor" aria-hidden="true"></span>
-          </p>
-
-        </div><!-- /terminal-body -->
-
-      </div><!-- /terminal-panel -->
-
-    </div><!-- /join-grid -->
-
-  </div>
-</section>
-  
   <footer class="site-footer" role="contentinfo">
-    <p>
-      <strong>Prompt Engineering Lab</strong> &nbsp;&mdash;&nbsp;
-      Web Programming Basics Midterm Project &nbsp;&middot;&nbsp; Built with Pure HTML5 &amp; CSS3
-    </p>
+    <p><strong>Prompt Engineering Lab</strong> &nbsp;&mdash;&nbsp; Web Programming Basics Midterm Project &nbsp;&middot;&nbsp; Built with Pure HTML5 &amp; CSS3</p>
   </footer>
 
-  
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script src="script.js?v=20240620_FINAL_V4"></script>
 </body>
 </html>
