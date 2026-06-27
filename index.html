@@ -11,7 +11,7 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 
-<body>
+<body data-bg="dark" data-color="cyan">
   <header class="nav-header">
     <div class="nav-inner">
       <a href="#" class="nav-logo">
@@ -25,6 +25,7 @@
           <li><a href="#section-image" class="nav-link nav-link--accent"><span class="nav-link__dot"></span>갤러리</a></li>
         </ul>
         <div class="nav-divider" aria-hidden="true"></div>
+        <button id="theme-toggle-btn" class="nav-btn nav-btn--ghost" title="테마 색상 변경" style="font-size: 1.1rem; padding: 0.2rem 0.5rem;">🎨</button>
         <div class="nav-auth">
           <a href="#login" class="nav-btn nav-btn--ghost">로그인</a>
           <a href="#signup" class="nav-btn nav-btn--glow">회원가입</a>
@@ -87,6 +88,10 @@
       </div>
     </div>
 
+    <div class="search-container">
+      <input type="text" id="card-search" placeholder="🔍 기법 검색 (예: JSON, 복잡한 문제...)" autocomplete="off">
+    </div>
+
     <section id="section-anatomy" class="bento-grid" aria-label="프롬프트 엔지니어링 기법 카드 목록">
       <article class="prompt-card card--wide">
         <div class="card-header">
@@ -104,9 +109,7 @@
         <div class="card-footer">
           <span class="card-level">Level: Beginner</span>
           <div class="tag-group" style="margin-top: 0;">
-            <span class="tag">NLP</span>
-            <span class="tag">Classification</span>
-            <span class="tag">Sentiment</span>
+            <span class="tag">NLP</span><span class="tag">Classification</span><span class="tag">Sentiment</span>
           </div>
         </div>
       </article>
@@ -126,14 +129,8 @@
 <span class="token-prompt">Q:</span> <span class="token-value">사과 5개에서 2개 먹고...</span>
 <span class="token-prompt">A:</span> <span class="token-value">1단계: 5 - 2 = 3개...</span></code>
         <div class="progress-group">
-          <div class="progress-item">
-            <span class="progress-label">정확도 향상</span>
-            <div class="progress-bar-track"><div class="progress-bar-fill" data-width="88%" style="width: 0%;"></div></div>
-          </div>
-          <div class="progress-item">
-            <span class="progress-label">복잡도 대응</span>
-            <div class="progress-bar-track"><div class="progress-bar-fill" data-width="95%" style="width: 0%;"></div></div>
-          </div>
+          <div class="progress-item"><span class="progress-label">정확도 향상</span><div class="progress-bar-track"><div class="progress-bar-fill" data-width="88%"></div></div></div>
+          <div class="progress-item"><span class="progress-label">복잡도 대응</span><div class="progress-bar-track"><div class="progress-bar-fill" data-width="95%"></div></div></div>
         </div>
       </article>
 
@@ -147,10 +144,7 @@
         <h2 class="card-title">Few-Shot Learning</h2>
         <p class="card-description">소수의 입출력 예시(shots)를 프롬프트에 포함하여 패턴을 학습시킵니다.</p>
         <div class="tag-group">
-          <span class="tag">1-shot</span>
-          <span class="tag">3-shot</span>
-          <span class="tag">5-shot</span>
-          <span class="tag">In-Context</span>
+          <span class="tag">1-shot</span><span class="tag">3-shot</span><span class="tag">5-shot</span><span class="tag">In-Context</span>
         </div>
       </article>
 
@@ -185,9 +179,7 @@
         <h2 class="card-title">Output Formatting</h2>
         <p class="card-description">JSON, Markdown, XML 등 출력 형식을 명시적으로 지정합니다.</p>
         <div class="tag-group">
-          <span class="tag">JSON</span>
-          <span class="tag">Markdown</span>
-          <span class="tag">XML</span>
+          <span class="tag">JSON</span><span class="tag">Markdown</span><span class="tag">XML</span>
         </div>
       </article>
 
@@ -201,10 +193,7 @@
         <h2 class="card-title">Self-Consistency</h2>
         <p class="card-description">동일한 프롬프트를 여러 번 실행하고 다수결 투표로 신뢰도를 높입니다.</p>
         <div class="progress-group">
-          <div class="progress-item">
-            <span class="progress-label">신뢰도</span>
-            <div class="progress-bar-track"><div class="progress-bar-fill" data-width="92%" style="width: 0%;"></div></div>
-          </div>
+          <div class="progress-item"><span class="progress-label">신뢰도</span><div class="progress-bar-track"><div class="progress-bar-fill" data-width="92%"></div></div></div>
         </div>
       </article>
     </section>
@@ -236,30 +225,12 @@
       <h2 class="section-title">자주 묻는 <span class="section-title--accent">질문들</span></h2>
     </div>
     <div class="faq-list">
-      <details class="faq-item">
-        <summary class="faq-summary"><span class="faq-q-label">Q</span><span class="faq-question">프롬프트 엔지니어링은 개발자만 배울 수 있나요?</span><span class="faq-icon"></span></summary>
-        <div class="faq-answer"><p>코딩 지식이 없어도 배울 수 있는 커뮤니케이션 기술에 가깝습니다.</p></div>
-      </details>
-      <details class="faq-item">
-        <summary class="faq-summary"><span class="faq-q-label">Q</span><span class="faq-question">GPT, Claude, Gemini 등 모델마다 프롬프트가 달라야 하나요?</span><span class="faq-icon"></span></summary>
-        <div class="faq-answer"><p>핵심 원칙은 동일하지만 모델별 특성에 따라 미세 조정이 필요합니다.</p></div>
-      </details>
-      <details class="faq-item">
-        <summary class="faq-summary"><span class="faq-q-label">Q</span><span class="faq-question">Few-Shot 프롬프트는 언제 사용해야 하나요?</span><span class="faq-icon"></span></summary>
-        <div class="faq-answer"><p>정형화된 데이터나 특정 톤앤매너를 추출해야 할 때 예시를 제공하면 좋습니다.</p></div>
-      </details>
-      <details class="faq-item">
-        <summary class="faq-summary"><span class="faq-q-label">Q</span><span class="faq-question">Chain-of-Thought(CoT)는 항상 효과적인가요?</span><span class="faq-icon"></span></summary>
-        <div class="faq-answer"><p>추론이 필요한 복잡한 문제에서만 효과적이며, 단순 작업에는 토큰 낭비입니다.</p></div>
-      </details>
-      <details class="faq-item">
-        <summary class="faq-summary"><span class="faq-q-label">Q</span><span class="faq-question">프롬프트가 길수록 결과가 좋아지나요?</span><span class="faq-icon"></span></summary>
-        <div class="faq-answer"><p>길이보다 명확성과 밀도가 중요합니다. 불필요한 수식어는 혼란을 줍니다.</p></div>
-      </details>
-      <details class="faq-item">
-        <summary class="faq-summary"><span class="faq-q-label">Q</span><span class="faq-question">System Prompt와 User Prompt의 차이는 무엇인가요?</span><span class="faq-icon"></span></summary>
-        <div class="faq-answer"><p>System은 전체 행동 방식과 역할을 정의하고, User는 개별 대화에서의 구체적 요청입니다.</p></div>
-      </details>
+      <details class="faq-item"><summary class="faq-summary"><span class="faq-q-label">Q</span><span class="faq-question">프롬프트 엔지니어링은 개발자만 배울 수 있나요?</span><span class="faq-icon"></span></summary><div class="faq-answer"><p>코딩 지식이 없어도 배울 수 있는 커뮤니케이션 기술에 가깝습니다.</p></div></details>
+      <details class="faq-item"><summary class="faq-summary"><span class="faq-q-label">Q</span><span class="faq-question">GPT, Claude, Gemini 등 모델마다 프롬프트가 달라야 하나요?</span><span class="faq-icon"></span></summary><div class="faq-answer"><p>핵심 원칙은 동일하지만 모델별 특성에 따라 미세 조정이 필요합니다.</p></div></details>
+      <details class="faq-item"><summary class="faq-summary"><span class="faq-q-label">Q</span><span class="faq-question">Few-Shot 프롬프트는 언제 사용해야 하나요?</span><span class="faq-icon"></span></summary><div class="faq-answer"><p>정형화된 데이터나 특정 톤앤매너를 추출해야 할 때 예시를 제공하면 좋습니다.</p></div></details>
+      <details class="faq-item"><summary class="faq-summary"><span class="faq-q-label">Q</span><span class="faq-question">Chain-of-Thought(CoT)는 항상 효과적인가요?</span><span class="faq-icon"></span></summary><div class="faq-answer"><p>추론이 필요한 복잡한 문제에서만 효과적이며, 단순 작업에는 토큰 낭비입니다.</p></div></details>
+      <details class="faq-item"><summary class="faq-summary"><span class="faq-q-label">Q</span><span class="faq-question">프롬프트가 길수록 결과가 좋아지나요?</span><span class="faq-icon"></span></summary><div class="faq-answer"><p>길이보다 명확성과 밀도가 중요합니다. 불필요한 수식어는 혼란을 줍니다.</p></div></details>
+      <details class="faq-item"><summary class="faq-summary"><span class="faq-q-label">Q</span><span class="faq-question">System Prompt와 User Prompt의 차이는 무엇인가요?</span><span class="faq-icon"></span></summary><div class="faq-answer"><p>System은 전체 행동 방식과 역할을 정의하고, User는 개별 대화에서의 구체적 요청입니다.</p></div></details>
     </div>
   </section>
 
@@ -283,63 +254,35 @@
           </thead>
           <tbody>
             <tr class="model-table__row">
-              <td class="model-table__td model-table__td--model">
-                <div class="model-name-wrap"><span class="model-dot model-dot--green"></span><div><strong class="model-name">GPT-4o</strong><span class="model-maker">OpenAI</span></div></div>
-              </td>
+              <td class="model-table__td model-table__td--model"><div class="model-name-wrap"><span class="model-dot model-dot--green"></span><div><strong class="model-name">GPT-4o</strong><span class="model-maker">OpenAI</span></div></div></td>
               <td class="model-table__td"><span class="ctx-badge">128K</span></td>
               <td class="model-table__td"><div class="tag-list"><span class="tag tag--blue">글쓰기</span><span class="tag tag--purple">추론</span></div></td>
               <td class="model-table__td"><span class="check-icon check-icon--yes"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8.5L6.5 12L13 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> 지원</span></td>
-              <td class="model-table__td">
-                <div class="speed-bar-wrap">
-                  <div class="speed-bar"><div class="speed-bar__fill" data-width="80%" style="width: 0%;"></div></div>
-                  <span class="speed-label">빠름</span>
-                </div>
-              </td>
+              <td class="model-table__td"><div class="speed-bar-wrap"><div class="speed-bar"><div class="speed-bar__fill" data-width="80%"></div></div><span class="speed-label">빠름</span></div></td>
               <td class="model-table__td"><div class="star-row"><span class="star star--on">*</span><span class="star star--on">*</span><span class="star star--on">*</span><span class="star star--on">*</span><span class="star star--half">*</span></div></td>
             </tr>
             <tr class="model-table__row">
-              <td class="model-table__td model-table__td--model">
-                <div class="model-name-wrap"><span class="model-dot model-dot--cyan"></span><div><strong class="model-name model-name--highlight">Claude 3.5 Opus</strong><span class="model-maker">Anthropic</span></div></div>
-              </td>
+              <td class="model-table__td model-table__td--model"><div class="model-name-wrap"><span class="model-dot model-dot--cyan"></span><div><strong class="model-name model-name--highlight">Claude 3.5 Opus</strong><span class="model-maker">Anthropic</span></div></div></td>
               <td class="model-table__td"><span class="ctx-badge ctx-badge--cyan">200K</span></td>
               <td class="model-table__td"><div class="tag-list"><span class="tag tag--cyan">코드 생성</span><span class="tag tag--purple">분석</span></div></td>
               <td class="model-table__td"><span class="check-icon check-icon--yes"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8.5L6.5 12L13 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> 지원</span></td>
-              <td class="model-table__td">
-                <div class="speed-bar-wrap">
-                  <div class="speed-bar"><div class="speed-bar__fill" data-width="65%" style="width: 0%;"></div></div>
-                  <span class="speed-label">보통</span>
-                </div>
-              </td>
+              <td class="model-table__td"><div class="speed-bar-wrap"><div class="speed-bar"><div class="speed-bar__fill" data-width="65%"></div></div><span class="speed-label">보통</span></div></td>
               <td class="model-table__td"><div class="star-row"><span class="star star--on">*</span><span class="star star--on">*</span><span class="star star--on">*</span><span class="star star--on">*</span><span class="star star--on">*</span></div></td>
             </tr>
             <tr class="model-table__row">
-              <td class="model-table__td model-table__td--model">
-                <div class="model-name-wrap"><span class="model-dot model-dot--yellow"></span><div><strong class="model-name">Gemini 3.1 Pro</strong><span class="model-maker">Google</span></div></div>
-              </td>
+              <td class="model-table__td model-table__td--model"><div class="model-name-wrap"><span class="model-dot model-dot--yellow"></span><div><strong class="model-name">Gemini 3.1 Pro</strong><span class="model-maker">Google</span></div></div></td>
               <td class="model-table__td"><span class="ctx-badge ctx-badge--yellow">1M</span></td>
               <td class="model-table__td"><div class="tag-list"><span class="tag tag--yellow">데이터</span><span class="tag tag--blue">번역</span></div></td>
               <td class="model-table__td"><span class="check-icon check-icon--yes"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8.5L6.5 12L13 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> 지원</span></td>
-              <td class="model-table__td">
-                <div class="speed-bar-wrap">
-                  <div class="speed-bar"><div class="speed-bar__fill" data-width="72%" style="width: 0%;"></div></div>
-                  <span class="speed-label">빠름</span>
-                </div>
-              </td>
+              <td class="model-table__td"><div class="speed-bar-wrap"><div class="speed-bar"><div class="speed-bar__fill" data-width="72%"></div></div><span class="speed-label">빠름</span></div></td>
               <td class="model-table__td"><div class="star-row"><span class="star star--on">*</span><span class="star star--on">*</span><span class="star star--on">*</span><span class="star star--on">*</span><span class="star star--off">*</span></div></td>
             </tr>
             <tr class="model-table__row">
-              <td class="model-table__td model-table__td--model">
-                <div class="model-name-wrap"><span class="model-dot model-dot--purple"></span><div><strong class="model-name">Llama 3.1 405B</strong><span class="model-maker">Meta (Open Source)</span></div></div>
-              </td>
+              <td class="model-table__td model-table__td--model"><div class="model-name-wrap"><span class="model-dot model-dot--purple"></span><div><strong class="model-name">Llama 3.1 405B</strong><span class="model-maker">Meta (Open Source)</span></div></div></td>
               <td class="model-table__td"><span class="ctx-badge ctx-badge--purple">128K</span></td>
               <td class="model-table__td"><div class="tag-list"><span class="tag tag--green">오픈소스</span><span class="tag tag--blue">커스텀</span></div></td>
               <td class="model-table__td"><span class="check-icon check-icon--no"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4.5 4.5L11.5 11.5M11.5 4.5L4.5 11.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg> 텍스트</span></td>
-              <td class="model-table__td">
-                <div class="speed-bar-wrap">
-                  <div class="speed-bar"><div class="speed-bar__fill speed-bar__fill--purple" data-width="55%" style="width: 0%;"></div></div>
-                  <span class="speed-label">느림</span>
-                </div>
-              </td>
+              <td class="model-table__td"><div class="speed-bar-wrap"><div class="speed-bar"><div class="speed-bar__fill speed-bar__fill--purple" data-width="55%"></div></div><span class="speed-label">느림</span></div></td>
               <td class="model-table__td"><div class="star-row"><span class="star star--on">*</span><span class="star star--on">*</span><span class="star star--on">*</span><span class="star star--half">*</span><span class="star star--off">*</span></div></td>
             </tr>
           </tbody>
@@ -367,7 +310,7 @@
               <div class="flip-card__mistake-badge">Mistake 01</div>
               <div class="flip-card__front-icon"><svg width="32" height="32" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126z"/></svg></div>
               <h3 class="flip-card__front-title">너무 모호한 지시</h3>
-              <p class="flip-card__front-desc">"좋은 글 써줘", "코드 고쳐줘"처럼 목적·대상·형식이 전혀 없는 지시는 엉뚱한 결과를 냅니다.</p>
+              <p class="flip-card__front-desc">목적·대상·형식이 전혀 없는 지시는 엉뚱한 결과를 냅니다.</p>
               <div class="flip-card__hint">뒤집어서 해결책 보기</div>
             </div>
             <div class="flip-card__face flip-card__face--back">
@@ -403,7 +346,7 @@
               <div class="flip-card__mistake-badge">Mistake 03</div>
               <div class="flip-card__front-icon"><svg width="32" height="32" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M3.98 8.223A10.477 10.477 0 001.934 12C3.226 16.338 7.244 19.5 12 19.5c.993 0 1.953-.138 2.863-.395M6.228 6.228A10.45 10.45 0 0112 4.5c4.756 0 8.773 3.162 10.065 7.498a10.523 10.523 0 01-4.293 5.774M6.228 6.228L3 3m3.228 3.228l3.65 3.65m7.894 7.894L21 21m-3.228-3.228l-3.65-3.65m0 0a3 3 0 10-4.243-4.243m4.242 4.242L9.88 9.88"/></svg></div>
               <h3 class="flip-card__front-title">출력 형식 미지정</h3>
-              <p class="flip-card__front-desc">결과물의 형식(JSON, 표, 목록 등)을 지정하지 않으면 매번 다른 형태로 응답이 옵니다.</p>
+              <p class="flip-card__front-desc">결과물의 형식을 지정하지 않으면 매번 다른 형태로 응답이 옵니다.</p>
               <div class="flip-card__hint">뒤집어서 해결책 보기</div>
             </div>
             <div class="flip-card__face flip-card__face--back">
@@ -441,7 +384,6 @@
     <div class="s8-header">
       <span class="section-eyebrow">IMAGE PROMPTS</span>
       <h2 class="section-title">갤러리: 프롬프트가 만든 <span class="section-title--accent">비주얼</span></h2>
-      <p class="section-desc">실제 이미지 생성 AI에 사용된 프롬프트와 그 결과물을 확인하세요.</p>
     </div>
     <div class="s8-accordion">
       <div class="s8-panel">
@@ -497,69 +439,158 @@
     </div>
   </section>
 
-  <section id="terminal-section" class="join-section">
-    <div class="join-section__inner">
-      <div class="join-grid">
-        <div class="join-form-panel">
-          <div class="join-form-eyebrow"><span class="join-form-eyebrow__dot"></span> 실험실 합류하기</div>
-          <h2 class="join-form-title">최신 기법을 <span class="join-form-title--accent">가장 먼저</span> 받아보세요</h2>
-          <p class="join-form-desc">매주 검증된 패턴과 예제를 이메일로 받아보세요.</p>
-          
-          <form id="lab-subscribe-form" class="subscribe-form" action="#" method="post">
-            <div class="subscribe-form__field-wrap">
-              <label for="subscribe-email" class="subscribe-form__label">이메일 주소</label>
-              <div class="subscribe-form__input-group">
-                <input type="email" id="subscribe-email" class="subscribe-form__input" placeholder="you@example.com" required />
-              </div>
-            </div>
-            <div class="subscribe-form__checkbox-wrap">
-              <input type="checkbox" id="subscribe-agree" class="subscribe-form__checkbox" required />
-              <label for="subscribe-agree" class="subscribe-form__checkbox-label">뉴스레터 수신에 동의합니다</label>
-            </div>
-            <button type="submit" class="subscribe-form__btn">실험실 합류하기</button>
-          </form>
+  <section class="join-section">
+    <div class="join-section__inner" style="display: flex; flex-direction: column; gap: 3rem; align-items: center;">
+      <div class="trigger-banner">
+        <h3 style="font-size: 1.2rem; margin-bottom: 0.5rem; color: var(--text-primary);">준비가 완료되셨나요?</h3>
+        <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1.5rem;">언제 어디서든 AI 프롬프트 분석기를 활성화할 수 있습니다.</p>
+        <button class="open-terminal-trigger btn-primary" style="padding: 0.6rem 1.5rem; font-size: 0.85rem; margin: 0 auto;">가상 터미널 열기 ⚡</button>
+      </div>
 
-        </div>
-        <div class="terminal-panel">
-          <div class="terminal-bar">
-            <div class="terminal-bar__dots">
-              <span class="terminal-dot terminal-dot--red"></span><span class="terminal-dot terminal-dot--yellow"></span><span class="terminal-dot terminal-dot--green"></span>
-            </div>
-            <span class="terminal-bar__title">prompt-lab ~ terminal</span>
-            <span class="terminal-bar__spacer"></span>
+      <div class="join-form-panel" style="max-width: 500px; width: 100%; text-align: center;">
+        <div class="join-form-eyebrow"><span class="join-form-eyebrow__dot"></span> 뉴스레터</div>
+        <h2 class="join-form-title">최신 기법을 <span class="join-form-title--accent">가장 먼저</span> 받아보세요</h2>
+        <form id="lab-subscribe-form" class="subscribe-form" action="#" method="post">
+          <div class="subscribe-form__field-wrap">
+            <input type="email" id="subscribe-email" class="subscribe-form__input" placeholder="you@example.com" required />
           </div>
-          <div class="terminal-body">
-            <p class="terminal-line terminal-line--dim"><span class="terminal-prompt">$</span> npm run init-lab</p>
-            <p class="terminal-line terminal-line--success">[INFO] Context window: READY</p>
-            <p class="terminal-line terminal-line--warn">[WAIT] Awaiting input...</p>
-            <div class="terminal-divider"></div>
-            
-            <div class="terminal-input-group">
-              <span class="terminal-prompt terminal-prompt--active">$</span>
-              <input type="text" id="terminal-input" placeholder="여기에 프롬프트를 입력하고 엔터를 쳐보세요... (예: 안녕)" autocomplete="off">
-            </div>
-
+          <div class="subscribe-form__checkbox-wrap" style="justify-content: center;">
+            <input type="checkbox" id="subscribe-agree" class="subscribe-form__checkbox" required />
+            <label for="subscribe-agree" class="subscribe-form__checkbox-label">뉴스레터 수신에 동의합니다</label>
           </div>
-        </div>
+          <button type="submit" class="subscribe-form__btn" style="margin: 0 auto;">연구소 구독하기</button>
+        </form>
       </div>
     </div>
   </section>
 
+  <div id="floating-toolkit">
+    <button class="toolkit-btn open-terminal-trigger" title="AI 가상 터미널 열기">⌨️</button>
+    <button id="open-builder-btn" class="toolkit-btn" title="AI 프롬프트 빌더 열기">⚡</button>
+    <button id="open-token-btn" class="toolkit-btn" title="실시간 토큰 계산기 열기">📊</button>
+    <button id="open-vault-btn" class="toolkit-btn" title="프롬프트 보관함 열기" style="border-color: var(--neon-purple);">🗂️</button>
+    <button id="open-duel-btn" class="toolkit-btn" title="AI 모델 듀얼 시뮬레이터 열기" style="border-color: #22c55e;">⚔️</button>
+  </div>
+
+  <div id="theme-modal" class="modal-overlay">
+    <div class="auth-content" style="width: 400px;">
+      <span class="close-theme-btn close-auth-btn">&times;</span>
+      <h2 style="font-size: 1.3rem; margin-bottom: 1.5rem; color: var(--neon-cyan); font-weight: 800;">🎨 테마 설정 (Theme)</h2>
+      <div style="display: flex; flex-direction: column; gap: 20px; text-align: left;">
+        <div>
+          <label style="font-size: 0.8rem; font-weight: bold; color: var(--text-muted); margin-bottom: 8px; display: block;">1. 배경 모드 (Background)</label>
+          <div style="display: flex; gap: 10px;">
+            <button class="theme-select-btn active" data-bg="dark">🌙 다크 네온</button>
+            <button class="theme-select-btn" data-bg="light">☀️ 라이트 클린</button>
+          </div>
+        </div>
+        <div>
+          <label style="font-size: 0.8rem; font-weight: bold; color: var(--text-muted); margin-bottom: 8px; display: block;">2. 포인트 컬러 (Accent Color)</label>
+          <div style="display: flex; gap: 10px;">
+            <button class="color-select-btn active" data-color="cyan" style="border-bottom: 3px solid #06b6d4;">시안</button>
+            <button class="color-select-btn" data-color="green" style="border-bottom: 3px solid #10b981;">에메랄드</button>
+            <button class="color-select-btn" data-color="magenta" style="border-bottom: 3px solid #f43f5e;">마젠타</button>
+          </div>
+        </div>
+        <button id="apply-theme-btn" class="auth-submit-btn" style="background: var(--gradient-neon); margin-top: 10px;">설정 저장 및 닫기</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="terminal-modal" class="modal-overlay">
+    <div class="terminal-modal-content">
+      <span class="close-terminal-btn">&times;</span>
+      <div class="terminal-panel">
+        <div class="terminal-bar">
+          <div class="terminal-bar__dots"><span class="terminal-dot terminal-dot--red"></span><span class="terminal-dot terminal-dot--yellow"></span><span class="terminal-dot terminal-dot--green"></span></div>
+          <span class="terminal-bar__title">prompt-lab ~ virtual-terminal-ai</span>
+        </div>
+        <div class="terminal-body">
+          <p class="terminal-line terminal-line--dim"><span class="terminal-prompt">$</span> npm run init-lab</p>
+          <p class="terminal-line terminal-line--success">[INFO] ES6 Async/Await Protocols: ACTIVE</p>
+          <p class="terminal-line terminal-line--warn">[WAIT] Awaiting researcher prompt...</p>
+          <div class="terminal-divider"></div>
+          <div class="terminal-input-group">
+            <span class="terminal-prompt terminal-prompt--active">$</span>
+            <input type="text" id="terminal-input" placeholder="여기에 프롬프트를 입력하고 엔터를 쳐보세요... (예: 안녕, 추천)" autocomplete="off">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="builder-modal" class="modal-overlay">
+    <div class="auth-content" style="width: 440px;">
+      <span class="close-builder-btn close-auth-btn">&times;</span>
+      <h2 class="neon-text-cyan" style="font-size: 1.3rem; margin-bottom: 1.5rem; color: var(--neon-cyan);">🛠️ AI Prompt Builder</h2>
+      <div style="display: flex; flex-direction: column; gap: 12px; text-align: left;">
+        <label style="font-size: 0.75rem; font-weight: bold; color: var(--neon-purple);">1. 페르소나(Role) 설정</label>
+        <select id="builder-role" class="auth-input" style="background: var(--bg-card);">
+          <option value="10년 경력의 시니어 개발자">10년 경력의 시니어 풀스택 개발자</option>
+          <option value="글로벌 기업 스타트업 마케터">성장 지향적인 그로스 마케팅 전문가</option>
+          <option value="UX/UI 전문 테크니컬 라이터">사용자 친화적인 UX 전문 테크 라이터</option>
+        </select>
+        <label style="font-size: 0.75rem; font-weight: bold; color: var(--neon-purple);">2. 수행할 작업(Task) 입력</label>
+        <input type="text" id="builder-task" class="auth-input" placeholder="예: 로그인 코드 에러 디버깅, 인스타 카피라이팅" value="코드 리팩토링 및 최적화">
+        <label style="font-size: 0.75rem; font-weight: bold; color: var(--neon-purple);">3. 응답 형식(Format) 강제</label>
+        <select id="builder-format" class="auth-input" style="background: var(--bg-card);">
+          <option value="구조화된 깔끔한 JSON 포맷">JSON 형식 데이터 구조</option>
+          <option value="한눈에 비교하기 쉬운 마크다운 표(Table) 형태">Markdown 표 포맷</option>
+          <option value="단계별 요약이 들어간 일목요연한 리스트 형태">가독성 높은 목록형 포맷</option>
+        </select>
+        <button id="generate-prompt-btn" class="auth-submit-btn" style="background: var(--gradient-neon);">구조화 프롬프트 생성 ⚡</button>
+        <div id="builder-result-box" style="display:none; margin-top: 15px;">
+          <label style="font-size: 0.75rem; color: var(--neon-cyan);">조립 완료된 프로토콜 (클릭 시 복사)</label>
+          <div id="builder-output-text" class="card-code" style="max-height: 120px; overflow-y:auto; cursor:pointer; font-size:0.7rem; margin-top:5px;"></div>
+          <button id="save-to-vault-btn" class="nav-btn nav-btn--glow" style="width:100%; margin-top:10px; padding:8px; border-color:var(--neon-purple); color:var(--neon-purple);">💾 보관함에 저장하기</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="token-modal" class="modal-overlay">
+    <div class="auth-content" style="width: 440px;">
+      <span class="close-token-btn close-auth-btn">&times;</span>
+      <h2 style="font-size: 1.3rem; margin-bottom: 1rem; color: var(--neon-cyan);">📊 Live Token Counter</h2>
+      <p style="font-size: 0.75rem; color: var(--text-muted); margin-bottom: 1.5rem;">입력창에 프롬프트를 입력하면 실시간으로 API 비용이 산정됩니다.</p>
+      <div style="text-align: left; display:flex; flex-direction:column; gap:10px;">
+        <textarea id="token-textarea" class="auth-input" rows="5" placeholder="여기에 아무 문장이나 복사 붙여넣기 해보세요..." style="resize:none; font-family:var(--font-mono); font-size:0.8rem; background: var(--bg-base); color: var(--text-primary);"></textarea>
+        <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px; margin-top:5px;">
+          <div style="background:var(--bg-base); padding:10px; border-radius:6px; border:1px solid var(--border-subtle);">
+            <span style="font-size:0.65rem; color:var(--text-muted); display:block;">공백 포함 글자 수</span>
+            <strong id="stat-chars" style="font-size:1.1rem; color:var(--text-primary);">0</strong> 자
+          </div>
+          <div style="background:var(--bg-base); padding:10px; border-radius:6px; border:1px solid var(--border-subtle);">
+            <span style="font-size:0.65rem; color:var(--text-muted); display:block;">예상 소모 토큰 수</span>
+            <strong id="stat-tokens" style="font-size:1.1rem; color:var(--neon-cyan);">0</strong> tokens
+          </div>
+        </div>
+        <div style="background:rgba(6, 182, 212, 0.05); border:1px solid var(--border-base); padding:12px; border-radius:8px; margin-top:5px; display:flex; flex-direction:column; gap:6px; font-size:0.75rem;">
+          <div style="display:flex; justify-content:space-between; color: var(--text-primary);">
+            <span>OpenAI GPT-4o 예상 비용:</span>
+            <strong id="cost-gpt" style="color:#22c55e;">$0.00000</strong>
+          </div>
+          <div style="display:flex; justify-content:space-between; color: var(--text-primary);">
+            <span>Anthropic Claude 3.5 비용:</span>
+            <strong id="cost-claude" style="color:var(--neon-purple);">$0.00000</strong>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <div id="auth-modal" class="modal-overlay">
     <div class="auth-content">
       <span class="close-auth-btn">&times;</span>
-      
       <div class="auth-header">
         <button class="auth-tab active" data-target="login-form">로그인</button>
         <button class="auth-tab" data-target="signup-form">회원가입</button>
       </div>
-
       <form id="login-form" class="auth-form active">
         <input type="email" class="auth-input" placeholder="이메일 주소" required>
         <input type="password" class="auth-input" placeholder="비밀번호" required>
         <button type="submit" class="auth-submit-btn">시스템 접속</button>
       </form>
-
       <form id="signup-form" class="auth-form">
         <input type="text" class="auth-input" placeholder="닉네임 (예: 수석연구원)" required>
         <input type="email" class="auth-input" placeholder="이메일 주소" required>
@@ -578,11 +609,44 @@
     </div>
   </div>
 
+  <div id="vault-modal" class="modal-overlay">
+    <div class="auth-content" style="width: 480px;">
+      <span class="close-vault-btn close-auth-btn">&times;</span>
+      <h2 style="font-size: 1.3rem; margin-bottom: 0.5rem; color: var(--neon-purple);">🗂️ Prompt Vault</h2>
+      <p style="font-size:0.75rem; color:var(--text-muted); margin-bottom:1.5rem;">빌더에서 저장한 나만의 프롬프트 레시피입니다.</p>
+      <div id="vault-list" style="display:flex; flex-direction:column; gap:10px; max-height: 350px; overflow-y:auto; text-align:left; padding-right:5px;"></div>
+      <button id="clear-vault-btn" class="nav-btn nav-btn--ghost" style="width:100%; margin-top:15px; border:1px solid var(--border-subtle); color:#f43f5e;">🗑️ 전체 보관함 비우기</button>
+    </div>
+  </div>
+
+  <div id="duel-modal" class="modal-overlay">
+    <div class="terminal-modal-content" style="max-width: 900px;">
+      <span class="close-duel-btn close-terminal-btn">&times;</span>
+      <div class="terminal-panel" style="display: flex; flex-direction: column; background: var(--bg-card);">
+        <div class="terminal-bar" style="justify-content: center; background:#0d1117;"><span class="terminal-bar__title" style="font-size:1rem; font-weight:bold;">⚔️ AI Model Duel Simulator</span></div>
+        <div style="display: flex; height: 450px; border-bottom: 1px solid var(--border-subtle);">
+          <div style="flex:1; border-right: 1px solid var(--border-subtle); display:flex; flex-direction:column;">
+            <div style="padding:10px; text-align:center; background:rgba(34, 197, 94, 0.1); color:#22c55e; font-weight:bold; font-size:0.85rem; border-bottom: 1px solid rgba(34, 197, 94, 0.2);">🟢 OpenAI GPT-4o</div>
+            <div id="duel-gpt-output" class="terminal-body" style="flex:1; overflow-y:auto; color:#e2e8f0; padding:15px;"><p style="color:#64748b; text-align:center; margin-top:40%;">[대기 중...]</p></div>
+          </div>
+          <div style="flex:1; display:flex; flex-direction:column;">
+            <div style="padding:10px; text-align:center; background:rgba(168, 85, 247, 0.1); color:var(--neon-purple); font-weight:bold; font-size:0.85rem; border-bottom: 1px solid rgba(168, 85, 247, 0.2);">🟣 Anthropic Claude 3.5</div>
+            <div id="duel-claude-output" class="terminal-body" style="flex:1; overflow-y:auto; color:#e2e8f0; padding:15px;"><p style="color:#64748b; text-align:center; margin-top:40%;">[대기 중...]</p></div>
+          </div>
+        </div>
+        <div style="padding:15px; display:flex; gap:10px; background:#161b22;">
+          <input type="text" id="duel-input" class="auth-input" placeholder="비교할 프롬프트를 입력하세요... (예: 리액트의 장단점)" style="flex:1; background:#0d1117;" autocomplete="off">
+          <button id="duel-submit-btn" class="auth-submit-btn" style="margin:0; padding:0 25px; background: #22c55e;">대결 시작 ⚔️</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <footer class="site-footer" role="contentinfo">
     <p><strong>Prompt Engineering Lab</strong> &nbsp;&mdash;&nbsp; Web Programming Basics Midterm Project &nbsp;&middot;&nbsp; Built with Pure HTML5 &amp; CSS3</p>
   </footer>
 
   <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-  <script src="script.js?v=20240620_FINAL_V4"></script>
+  <script src="script.js"></script>
 </body>
 </html>
