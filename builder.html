@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <title>프롬프트 빌더 - Prompt Lab</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .modal-overlay { display: flex !important; position: static; background: transparent; backdrop-filter: none; min-height: calc(100vh - 64px); align-items: center; justify-content: center; padding-top: 64px; }
+    .auth-content { position: static; transform: none; margin: 0 auto; box-shadow: 0 10px 40px rgba(0,0,0,0.3); }
+    .close-auth-btn { display: none !important; }
+    #floating-toolkit { display: none !important; }
+  </style>
+</head>
+<body data-bg="dark" data-color="cyan">
+  <header class="nav-header">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo"><span class="nav-logo__bracket">[</span> Prompt Lab <span class="nav-logo__bracket">]</span></a>
+      <div class="nav-right"><a href="index.html" class="nav-btn nav-btn--ghost">← 메인으로 돌아가기</a></div>
+    </div>
+  </header>
+  
+  <main class="modal-overlay">
+    <div class="auth-content" style="width: 500px; padding: 40px;">
+      <h2 class="neon-text-cyan" style="font-size: 1.5rem; margin-bottom: 1.5rem; color: var(--neon-cyan);">🛠️ AI Prompt Builder</h2>
+      <div style="display: flex; flex-direction: column; gap: 15px; text-align: left;">
+        <label style="font-size: 0.85rem; font-weight: bold; color: var(--neon-purple);">1. 페르소나(Role) 설정</label>
+        <select id="builder-role" class="auth-input" style="background: var(--bg-card);"><option value="10년 경력의 시니어 개발자">10년 경력의 시니어 풀스택 개발자</option><option value="글로벌 기업 스타트업 마케터">성장 지향적인 그로스 마케팅 전문가</option><option value="UX/UI 전문 테크니컬 라이터">사용자 친화적인 UX 전문 테크 라이터</option></select>
+        <label style="font-size: 0.85rem; font-weight: bold; color: var(--neon-purple);">2. 수행할 작업(Task) 입력</label>
+        <input type="text" id="builder-task" class="auth-input" placeholder="예: 로그인 코드 에러 디버깅" value="코드 리팩토링 및 최적화">
+        <label style="font-size: 0.85rem; font-weight: bold; color: var(--neon-purple);">3. 응답 형식(Format) 강제</label>
+        <select id="builder-format" class="auth-input" style="background: var(--bg-card);"><option value="구조화된 깔끔한 JSON 포맷">JSON 형식 데이터 구조</option><option value="한눈에 비교하기 쉬운 마크다운 표(Table) 형태">Markdown 표 포맷</option><option value="일목요연한 리스트 형태">가독성 높은 목록형 포맷</option></select>
+        <button id="generate-prompt-btn" class="auth-submit-btn" style="background: var(--gradient-neon); padding: 15px; margin-top: 10px;">구조화 프롬프트 생성 ⚡</button>
+        <div id="builder-result-box" style="display:none; margin-top: 20px;">
+          <label style="font-size: 0.85rem; color: var(--neon-cyan);">조립 완료된 프로토콜 (클릭 시 복사)</label>
+          <div id="builder-output-text" class="card-code" style="max-height: 150px; overflow-y:auto; cursor:pointer; font-size:0.8rem; margin-top:5px;"></div>
+          <button id="save-to-vault-btn" class="nav-btn nav-btn--glow" style="width:100%; margin-top:15px; padding:12px; border-color:var(--neon-purple); color:var(--neon-purple);">💾 보관함에 저장하기</button>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

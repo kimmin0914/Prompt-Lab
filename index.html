@@ -48,8 +48,8 @@
         <span class="text-highlight">언어 모델(LLM)을 제어하고 최적화하는 고급 기법을 마스터하세요.</span>
       </p>
       <div class="hero-buttons">
-        <button id="start-lab-btn" class="btn-primary">실험실 시작하기 ✨</button>
-        <button class="btn-secondary">공식 문서 보기</button>
+        <button id="go-terminal-btn" class="btn-primary" onclick="window.location.href='terminal.html'">실험실 시작하기 ✨</button>
+        <button class="btn-secondary" onclick="window.open('https://www.promptingguide.ai/kr', '_blank')">공식 문서 보기</button>
       </div>
     </section>
 
@@ -444,7 +444,7 @@
       <div class="trigger-banner">
         <h3 style="font-size: 1.2rem; margin-bottom: 0.5rem; color: var(--text-primary);">준비가 완료되셨나요?</h3>
         <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1.5rem;">언제 어디서든 AI 프롬프트 분석기를 활성화할 수 있습니다.</p>
-        <button class="open-terminal-trigger btn-primary" style="padding: 0.6rem 1.5rem; font-size: 0.85rem; margin: 0 auto;">가상 터미널 열기 ⚡</button>
+        <button class="btn-primary" style="padding: 0.6rem 1.5rem; font-size: 0.85rem; margin: 0 auto;" onclick="window.location.href='terminal.html'">가상 터미널 열기 ⚡</button>
       </div>
 
       <div class="join-form-panel" style="max-width: 500px; width: 100%; text-align: center;">
@@ -465,11 +465,11 @@
   </section>
 
   <div id="floating-toolkit">
-    <button class="toolkit-btn open-terminal-trigger" title="AI 가상 터미널 열기">⌨️</button>
-    <button id="open-builder-btn" class="toolkit-btn" title="AI 프롬프트 빌더 열기">⚡</button>
-    <button id="open-token-btn" class="toolkit-btn" title="실시간 토큰 계산기 열기">📊</button>
-    <button id="open-vault-btn" class="toolkit-btn" title="프롬프트 보관함 열기" style="border-color: var(--neon-purple);">🗂️</button>
-    <button id="open-duel-btn" class="toolkit-btn" title="AI 모델 듀얼 시뮬레이터 열기" style="border-color: #22c55e;">⚔️</button>
+    <a href="terminal.html" class="toolkit-btn" title="AI 가상 터미널 열기">⌨️</a>
+    <a href="builder.html" class="toolkit-btn" title="AI 프롬프트 빌더 열기">⚡</a>
+    <a href="token.html" class="toolkit-btn" title="실시간 토큰 계산기 열기">📊</a>
+    <a href="vault.html" class="toolkit-btn" title="프롬프트 보관함 열기" style="border-color: var(--neon-purple);">🗂️</a>
+    <a href="duel.html" class="toolkit-btn" title="AI 모델 듀얼 시뮬레이터 열기" style="border-color: #22c55e;">⚔️</a>
   </div>
 
   <div id="theme-modal" class="modal-overlay">
@@ -493,88 +493,6 @@
           </div>
         </div>
         <button id="apply-theme-btn" class="auth-submit-btn" style="background: var(--gradient-neon); margin-top: 10px;">설정 저장 및 닫기</button>
-      </div>
-    </div>
-  </div>
-
-  <div id="terminal-modal" class="modal-overlay">
-    <div class="terminal-modal-content">
-      <span class="close-terminal-btn">&times;</span>
-      <div class="terminal-panel">
-        <div class="terminal-bar">
-          <div class="terminal-bar__dots"><span class="terminal-dot terminal-dot--red"></span><span class="terminal-dot terminal-dot--yellow"></span><span class="terminal-dot terminal-dot--green"></span></div>
-          <span class="terminal-bar__title">prompt-lab ~ virtual-terminal-ai</span>
-        </div>
-        <div class="terminal-body">
-          <p class="terminal-line terminal-line--dim"><span class="terminal-prompt">$</span> npm run init-lab</p>
-          <p class="terminal-line terminal-line--success">[INFO] ES6 Async/Await Protocols: ACTIVE</p>
-          <p class="terminal-line terminal-line--warn">[WAIT] Awaiting researcher prompt...</p>
-          <div class="terminal-divider"></div>
-          <div class="terminal-input-group">
-            <span class="terminal-prompt terminal-prompt--active">$</span>
-            <input type="text" id="terminal-input" placeholder="여기에 프롬프트를 입력하고 엔터를 쳐보세요... (예: 안녕, 추천)" autocomplete="off">
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div id="builder-modal" class="modal-overlay">
-    <div class="auth-content" style="width: 440px;">
-      <span class="close-builder-btn close-auth-btn">&times;</span>
-      <h2 class="neon-text-cyan" style="font-size: 1.3rem; margin-bottom: 1.5rem; color: var(--neon-cyan);">🛠️ AI Prompt Builder</h2>
-      <div style="display: flex; flex-direction: column; gap: 12px; text-align: left;">
-        <label style="font-size: 0.75rem; font-weight: bold; color: var(--neon-purple);">1. 페르소나(Role) 설정</label>
-        <select id="builder-role" class="auth-input" style="background: var(--bg-card);">
-          <option value="10년 경력의 시니어 개발자">10년 경력의 시니어 풀스택 개발자</option>
-          <option value="글로벌 기업 스타트업 마케터">성장 지향적인 그로스 마케팅 전문가</option>
-          <option value="UX/UI 전문 테크니컬 라이터">사용자 친화적인 UX 전문 테크 라이터</option>
-        </select>
-        <label style="font-size: 0.75rem; font-weight: bold; color: var(--neon-purple);">2. 수행할 작업(Task) 입력</label>
-        <input type="text" id="builder-task" class="auth-input" placeholder="예: 로그인 코드 에러 디버깅, 인스타 카피라이팅" value="코드 리팩토링 및 최적화">
-        <label style="font-size: 0.75rem; font-weight: bold; color: var(--neon-purple);">3. 응답 형식(Format) 강제</label>
-        <select id="builder-format" class="auth-input" style="background: var(--bg-card);">
-          <option value="구조화된 깔끔한 JSON 포맷">JSON 형식 데이터 구조</option>
-          <option value="한눈에 비교하기 쉬운 마크다운 표(Table) 형태">Markdown 표 포맷</option>
-          <option value="단계별 요약이 들어간 일목요연한 리스트 형태">가독성 높은 목록형 포맷</option>
-        </select>
-        <button id="generate-prompt-btn" class="auth-submit-btn" style="background: var(--gradient-neon);">구조화 프롬프트 생성 ⚡</button>
-        <div id="builder-result-box" style="display:none; margin-top: 15px;">
-          <label style="font-size: 0.75rem; color: var(--neon-cyan);">조립 완료된 프로토콜 (클릭 시 복사)</label>
-          <div id="builder-output-text" class="card-code" style="max-height: 120px; overflow-y:auto; cursor:pointer; font-size:0.7rem; margin-top:5px;"></div>
-          <button id="save-to-vault-btn" class="nav-btn nav-btn--glow" style="width:100%; margin-top:10px; padding:8px; border-color:var(--neon-purple); color:var(--neon-purple);">💾 보관함에 저장하기</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div id="token-modal" class="modal-overlay">
-    <div class="auth-content" style="width: 440px;">
-      <span class="close-token-btn close-auth-btn">&times;</span>
-      <h2 style="font-size: 1.3rem; margin-bottom: 1rem; color: var(--neon-cyan);">📊 Live Token Counter</h2>
-      <p style="font-size: 0.75rem; color: var(--text-muted); margin-bottom: 1.5rem;">입력창에 프롬프트를 입력하면 실시간으로 API 비용이 산정됩니다.</p>
-      <div style="text-align: left; display:flex; flex-direction:column; gap:10px;">
-        <textarea id="token-textarea" class="auth-input" rows="5" placeholder="여기에 아무 문장이나 복사 붙여넣기 해보세요..." style="resize:none; font-family:var(--font-mono); font-size:0.8rem; background: var(--bg-base); color: var(--text-primary);"></textarea>
-        <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px; margin-top:5px;">
-          <div style="background:var(--bg-base); padding:10px; border-radius:6px; border:1px solid var(--border-subtle);">
-            <span style="font-size:0.65rem; color:var(--text-muted); display:block;">공백 포함 글자 수</span>
-            <strong id="stat-chars" style="font-size:1.1rem; color:var(--text-primary);">0</strong> 자
-          </div>
-          <div style="background:var(--bg-base); padding:10px; border-radius:6px; border:1px solid var(--border-subtle);">
-            <span style="font-size:0.65rem; color:var(--text-muted); display:block;">예상 소모 토큰 수</span>
-            <strong id="stat-tokens" style="font-size:1.1rem; color:var(--neon-cyan);">0</strong> tokens
-          </div>
-        </div>
-        <div style="background:rgba(6, 182, 212, 0.05); border:1px solid var(--border-base); padding:12px; border-radius:8px; margin-top:5px; display:flex; flex-direction:column; gap:6px; font-size:0.75rem;">
-          <div style="display:flex; justify-content:space-between; color: var(--text-primary);">
-            <span>OpenAI GPT-4o 예상 비용:</span>
-            <strong id="cost-gpt" style="color:#22c55e;">$0.00000</strong>
-          </div>
-          <div style="display:flex; justify-content:space-between; color: var(--text-primary);">
-            <span>Anthropic Claude 3.5 비용:</span>
-            <strong id="cost-claude" style="color:var(--neon-purple);">$0.00000</strong>
-          </div>
-        </div>
       </div>
     </div>
   </div>
@@ -606,39 +524,6 @@
       <h2 id="modal-title" class="neon-text-cyan">기술 이름</h2>
       <p id="modal-desc">여기에 상세한 설명이 나타납니다.</p>
       <button class="modal-action-btn">실험해보기</button>
-    </div>
-  </div>
-
-  <div id="vault-modal" class="modal-overlay">
-    <div class="auth-content" style="width: 480px;">
-      <span class="close-vault-btn close-auth-btn">&times;</span>
-      <h2 style="font-size: 1.3rem; margin-bottom: 0.5rem; color: var(--neon-purple);">🗂️ Prompt Vault</h2>
-      <p style="font-size:0.75rem; color:var(--text-muted); margin-bottom:1.5rem;">빌더에서 저장한 나만의 프롬프트 레시피입니다.</p>
-      <div id="vault-list" style="display:flex; flex-direction:column; gap:10px; max-height: 350px; overflow-y:auto; text-align:left; padding-right:5px;"></div>
-      <button id="clear-vault-btn" class="nav-btn nav-btn--ghost" style="width:100%; margin-top:15px; border:1px solid var(--border-subtle); color:#f43f5e;">🗑️ 전체 보관함 비우기</button>
-    </div>
-  </div>
-
-  <div id="duel-modal" class="modal-overlay">
-    <div class="terminal-modal-content" style="max-width: 900px;">
-      <span class="close-duel-btn close-terminal-btn">&times;</span>
-      <div class="terminal-panel" style="display: flex; flex-direction: column; background: var(--bg-card);">
-        <div class="terminal-bar" style="justify-content: center; background:#0d1117;"><span class="terminal-bar__title" style="font-size:1rem; font-weight:bold;">⚔️ AI Model Duel Simulator</span></div>
-        <div style="display: flex; height: 450px; border-bottom: 1px solid var(--border-subtle);">
-          <div style="flex:1; border-right: 1px solid var(--border-subtle); display:flex; flex-direction:column;">
-            <div style="padding:10px; text-align:center; background:rgba(34, 197, 94, 0.1); color:#22c55e; font-weight:bold; font-size:0.85rem; border-bottom: 1px solid rgba(34, 197, 94, 0.2);">🟢 OpenAI GPT-4o</div>
-            <div id="duel-gpt-output" class="terminal-body" style="flex:1; overflow-y:auto; color:#e2e8f0; padding:15px;"><p style="color:#64748b; text-align:center; margin-top:40%;">[대기 중...]</p></div>
-          </div>
-          <div style="flex:1; display:flex; flex-direction:column;">
-            <div style="padding:10px; text-align:center; background:rgba(168, 85, 247, 0.1); color:var(--neon-purple); font-weight:bold; font-size:0.85rem; border-bottom: 1px solid rgba(168, 85, 247, 0.2);">🟣 Anthropic Claude 3.5</div>
-            <div id="duel-claude-output" class="terminal-body" style="flex:1; overflow-y:auto; color:#e2e8f0; padding:15px;"><p style="color:#64748b; text-align:center; margin-top:40%;">[대기 중...]</p></div>
-          </div>
-        </div>
-        <div style="padding:15px; display:flex; gap:10px; background:#161b22;">
-          <input type="text" id="duel-input" class="auth-input" placeholder="비교할 프롬프트를 입력하세요... (예: 리액트의 장단점)" style="flex:1; background:#0d1117;" autocomplete="off">
-          <button id="duel-submit-btn" class="auth-submit-btn" style="margin:0; padding:0 25px; background: #22c55e;">대결 시작 ⚔️</button>
-        </div>
-      </div>
     </div>
   </div>
 

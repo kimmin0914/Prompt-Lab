@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <title>가상 터미널 - Prompt Lab</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    /* 모달을 전체 화면 페이지로 변환하는 매직 CSS */
+    .modal-overlay { display: flex !important; position: static; background: transparent; backdrop-filter: none; min-height: calc(100vh - 64px); align-items: center; justify-content: center; padding-top: 64px; }
+    .terminal-modal-content { position: static; transform: none; margin: 0 auto; box-shadow: 0 10px 40px rgba(0,0,0,0.3); width: 100%; max-width: 800px; }
+    .close-terminal-btn { display: none !important; }
+    #floating-toolkit { display: none !important; }
+  </style>
+</head>
+<body data-bg="dark" data-color="cyan">
+  <header class="nav-header">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo"><span class="nav-logo__bracket">[</span> Prompt Lab <span class="nav-logo__bracket">]</span></a>
+      <div class="nav-right"><a href="index.html" class="nav-btn nav-btn--ghost">← 메인으로 돌아가기</a></div>
+    </div>
+  </header>
+  
+  <main class="modal-overlay">
+    <div class="terminal-modal-content">
+      <div class="terminal-panel">
+        <div class="terminal-bar">
+          <div class="terminal-bar__dots"><span class="terminal-dot terminal-dot--red"></span><span class="terminal-dot terminal-dot--yellow"></span><span class="terminal-dot terminal-dot--green"></span></div>
+          <span class="terminal-bar__title">prompt-lab ~ virtual-terminal-ai</span>
+        </div>
+        <div class="terminal-body" style="height: 500px;">
+          <p class="terminal-line terminal-line--dim"><span class="terminal-prompt">$</span> npm run init-lab</p>
+          <p class="terminal-line terminal-line--success">[INFO] ES6 Async/Await Protocols: ACTIVE</p>
+          <p class="terminal-line terminal-line--warn">[WAIT] Awaiting researcher prompt...</p>
+          <div class="terminal-divider"></div>
+          <div class="terminal-input-group">
+            <span class="terminal-prompt terminal-prompt--active">$</span>
+            <input type="text" id="terminal-input" placeholder="여기에 프롬프트를 입력하고 엔터를 쳐보세요... (예: 안녕, 추천)" autocomplete="off">
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script src="script.js"></script>
+  <script>setTimeout(() => { $('.terminal-panel').addClass('terminal-highlight'); $('#terminal-input').focus(); setTimeout(() => { $('.terminal-panel').removeClass('terminal-highlight'); }, 1200); }, 300);</script>
+</body>
+</html>

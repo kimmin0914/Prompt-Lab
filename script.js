@@ -49,14 +49,15 @@ $(document).ready(function() {
     });
 
 
-    // 3. Async Terminal Bot
+    // 3. Async Terminal Bot (단어 추가 및 글자색 버그 수정)
     const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
     $('#terminal-input').on('keypress', async function(e) {
         if (e.which === 13) { 
             let userText = $(this).val().trim();
             if (userText === "") return;
-            $(this).parent().before(`<p class="terminal-line"><span class="terminal-prompt terminal-prompt--active">$</span> <span style="color:#ffffff">${userText}</span></p>`);
+            
+            $(this).parent().before(`<p class="terminal-line"><span class="terminal-prompt terminal-prompt--active">$</span> <span style="color:var(--text-primary)">${userText}</span></p>`);
             $(this).val('');
 
             let $terminalBody = $('.terminal-body');
@@ -66,9 +67,25 @@ $(document).ready(function() {
             await delay(1200);
             $('.ai-loading').remove();
             
-            let aiResponse = "[SUCCESS] 훌륭한 프롬프트입니다! Role(역할)을 추가하면 더 완벽해집니다.";
-            if (userText.includes("안녕")) aiResponse = "[HELLO] 안녕하세요! 프롬프트 엔지니어링 실험실에 오신 것을 환영합니다.";
-            else if (userText.includes("추천")) aiResponse = "[RECOMMEND] 추천 프롬프트: '당신은 10년 경력의 파이썬 개발자입니다. 코드를 리뷰해 주세요.'";
+            let aiResponse = "[SUCCESS] 훌륭한 프롬프트입니다! Role(역할)과 Format(형식)을 추가하면 더 완벽해집니다.";
+            
+            if (userText.includes("안녕") || userText.includes("하이")) {
+                aiResponse = "[HELLO] 안녕하세요! 프롬프트 엔지니어링 실험실에 오신 것을 환영합니다. 무엇을 도와드릴까요?";
+            } else if (userText.includes("추천") || userText.includes("예시")) {
+                aiResponse = "[RECOMMEND] 추천 프롬프트: '당신은 10년 경력의 파이썬 개발자입니다. 다음 코드를 최적화해 주세요.'";
+            } else if (userText.includes("이름") || userText.includes("누구")) {
+                aiResponse = "[INFO] 저는 이 실험실을 안내하는 가상 AI 조수입니다. 다양한 프롬프트를 입력하며 테스트해 보세요!";
+            } else if (userText.includes("고마워") || userText.includes("감사") || userText.includes("최고")) {
+                aiResponse = "[SMILE] 별말씀을요! 도움이 되었다니 기쁩니다. 더 필요한 것이 있다면 언제든 말씀해 주세요.";
+            } else if (userText.includes("오류") || userText.includes("버그")) {
+                aiResponse = "[DEBUG] 앗, 오류를 발견하셨군요! 수석연구원(김민준)님께 즉시 리포트를 전송하겠습니다. 삐리릭- 🤖";
+            } else if (userText.includes("날씨")) {
+                aiResponse = "[WEATHER] 저는 인터넷망과 격리되어 있지만, 오늘 당신의 코딩 날씨는 '매우 맑음'일 것 같네요! ☀️";
+            } else if (userText.includes("바보") || userText.includes("멍청")) {
+                aiResponse = "[WARNING] 부정적인 단어가 감지되었습니다. 우리 모두 예쁜 말 고운 말을 사용하도록 합시다! 🚨";
+            } else if (userText.length < 3) {
+                aiResponse = "[HINT] 프롬프트가 너무 짧습니다. 육하원칙에 따라 조금 더 구체적으로 지시해 주시면 좋은 답변을 드릴 수 있습니다.";
+            }
 
             $('#terminal-input').parent().before('<p class="terminal-line terminal-line--success"><span class="ai-response-typing"></span></p>');
             let $targetSpan = $('.ai-response-typing').last();
@@ -119,7 +136,7 @@ $(document).ready(function() {
 
     // 6. Encyclopedia Modal
     const techDescriptions = {
-        "TECHNIQUE": "가장 기본이 되는 핵심 기술 분류를 의미합니다.", "ADVANCED": "추론 능력을 극대화하는 심화 단계의 기법입니다.", "METHOD": "문제 해결을 위해 부여하는 방법론적 접근 방식입니다.", "FORMAT": "AI의 답변 출력 형식을 개발자가 원하는 대로 강제하는 기법입니다.", "RELIABILITY": "환각 현상을 줄이고 신뢰할 수 있는 답변을 얻어내는 기술입니다.", "NLP": "자연어 처리 태스크에 특화된 프롬프트 기법입니다.", "CLASSIFICATION": "텍스트의 카테고리 등을 분류하도록 제어하는 방식입니다.", "SENTIMENT": "문장에 담긴 감정 상태를 분석하게 하는 기법입니다.", "1-SHOT": "단 하나의 정답 예시만 제공하여 패턴을 학습시킵니다.", "3-SHOT": "3개의 예시를 제공하여 정확도와 일관성을 높입니다.", "5-SHOT": "5개의 예시를 주어 완벽하게 규칙을 이해하도록 유도합니다.", "IN-CONTEXT": "모델을 재학습시키지 않고, 문맥만으로 새로운 작업을 수행하게 합니다.", "JSON": "데이터를 저장하거나 전송할 때 널리 쓰이는 데이터 포맷입니다.", "MARKDOWN": "일반 텍스트로 문서의 서식을 지정할 수 있는 마크업 언어입니다.", "XML": "데이터의 구조를 태그로 정의하는 마크업 언어입니다.", "CSV": "필드를 쉼표(,)로 구분한 데이터 저장 방식입니다.", "글쓰기": "창의적이고 자연스러운 문장을 생성하는 능력입니다.", "추론": "정보를 바탕으로 논리적인 결론을 도출해내는 능력입니다.", "코드 생성": "코드를 작성하고 버그를 디버깅하는 기능입니다.", "분석": "복잡한 데이터를 읽고 인사이트를 추출하는 능력입니다.", "데이터": "방대한 데이터를 처리하고 유의미한 수치를 뽑아내는 역량입니다.", "번역": "언어 장벽을 허물고 완벽하게 번역하는 역량입니다.", "오픈소스": "누구나 무료로 구조를 확인하고 수정, 배포할 수 있는 모델입니다.", "커스텀": "특정 목적에 맞게 모델을 튜닝하여 전문화시키는 방식입니다.", "CODE GENERATION": "코드를 자동 생성하는 기법입니다.", "CREATIVE WRITING": "인간의 창의력이 요구되는 텍스트를 작성하는 기법입니다.", "DATA ANALYSIS": "데이터를 분석하여 시각화나 인사이트 도출하는 기법입니다.", "TRANSLATION": "문맥과 문화적 뉘앙스를 살려 번역하는 기법입니다.", "SENTIMENT ANALYSIS": "리뷰 텍스트 등에 담긴 감정을 분석해내는 기법입니다.", "IMAGE CAPTIONING": "상황에 딱 맞는 텍스트 설명을 자동으로 생성하는 기법입니다.", "SUMMARIZATION": "핵심 주제와 내용만 유지한 채 간결하게 요약하는 기법입니다.", "SQL QUERYING": "데이터베이스 검색을 위한 완벽한 SQL 쿼리문을 작성해주는 기법입니다.", "데이터 분석": "비즈니스 인사이트를 도출하는 기법입니다.", "창의적 글쓰기": "인간의 창의력이 요구되는 텍스트를 생성하는 기법입니다.", "언어 번역": "문맥과 뉘앙스를 살려 번역하는 기법입니다.", "문서 요약": "긴 문서에서 핵심만 추출하여 요약하는 기법입니다.", "논리적 추론": "단계를 나누어 스스로 해결책을 찾도록 돕는 기법입니다.", "API 연동": "외부 기능(API)을 내 프로그램에 연결하는 코드를 작성하는 기법입니다.", "유닛 테스트 작성": "정상 작동하는지 확인하는 테스트 코드를 생성합니다.", "프롬프트 최적화": "질문의 구조와 단어 선택을 다듬는 과정입니다.", "시스템 아키텍처": "소프트웨어 시스템의 전체적인 밑그림을 설계하는 기법입니다.", "수학 문제 해결": "명확한 풀이 과정을 제시하는 기법입니다.", "역할극 (ROLE-PLAYING)": "실제 전문가와 대화하는 것처럼 시뮬레이션하는 기법입니다."
+        "TECHNIQUE": "가장 기본이 되는 핵심 기술 분류를 의미합니다.", "ADVANCED": "추론 능력을 극대화하는 심화 단계의 기법입니다.", "METHOD": "문제 해결을 위해 부여하는 방법론적 접근 방식입니다.", "FORMAT": "AI의 답변 출력 형식을 개발자가 원하는 대로 강제하는 기법입니다.", "RELIABILITY": "환각 현상을 줄이고 신뢰할 수 있는 답변을 얻어내는 기술입니다.", "NLP": "자연어 처리 태스크에 특화된 프롬프트 기법입니다.", "CLASSIFICATION": "텍스트의 카테고리 등을 분류하도록 제어하는 방식입니다.", "SENTIMENT": "문장에 담긴 감정 상태를 분석하게 하는 기법입니다.", "1-SHOT": "단 하나의 정답 예시만 제공하여 패턴을 학습시킵니다.", "3-SHOT": "3개의 예시를 제공하여 정확도와 일관성을 높입니다.", "5-SHOT": "5개의 예시를 주어 완벽하게 규칙을 이해하도록 유도합니다.", "IN-CONTEXT": "모델을 재학습시키지 않고, 문맥만으로 새로운 작업을 수행하게 합니다.", "JSON": "데이터를 저장하거나 전송할 때 널리 쓰이는 데이터 포맷입니다.", "MARKDOWN": "일반 텍스트로 문서의 서식을 지정할 수 있는 마크업 언어입니다.", "XML": "데이터의 구조를 태그로 정의하는 마크업 언어입니다.", "CSV": "필드를 쉼표(,)로 구분한 데이터 저장 방식입니다.", "글쓰기": "창의적이고 자연스러운 문장을 생성하는 능력입니다.", "추론": "정보를 바탕으로 논리적인 결론을 도출해내는 능력입니다.", "코드 생성": "코드를 작성하고 버그를 디버깅하는 기능입니다.", "분석": "복잡 데이터를 읽고 인사이트를 추출하는 능력입니다.", "데이터": "방대한 데이터를 처리하고 유의미한 수치를 뽑아내는 역량입니다.", "번역": "언어 장벽을 허물고 완벽하게 번역하는 역량입니다.", "오픈소스": "누구나 무료로 구조를 확인하고 수정, 배포할 수 있는 모델입니다.", "커스텀": "특정 목적에 맞게 모델을 튜닝하여 전문화시키는 방식입니다.", "CODE GENERATION": "코드를 자동 생성하는 기법입니다.", "CREATIVE WRITING": "인간의 창의력이 요구되는 텍스트를 작성하는 기법입니다.", "DATA ANALYSIS": "데이터를 분석하여 시각화나 인사이트 도출하는 기법입니다.", "TRANSLATION": "문맥과 문화적 뉘앙스를 살려 번역하는 기법입니다.", "SENTIMENT ANALYSIS": "리뷰 텍스트 등에 담긴 감정을 분석해내는 기법입니다.", "IMAGE CAPTIONING": "상황에 딱 맞는 텍스트 설명을 자동으로 생성하는 기법입니다.", "SUMMARIZATION": "핵심 주제와 내용만 유지한 채 간결하게 요약하는 기법입니다.", "SQL QUERYING": "데이터베이스 검색을 위한 완벽한 SQL 쿼리문을 작성해주는 기법입니다.", "데이터 분석": "비즈니스 인사이트를 도출하는 기법입니다.", "창의적 글쓰기": "인간의 창의력이 요구되는 텍스트를 생성하는 기법입니다.", "언어 번역": "문맥과 뉘앙스를 살려 번역하는 기법입니다.", "문서 요약": "긴 문서에서 핵심만 추출하여 요약하는 기법입니다.", "논리적 추론": "단계를 나누어 스스로 해결책을 찾도록 돕는 기법입니다.", "API 연동": "외부 기능(API)을 내 프로그램에 연결하는 코드를 작성하는 기법입니다.", "유닛 테스트 작성": "정상 작동하는지 확인하는 테스트 코드를 생성합니다.", "프롬프트 최적화": "질문의 구조와 단어 선택을 다듬는 과정입니다.", "시스템 아키텍처": "소프트웨어 시스템의 전체적인 밑그림을 설계하는 기법입니다.", "수학 문제 해결": "명확한 풀이 과정을 제시하는 기법입니다.", "역할극 (ROLE-PLAYING)": "실제 전문가와 대화하는 것처럼 시뮬레이션하는 기법입니다."
     };
 
     $(document).on('click', '.badge, .tag, .marquee-pill', function(e) {
@@ -131,7 +148,7 @@ $(document).ready(function() {
     });
 
 
-    // 7. Global Modal Closers (V2 모달 포함)
+    // 7. Global Modal Closers
     $('.close-btn, .close-auth-btn, .close-terminal-btn, .close-builder-btn, .close-token-btn, .close-theme-btn, .modal-action-btn, .close-vault-btn, .close-duel-btn').click(function() {
         $(this).closest('.modal-overlay').fadeOut(300);
     });
@@ -140,7 +157,7 @@ $(document).ready(function() {
     });
 
 
-    // 8. Visual Interactions (Scroll, Parallax, Cursor)
+    // 8. Visual Interactions
     $(window).scroll(function() {
         let windowBottom = $(this).scrollTop() + $(this).innerHeight();
         $('.progress-bar-fill, .speed-bar__fill').each(function() {
@@ -161,15 +178,14 @@ $(document).ready(function() {
                .on('mouseleave', 'a, button, input, select, textarea, .badge, .tag, .marquee-pill, .s8-panel, .flip-card', function() { $('.custom-cursor').removeClass('hover-active'); });
 
 
-    // 9. Toolkit Triggers (V2 트리거 포함)
+    // 9. Toolkit Triggers (새 페이지 이동 + 공식문서 이동 반영)
     $(document).on('click', '#start-lab-btn, .open-terminal-trigger', function() {
-        $('#terminal-modal').fadeIn(300);
-        setTimeout(() => { $('.terminal-panel').addClass('terminal-highlight'); $('#terminal-input').focus(); setTimeout(() => { $('.terminal-panel').removeClass('terminal-highlight'); }, 1200); }, 300);
+        window.location.href = "terminal.html";
     });
-    $('#open-builder-btn').click(function() { $('#builder-modal').fadeIn(300); });
-    $('#open-token-btn').click(function() { $('#token-modal').fadeIn(300); });
-    $('#open-vault-btn').click(function() { renderVault(); $('#vault-modal').fadeIn(300); });
-    $('#open-duel-btn').click(function() { $('#duel-modal').fadeIn(300); $('#duel-input').focus(); });
+    $('.btn-secondary').click(function(e) {
+        e.preventDefault();
+        window.open('https://www.promptingguide.ai/kr', '_blank');
+    });
 
 
     // 10. Copy API & Forms

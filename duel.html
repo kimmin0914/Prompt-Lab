@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <title>AI 모델 듀얼 시뮬레이터 - Prompt Lab</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .modal-overlay { display: flex !important; position: static; background: transparent; backdrop-filter: none; min-height: calc(100vh - 64px); align-items: center; justify-content: center; padding-top: 64px; }
+    .terminal-modal-content { position: static; transform: none; margin: 0 auto; box-shadow: 0 10px 50px rgba(0,0,0,0.4); width: 95%; max-width: 1000px;}
+    .close-terminal-btn { display: none !important; }
+    #floating-toolkit { display: none !important; }
+  </style>
+</head>
+<body data-bg="dark" data-color="cyan">
+  <header class="nav-header">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo"><span class="nav-logo__bracket">[</span> Prompt Lab <span class="nav-logo__bracket">]</span></a>
+      <div class="nav-right"><a href="index.html" class="nav-btn nav-btn--ghost">← 메인으로 돌아가기</a></div>
+    </div>
+  </header>
+  
+  <main class="modal-overlay">
+    <div class="terminal-modal-content">
+      <!-- 💡 버그 수정: 배경을 var(--bg-card)로 처리 -->
+      <div class="terminal-panel" style="display: flex; flex-direction: column;">
+        <!-- 💡 버그 수정: 상단바 배경 var(--bg-base) 및 텍스트 색상 var(--text-primary) 반영 -->
+        <div class="terminal-bar" style="justify-content: center; padding:15px; border-bottom:1px solid var(--border-subtle);">
+          <span class="terminal-bar__title" style="font-size:1.1rem; font-weight:bold;">⚔️ AI Model Duel Simulator</span>
+        </div>
+        
+        <div style="display: flex; height: 550px; border-bottom: 1px solid var(--border-subtle);">
+          <div style="flex:1; border-right: 1px solid var(--border-subtle); display:flex; flex-direction:column;">
+            <div style="padding:15px; text-align:center; background:rgba(34, 197, 94, 0.1); color:#22c55e; font-weight:bold; font-size:0.95rem; border-bottom: 1px solid rgba(34, 197, 94, 0.2);">🟢 OpenAI GPT-4o</div>
+            <div id="duel-gpt-output" class="terminal-body" style="flex:1; overflow-y:auto; padding:20px; font-size:0.95rem;">
+              <p style="color:var(--text-muted); text-align:center; margin-top:40%;">[대기 중...]</p>
+            </div>
+          </div>
+          <div style="flex:1; display:flex; flex-direction:column;">
+            <div style="padding:15px; text-align:center; background:rgba(168, 85, 247, 0.1); color:var(--neon-purple); font-weight:bold; font-size:0.95rem; border-bottom: 1px solid rgba(168, 85, 247, 0.2);">🟣 Anthropic Claude 3.5</div>
+            <div id="duel-claude-output" class="terminal-body" style="flex:1; overflow-y:auto; padding:20px; font-size:0.95rem;">
+              <p style="color:var(--text-muted); text-align:center; margin-top:40%;">[대기 중...]</p>
+            </div>
+          </div>
+        </div>
+        
+        <!-- 💡 버그 수정: 하단바와 입력창 배경을 각각 var(--bg-base), var(--bg-card)로 반영 -->
+        <div style="padding:20px; display:flex; gap:15px; background:var(--bg-base); border-top:1px solid var(--border-subtle);">
+          <input type="text" id="duel-input" class="auth-input" placeholder="비교할 프롬프트를 입력하세요... (예: 리액트의 장단점, 코드)" style="flex:1; background:var(--bg-card); color:var(--text-primary); font-size:1rem; padding:15px;" autocomplete="off">
+          <button id="duel-submit-btn" class="auth-submit-btn" style="margin:0; padding:0 35px; background: #22c55e; font-size:1.1rem;">대결 시작 ⚔️</button>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <title>프롬프트 보관함 - Prompt Lab</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .modal-overlay { display: flex !important; position: static; background: transparent; backdrop-filter: none; min-height: calc(100vh - 64px); align-items: center; justify-content: center; padding-top: 64px; }
+    .auth-content { position: static; transform: none; margin: 0 auto; box-shadow: 0 10px 40px rgba(0,0,0,0.3); }
+    .close-auth-btn { display: none !important; }
+    #floating-toolkit { display: none !important; }
+  </style>
+</head>
+<body data-bg="dark" data-color="cyan">
+  <header class="nav-header">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo"><span class="nav-logo__bracket">[</span> Prompt Lab <span class="nav-logo__bracket">]</span></a>
+      <div class="nav-right"><a href="index.html" class="nav-btn nav-btn--ghost">← 메인으로 돌아가기</a></div>
+    </div>
+  </header>
+  
+  <main class="modal-overlay">
+    <div class="auth-content" style="width: 550px; padding: 40px;">
+      <h2 style="font-size: 1.5rem; margin-bottom: 0.5rem; color: var(--neon-purple);">🗂️ Prompt Vault</h2>
+      <p style="font-size:0.85rem; color:var(--text-muted); margin-bottom:2rem;">빌더에서 저장한 나만의 프롬프트 레시피입니다.</p>
+      
+      <div id="vault-list" style="display:flex; flex-direction:column; gap:12px; max-height: 450px; overflow-y:auto; text-align:left; padding-right:10px;">
+        </div>
+      
+      <button id="clear-vault-btn" class="nav-btn nav-btn--ghost" style="width:100%; margin-top:20px; padding:12px; border:1px solid var(--border-subtle); color:#f43f5e;">🗑️ 전체 보관함 비우기</button>
+    </div>
+  </main>
+
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script src="script.js"></script>
+  <script>
+    // 페이지 진입 시 즉시 렌더링 트리거
+    $(document).ready(function() {
+        let localVaultData = JSON.parse(localStorage.getItem('promptVault')) || [];
+        let $list = $('#vault-list'); $list.empty();
+        if(localVaultData.length === 0) {
+            $list.append('<p style="text-align:center; color:#64748b; padding: 20px 0;">아직 저장된 프롬프트가 없습니다.</p>');
+        } else {
+            localVaultData.forEach((item, index) => {
+                $list.append(`
+                    <div class="vault-item">
+                        <div class="vault-text">${item}</div>
+                        <div class="vault-actions">
+                            <button class="vault-btn copy" data-text="${encodeURIComponent(item)}">복사</button>
+                            <button class="vault-btn delete" data-index="${index}">삭제</button>
+                        </div>
+                    </div>
+                `);
+            });
+        }
+    });
+  </script>
+</body>
+</html>

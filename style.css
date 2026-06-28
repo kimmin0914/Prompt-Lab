@@ -252,24 +252,26 @@ ul { list-style: none; }
 .subscribe-form__btn { background: var(--text-primary); color: var(--bg-base); border: none; padding: 0.9rem 2.2rem; border-radius: var(--radius-md); font-weight: 700; cursor: pointer; display: flex; align-items: center; gap: 0.5rem; transition: transform 0.2s;}
 .subscribe-form__btn:hover { transform: translateY(-2px); box-shadow: 0 0 15px rgba(128,128,128,0.2);}
 
-/* Terminal Panel (Shared) */
-.terminal-panel { background: #0d1117; border: 1px solid var(--neon-cyan); border-radius: 12px; overflow: hidden; box-shadow: 0 0 30px rgba(0,0,0,0.5); transition: box-shadow 0.4s ease; }
+/* 💡 버그 수정: 터미널 배경을 테마 변수로 변경 */
+.terminal-panel { background: var(--bg-card); border: 1px solid var(--neon-cyan); border-radius: 12px; overflow: hidden; box-shadow: 0 0 30px rgba(0,0,0,0.5); transition: box-shadow 0.4s ease, background 0.3s ease; }
 .terminal-highlight { box-shadow: 0 0 45px var(--neon-cyan); }
-.terminal-bar { display: flex; align-items: center; background: #161b22; padding: 0.8rem 1rem; border-bottom: 1px solid rgba(255,255,255,0.05); }
+.terminal-bar { display: flex; align-items: center; background: var(--bg-base); padding: 0.8rem 1rem; border-bottom: 1px solid var(--border-subtle); transition: background 0.3s ease; }
 .terminal-bar__dots { display: flex; gap: 6px; }
 .terminal-dot { width: 12px; height: 12px; border-radius: 50%; }
 .terminal-dot--red { background: #ff5f56; } .terminal-dot--yellow { background: #ffbd2e; } .terminal-dot--green { background: #27c93f; }
-.terminal-bar__title { font-family: var(--font-mono); font-size: 0.75rem; color: #ffffff; flex: 1; text-align: center; }
-.terminal-body { padding: 1.5rem; font-family: var(--font-mono); font-size: 0.85rem; line-height: 1.6; max-height: 450px; overflow-y: auto; color: #e6edf3; }
+.terminal-bar__title { font-family: var(--font-mono); font-size: 0.75rem; color: var(--text-primary); flex: 1; text-align: center; }
+/* 💡 버그 수정: 글자색을 var(--text-primary)로 고정 */
+.terminal-body { padding: 1.5rem; font-family: var(--font-mono); font-size: 0.85rem; line-height: 1.6; max-height: 450px; overflow-y: auto; color: var(--text-primary); }
 .terminal-body::-webkit-scrollbar { width: 6px; }
-.terminal-body::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.2); border-radius: 10px; }
+.terminal-body::-webkit-scrollbar-thumb { background: rgba(128,128,128,0.2); border-radius: 10px; }
 .terminal-line { margin-bottom: 0.4rem; }
-.terminal-line--dim { color: #8b949e; } .terminal-line--success { color: #3fb950; } .terminal-line--info { color: #58a6ff; } .terminal-line--warn { color: #d29922; }
+.terminal-line--dim { color: var(--text-muted); } .terminal-line--success { color: #3fb950; } .terminal-line--info { color: #58a6ff; } .terminal-line--warn { color: #d29922; }
 .terminal-prompt { color: var(--neon-purple); margin-right: 0.5rem; font-weight: bold;}
 .terminal-prompt--active { color: var(--neon-cyan); }
-.terminal-divider { height: 1px; background: rgba(255,255,255,0.1); margin: 1rem 0; }
+.terminal-divider { height: 1px; background: var(--border-subtle); margin: 1rem 0; }
 .terminal-input-group { display: flex; align-items: center; margin-top: 1rem; }
-#terminal-input { background: transparent; border: none; color: #e6edf3; font-family: var(--font-mono); font-size: 0.85rem; width: 100%; outline: none; caret-color: var(--neon-cyan); }
+/* 💡 버그 수정: 입력창 텍스트 색상을 var(--text-primary)로 변경 */
+#terminal-input { background: transparent; border: none; color: var(--text-primary); font-family: var(--font-mono); font-size: 0.85rem; width: 100%; outline: none; caret-color: var(--neon-cyan); }
 .ai-response-typing { color: var(--neon-cyan); border-right: 2px solid var(--neon-cyan); white-space: pre-wrap; animation: terminalBlink 1s step-end infinite; }
 @keyframes terminalBlink { 50% { border-color: transparent; } }
 
